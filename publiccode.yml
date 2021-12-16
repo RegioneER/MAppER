@@ -54,8 +54,8 @@ maintenance:
       name: Sara Turra
   contractors:
     - name: Engineering S.p.A.
-      until: '2022-12-31'
-      website: 'https://www.engineering.it/'
+      until: '2023-12-31'
+      website: 'https://www.eng.it/'
   type: contract
 name: MAppER (Mani App Emilia-Romagna)
 platforms:
