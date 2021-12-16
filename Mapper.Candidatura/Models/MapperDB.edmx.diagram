@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="f21f674c25d34aab9eafa93da13aada3" Name="Diagram1" ZoomLevel="110">
+        <EntityTypeShape EntityType="MapperModel.vwAreaDisciplina" Width="1.5" PointX="0.75" PointY="0.75" />
+        <EntityTypeShape EntityType="MapperModel.vwAzienda" Width="1.5" PointX="2.75" PointY="0.75" />
+        <EntityTypeShape EntityType="MapperModel.vwRegione" Width="1.5" PointX="0.75" PointY="3.75" />
+        <EntityTypeShape EntityType="MapperModel.vwReparto" Width="1.5" PointX="2.75" PointY="3.75" />
+        <EntityTypeShape EntityType="MapperModel.vwStruttura" Width="1.5" PointX="4.75" PointY="0.75" />
+        <EntityTypeShape EntityType="MapperModel.StatoCandidatura" Width="1.5" PointX="5.375" PointY="10.125" />
+        <EntityTypeShape EntityType="MapperModel.Ruoli" Width="1.5" PointX="3.125" PointY="10.5" />
+        <EntityTypeShape EntityType="MapperModel.UtenteDaCensire" Width="1.5" PointX="7.625" PointY="9.5" />
+        <AssociationConnector Association="MapperModel.FK_UtenteDaCensire_Ruoli" />
+        <AssociationConnector Association="MapperModel.FK_UtenteDaCensire_StatoCandidatura" />
+        <EntityTypeShape EntityType="MapperModel.Utente" Width="1.5" PointX="5.375" PointY="14.875" />
+        <EntityTypeShape EntityType="MapperModel.UtenteStruttura" Width="1.5" PointX="7.625" PointY="14.875" />
+        <AssociationConnector Association="MapperModel.FK_Utenti_Ruoli" />
+        <AssociationConnector Association="MapperModel.FK_UtenteStruttura_Utente" />
+        <EntityTypeShape EntityType="MapperModel.TipologiaStruttura" Width="1.5" PointX="7.375" PointY="0.75" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

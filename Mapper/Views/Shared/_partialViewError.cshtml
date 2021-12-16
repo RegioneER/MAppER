@@ -1,0 +1,21 @@
+﻿@model Exception
+
+<br />
+
+<div class="form-group col">
+    <div class="alert alert-danger" role="alert">
+        <h4>
+            Si e' verificato un errore durante l'esecuzione dell'operazione
+        </h4>
+
+        @if (Model != null)
+        {
+            <p> @Model.Message </p>
+        }
+        else
+        {
+            <p> Gli amministratori sono stati avvertiti.</p>
+        }
+
+    </div>
+</div>

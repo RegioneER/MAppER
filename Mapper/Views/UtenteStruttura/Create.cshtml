@@ -1,0 +1,22 @@
+﻿@model Mapper.Models.UtenteStruttura
+
+@{
+    ViewBag.Title = "Mapper - " + ViewBag.NomeUtente;
+    ViewBag.TitleMin = ViewBag.NomeUtente; // "Associa";
+    ViewBag.PathBack = "Utente/Edit?idUtente=" + Model.idUtente;
+    ViewBag.isHome = false;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.Partial("Partial/_partialDettaglio")
+}
+
+@Html.Partial("Partial/Scripts/_partialScripts")
+
+@section scripts{
+    @Scripts.Render("~/bundles/jqueryval")
+}
+

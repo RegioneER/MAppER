@@ -1,0 +1,135 @@
+﻿
+@{
+    ViewBag.isHome = true;
+    ViewBag.Title = "Mapper - Schede";
+    ViewBag.TitleMin = "Schede";
+    ViewBag.PathBack = "";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    string mostraStorico = ViewBag.MostraStorico == true ? "checked" : "";
+
+}
+
+@using (Html.BeginForm("Search", "Schede", FormMethod.Post, new { @class = "form-horizontal" }))
+{
+    @Html.AntiForgeryToken()
+    <div id="collapseDiv1-sc1" class="collapse-div collapse-background-active" role="tablist">
+        <div class="collapse-header" id="heading1-sc1">
+            <button data-toggle="collapse" data-target="#collapse1-sc1" aria-expanded="true" aria-controls="collapse1-sc1" type="button">
+                Mostra/Nascondi filtri di ricerca schede
+            </button>
+        </div>
+        <div id="collapse1-sc1" class="collapse show" role="tabpanel" aria-labelledby="heading1-sc1">
+            <div class="collapse-body">
+                <br />
+                @Html.Hidden("IdUtente")
+                <div class="form-check col-lg-3">
+                    <div class="toggles">
+                        <label for="ckStorico">
+                            Mostra dati storici
+                            <input type="checkbox" id="ckStorico" name="ckStorico" @mostraStorico />
+                            <span class="lever"></span>
+                        </label>
+                    </div>
+                </div>
+                <br />
+                <div class="form-row form-group bootstrap-select-wrapper myRegione @(!String.IsNullOrEmpty((String)ViewBag.EnableRegione) ? "disabled": "")">
+                    <label class="control-label" for="Regione">Regione</label>
+                    @Html.DropDownList("Regione", null, " -- Seleziona una regione --", htmlAttributes: new { @class = "form-control", data_show_subtext = "true", data_live_search = "true", aria_label = "Regione" }).SetDisabled(!String.IsNullOrEmpty((String)ViewBag.EnableRegione))
+                    @Html.Hidden("codRegione")
+                </div>
+                <div class="form-row form-group bootstrap-select-wrapper myAzienda">
+                    <label class="control-label" for="Azienda">Azienda</label>
+                    @Html.DropDownList("Azienda", null, " -- Seleziona un'azienda --", htmlAttributes: new { @class = "form-control", data_show_subtext = "true", data_live_search = "true", aria_label = "Azienda" })
+                    @Html.Hidden("codAzienda")
+                </div>
+                <div class="form-row form-group bootstrap-select-wrapper myTipoStruttura">
+                    <label class="control-label" for="TipoStruttura">Tipo struttura</label>
+                    @Html.DropDownList("TipoStruttura", null, " -- Seleziona un tipo di struttura --", htmlAttributes: new { @class = "form-control ", data_show_subtext = "true", data_live_search = "true", aria_label = "Tipo Struttura" })
+                    @Html.Hidden("codTipoStruttura")
+                </div>
+                <div class="form-group col-lg-3 bootstrap-select-wrapper ">
+                    <label class="control-label" for="PubblichePrivate">Pubbliche / Private</label>
+                    @Html.DropDownList("PubblicaPrivata", null, htmlAttributes: new { @class = "form-control", data_show_subtext = "true", data_live_search = "true", aria_label = "Cancellate" })
+                </div>
+                <div class="form-row form-group bootstrap-select-wrapper myStruttura ">
+                    <label class="control-label" for="Struttura">Struttura</label>
+                    @Html.DropDownList("Struttura", null, " -- Seleziona una struttura --", htmlAttributes: new { @class = "form-control ", data_show_subtext = "true", data_live_search = "true", aria_label = "Struttura" })
+                    @Html.Hidden("codStruttura")
+                </div>
+                <div class="form-row form-group bootstrap-select-wrapper myReparto ">
+                    <label class="control-label" for="Reparto">Reparto</label>
+                    @Html.DropDownList("Reparto", null, " -- Seleziona un reparto --", htmlAttributes: new { @class = "form-control", data_show_subtext = "true", data_live_search = "true", aria_label = "Reparto" })
+                    @Html.Hidden("keyReparto")
+                </div>
+                <div class="form-row ">
+                    <div class="form-group col-lg-4 bootstrap-select-wrapper">
+                        <label class="control-label" for="StatoSessione">Stato</label>
+                        @Html.DropDownList("StatoSessione", null, " -- Seleziona uno stato --", htmlAttributes: new { @class = "form-control", data_show_subtext = "true", data_live_search = "true", aria_label = "StatoSessione" })
+                    </div>
+                    @*<div class="form-group col-lg-4 bootstrap-select-wrapper">
+                        <label class="control-label" for="Cancellate">Mostra cancellate</label>
+                        @Html.DropDownList("Cancellate", null, " -- Seleziona uno stato --", htmlAttributes: new { @class = "form-control", data_show_subtext = "true", data_live_search = "true", aria_label = "Cancellate" })
+                    </div>*@
+                </div>
+                <div class="form-row">
+                    <div class="it-datepicker-wrapper col-lg-3">
+                        <div class="form-group">
+                            <input class="form-control it-date-datepicker" value=@ViewBag.DataDal id="DataDal" name="DataDal" maxlength="10" placeholder="gg/mm/aaaa">
+                            <label for="DataDal">Data dal</label>
+                        </div>
+                    </div>
+                    <div class="it-datepicker-wrapper col-lg-3">
+                        <div class="form-group">
+                            <input class="form-control it-date-datepicker" value=@ViewBag.DataAl id="DataAl" name="DataAl" maxlength="10" placeholder="gg/mm/aaaa">
+                            <label for="DataAl">Data al</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-row form-group col-lg-3">
+                    <label class="control-label" for="idScheda">Numero scheda </label>
+                    @Html.TextBox("idScheda", null, "", htmlAttributes: new { @maxlength = "10", @class = "form-control", data_show_subtext = "true", data_live_search = "true" })
+                </div>
+                <div class="form-row">
+                    <button name="btnCerca" id="btnCerca" type="submit" title="Applica filtro" class="btn btnCerca btn-icon">
+                        <span class="rounded-icon">
+                            <svg class="icon icon-primary">
+                                <use xlink:href="~/bootstrapitalia/svg/sprite.svg#it-funnel"></use>
+                            </svg>
+                        </span>
+                        <span>Applica filtro</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <br />
+    <div class="row">
+        <div class="btn-group-toggle">
+            <a href='@Url.Action("Create", "Scheda")' title="Nuova scheda" class="btn btnNuovo btn-icon" style="text-decoration:none">
+                <span class="rounded-icon">
+                    <svg class="icon icon-primary">
+                        <use xlink:href="~/bootstrapitalia/svg/sprite.svg#it-plus"></use>
+                    </svg>
+                </span>
+                <span>Nuova scheda</span>
+            </a>
+            <button id="btStampa" class="btn btnStampa btn-icon" alt="Stampa" title="Stampa" formaction='@Url.Action("Esporta","Schede")' formmethod="post" formnovalidate="formnovalidate" disabled>
+                <span class="rounded-icon">
+                    <svg class="icon icon-primary">
+                        <use xlink:href="~/bootstrapitalia/svg/sprite.svg#it-download"></use>
+                    </svg>
+                </span>
+                <span>Esporta schede</span>
+            </button>
+        </div>
+    </div>
+}
+
+@Html.Partial("Partial/_partialRisultati")
+
+@Html.Partial("Partial/Scripts/_partialScripts")
+
+
+

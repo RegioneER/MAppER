@@ -1,0 +1,39 @@
+﻿@model Mapper.Models.Scheda
+
+@{
+    var stato = "";
+    if (Model.id > 0)
+    {
+        stato += "n. " + @Model.id;
+    }
+    if (Model.idStatoSessione == (int)Mapper.Models.StatoSessione.Stato.Consolidata)
+    {
+        stato += " (" + Mapper.Models.StatoSessione.Stato.Consolidata.ToString() + ")";
+    }
+    else if (Model.idStatoSessione == (int)Mapper.Models.StatoSessione.Stato.Cancellata)
+    {
+        stato += " (" + Mapper.Models.StatoSessione.Stato.Cancellata.ToString() + ")";
+    }
+
+    ViewBag.Title = "Mapper - Dettaglio Scheda " + stato;
+    ViewBag.TitleMin = "Scheda " + stato;
+    ViewBag.PathBack = "Schede/BackSearch";
+    ViewBag.isHome = false;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.Partial("Partial/_partialDettaglio")
+    <br />
+    @Html.Partial("Partial/_partialGrafico")
+    <br />
+    @Html.Partial("Partial/_partialOperatori")
+}
+
+@Html.Partial("Partial/Scripts/_partialScripts")
+
+@section scripts{
+    @Scripts.Render("~/bundles/jqueryval")
+}

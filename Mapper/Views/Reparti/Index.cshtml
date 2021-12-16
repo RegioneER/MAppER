@@ -1,0 +1,90 @@
+﻿@{
+    ViewBag.Title = "Mapper - Cerca Reparti";
+    ViewBag.TitleMin = "Reparti";
+    ViewBag.isHome = true;
+    ViewBag.PathBack = "";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@Html.Partial("TempMessage")
+
+@using (Html.BeginForm("Cerca", "Reparti", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+{
+    @Html.AntiForgeryToken()
+    <div id="collapseDiv1-sc1" class="collapse-div collapse-background-active" role="tablist">
+        <div class="collapse-header" id="heading1-sc1">
+            <button data-toggle="collapse" data-target="#collapse1-sc1" aria-expanded="true" aria-controls="collapse1-sc1" type="button">
+                Mostra/Nascondi filtri di ricerca reparti
+            </button>
+        </div>
+        <div id="collapse1-sc1" class="collapse show" role="tabpanel" aria-labelledby="heading1-sc1">
+            <div class="collapse-body">
+                <br />
+                @Html.Hidden("IdUtente")
+                <div class="form-row form-group bootstrap-select-wrapper myRegione @(!String.IsNullOrEmpty((String)ViewBag.EnableRegione) ? "disabled": "")">
+                    <label class="control-label" for="Regione">Regione</label>
+                    @Html.DropDownList("Regione", null, " -- Seleziona una regione --", htmlAttributes: new { @class = "form-control", data_show_subtext = "true", data_live_search = "true", aria_label = "Regione" }).SetDisabled(!String.IsNullOrEmpty((String)ViewBag.EnableRegione))
+                    @Html.Hidden("codRegione")
+                </div>
+                <div class="form-row form-group bootstrap-select-wrapper myAzienda ">
+                    <label class="control-label" for="Azienda">Azienda</label>
+                    @Html.DropDownList("Azienda", null, " -- Seleziona un'azienda --", htmlAttributes: new { @class = "form-control", data_show_subtext = "true", data_live_search = "true", aria_label = "Azienda" })
+                    @Html.Hidden("codAzienda")
+                </div>
+                <div class="form-row form-group bootstrap-select-wrapper myTipoStruttura ">
+                    <label class="control-label" for="TipoStruttura">Tipo struttura</label>
+                    @Html.DropDownList("TipoStruttura", null, " -- Seleziona un tipo di struttura --", htmlAttributes: new { @class = "form-control ", data_show_subtext = "true", data_live_search = "true", aria_label = "TipoStruttura" })
+                    @Html.Hidden("codTipoStruttura")
+                </div>
+                <div class="form-group col-lg-3 bootstrap-select-wrapper ">
+                    <label class="control-label" for="PubblichePrivate">Pubbliche / Private</label>
+                    @Html.DropDownList("PubblicaPrivata", null, htmlAttributes: new { @class = "form-control", data_show_subtext = "true", data_live_search = "true", aria_label = "Cancellate" })
+                </div>
+                <div class="form-row form-group bootstrap-select-wrapper myStruttura ">
+                    <label class="control-label" for="Struttura">Struttura</label>
+                    @Html.DropDownList("Struttura", null, " -- Seleziona una struttura --", htmlAttributes: new { @class = "form-control ", data_show_subtext = "true", data_live_search = "true", aria_label = "Struttura" })
+                    @Html.Hidden("codStruttura")
+                </div>
+                <div class="form-row form-group bootstrap-select-wrapper myReparto ">
+                    <label class="control-label" for="Reparto">Reparto</label>
+                    @Html.DropDownList("Reparto", null, " -- Seleziona un reparto --", htmlAttributes: new { @class = "form-control", data_show_subtext = "true", data_live_search = "true", aria_label = "Struttura" })
+                    @Html.Hidden("keyReparto")
+                </div>
+                <div class="form-group col-lg-4 bootstrap-select-wrapper">
+                    <label class="control-label" for="Cancellate">Mostra cancellate</label>
+                    @Html.DropDownList("Cancellate", null, " -- Seleziona uno stato --", htmlAttributes: new { @class = "form-control", data_show_subtext = "true", data_live_search = "true", aria_label = "Cancellate" })
+                </div>
+                <div class="form-row">
+                    <button name="btnCerca" id="btnCerca" type="submit" title="Applica filtro" class="btn btnCerca btn-icon">
+                        <span class="rounded-icon">
+                            <svg class="icon icon-primary">
+                                <use xlink:href="~/bootstrapitalia/svg/sprite.svg#it-funnel"></use>
+                            </svg>
+                        </span>
+                        <span>Applica filtro</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+<br />
+<div class="form-row">
+    <div class="form-group">
+        <a href='@Url.Action("Create", "Reparto")' title="Nuovo Reparto" class="btn btnNuovo btn-icon" style="text-decoration:none">
+            <span class="rounded-icon">
+                <svg class="icon icon-primary">
+                    <use xlink:href="~/bootstrapitalia/svg/sprite.svg#it-plus"></use>
+                </svg>
+            </span>
+            <span>Nuovo Reparto</span>
+        </a>
+    </div>
+</div>
+
+@Html.Partial("Partial/_partialRisultati")
+
+@Html.Partial("Partial/Scripts/_partialScripts")
+
+
+

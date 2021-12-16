@@ -1,0 +1,94 @@
+﻿@model Mapper.Models.Utente
+
+@if (Model.struttureProvvisorie != null && Model.struttureProvvisorie.Count > 0)
+{
+    <div id="divUtenteStrutture">
+        <table id="CustomerTable" class="table table-responsive col-12">
+            <thead>
+                <tr>
+                    <th class="col_Regione">
+                        Regione
+                    </th>
+                    <th class="col_Azienda">
+                        Azienda
+                    </th>
+                    <th class="col_Struttura">
+                        Struttura
+                    </th>
+                    <th class="col_Reparto">
+                        Reparto
+                    </th>
+                    <th>
+                        Dal
+                    </th>
+                    <th>
+                        Al
+                    </th>
+                    <th width="20%">
+                        Azioni
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @for (var i = 0; i < Model.struttureProvvisorie.Count; i++)
+                {
+                    <tr>
+                        <td class="col_Regione">
+                            @Html.HiddenFor(x => x.struttureProvvisorie[i].codRegione)
+                            @Html.DisplayFor(x => x.struttureProvvisorie[i].NomeRegione)
+                        </td>
+                        <td class="col_Azienda">
+                            @Html.HiddenFor(x => x.struttureProvvisorie[i].codAzienda)
+                            @Html.DisplayFor(x => x.struttureProvvisorie[i].NomeAzienda)
+                        </td>
+                        <td class="col_Struttura">
+                            @Html.HiddenFor(x => x.struttureProvvisorie[i].CodiceStruttura)
+                            @Html.DisplayFor(x => x.struttureProvvisorie[i].NomeStruttura)
+                        </td>
+                        <td class="col_Reparto">
+                            @Html.HiddenFor(x => x.struttureProvvisorie[i].KeyReparto)
+                            @Html.DisplayFor(x => x.struttureProvvisorie[i].NomeReparto)
+                        </td>
+                        <td>
+                            @Html.HiddenFor(x => x.struttureProvvisorie[i].dataDal, "{0:dd/MM/yyyy}")
+                            @{ string dataDal = @Model.struttureProvvisorie[i].dataDal.ToShortDateString();}
+                            @dataDal
+                        </td>
+                        <td>
+                            @Html.HiddenFor(x => x.struttureProvvisorie[i].dataAl, "{0:dd/MM/yyyy}")
+                            @{ string dataAl = @Model.struttureProvvisorie[i].dataAl.HasValue ? @Model.struttureProvvisorie[i].dataAl.Value.ToShortDateString() : "";}
+                            @dataAl
+                        </td>
+                        <td>
+                            @if (Model.struttureProvvisorie[i].PuoEssereModificato)
+                            {
+                                <button id="btnEdit_@Model.struttureProvvisorie[i].ID" onclick="EditUtenteStruttura(@Model.struttureProvvisorie[i].ID)" class="btn btnModifica btn-icon" type="button" title="Modifica riga">
+                                    <span class="rounded-icon">
+                                        <svg class="icon icon-primary">
+                                            <use xlink:href="~/bootstrapitalia/svg/sprite.svg#it-pencil"></use>
+                                        </svg>
+                                    </span>
+                                </button>
+                            }
+                            &nbsp;
+                            @if (Model.struttureProvvisorie[i].PuoEssereModificato)
+                            {
+                                if (!Model.struttureProvvisorie[i].dataAl.HasValue)
+                                {
+                                    <button id="btnDelete_@Model.struttureProvvisorie[i].ID" type="button" onclick="if (BootstapConfirm('Sei sicuro di voler interrompere l\'associazione?', this.id, 'Conferma interruzione')) { CancellaUtenteStruttura('@Model.struttureProvvisorie[i].ID')}"
+                                            class="btn btnElimina btn-icon" title="Elimina riga">
+                                        <span class="rounded-icon">
+                                            <svg class="icon icon-primary">
+                                                <use xlink:href="~/bootstrapitalia/svg/sprite.svg#it-close"></use>
+                                            </svg>
+                                        </span>
+                                    </button>
+                                }
+                            }
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}

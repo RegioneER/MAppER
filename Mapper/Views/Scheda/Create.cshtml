@@ -1,0 +1,26 @@
+﻿@model Mapper.Models.Scheda
+
+@{
+    ViewBag.Title = "Mapper - Nuova Scheda";
+    ViewBag.TitleMin = "Nuova Scheda";
+    ViewBag.PathBack = "Schede/BackSearch";
+    ViewBag.isHome = false;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.Partial("Partial/_partialDettaglio")
+    <br />
+    @Html.Partial("Partial/_partialGrafico")
+    <br />
+    @Html.Partial("Partial/_partialOperatori")
+}
+
+@Html.Partial("Partial/Scripts/_partialScripts")
+
+@section scripts{
+    @Scripts.Render("~/bundles/jqueryval")
+}

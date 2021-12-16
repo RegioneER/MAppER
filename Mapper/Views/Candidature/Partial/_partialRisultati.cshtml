@@ -1,0 +1,116 @@
+﻿@model Mapper.Models.UtenteDaCensireManager
+@using PagedList.Mvc;
+
+@if (Model != null)
+{
+    if (Model.UtentiDaCensirePaged == null || Model.TotaleUtentiDaCensire == 0)
+    {
+        <div class="form-group col">
+            <div class="alert alert-warning" role="alert">
+                <h4>Attenzione</h4> Nessun risultato trovato.
+            </div>
+        </div>
+    }
+    else
+    {
+        <h3>Ho trovato @Model.TotaleUtentiDaCensire risultati</h3>
+        <br />
+        foreach (Mapper.Models.UtenteDaCensire item in Model.UtentiDaCensirePaged)
+        {
+            <div class="row">
+                <div class="col-12">
+                    <div class="card-wrapper card-space">
+                        <div class="card card-bg no-after">
+                            <div class="card-body">
+                                <h5 class="card-title">
+                                    <img src="~/Content/Image/Account.png" />
+                                    @item.Nome @item.Cognome
+                                    &nbsp; &nbsp;
+                                </h5>
+                                <div class="card-text">
+                                    <strong>Email:</strong> @item.Email
+                                    <br />
+                                    <strong>Codice fiscale:</strong> @item.CodiceFiscale
+                                    <br />
+                                    <br />
+                                    <strong>Regione:</strong> @item.NomeRegione
+                                    <br />
+                                    @if (item.IdRuolo == (int)Ruolo.Aziendale || item.IdRuolo == (int)Ruolo.ReferenteStruttura || item.IdRuolo == (int)Ruolo.Osservatore)
+                                    {
+                                        <strong>Azienda:</strong> @item.NomeAzienda
+                                        <br />
+                                    }
+                                    @if (item.IdRuolo == (int)Ruolo.ReferenteStruttura || item.IdRuolo == (int)Ruolo.Osservatore)
+                                    {
+                                        <strong>Struttura:</strong> @item.NomeStruttura
+                                        <br />
+                                    }
+                                    <br />
+                                    <strong>Ruolo:</strong> @item.NomeRuolo
+                                </div>
+
+                                @using (Html.BeginForm("CambiaStato", "Candidature", FormMethod.Post))
+                                {
+                                    @Html.AntiForgeryToken()
+                                    @Html.Hidden("Id", item.Id)
+                                    <div class="it-card-footer">
+                                        <div class="row col-lg-8">
+                                            <div class="bootstrap-select-wrapper col-lg-5">
+                                                <label class="control-label" for="Stato">Stato</label>
+                                                @Html.DropDownList("StatoCandidatura", new SelectList(ViewBag.Stati, "Codice", "Descrizione", item.IdStato), htmlAttributes: new { @class = "form-control", data_show_subtext = "true", data_live_search = "true" })
+                                            </div>
+                                            <div class="col-lg-3">
+                                                <button name="btnSalva" id="btnSalva" type="submit" title="Conferma" class="btn btnSalva btn-icon">
+                                                    <span class="rounded-icon">
+                                                        <svg class="icon icon-primary">
+                                                            <use xlink:href="~/bootstrapitalia/svg/sprite.svg#it-check"></use>
+                                                        </svg>
+                                                    </span>
+                                                    <span>Salva</span>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+        if (@Model.PageCount > 1)
+        {
+            <nav class="pagination-wrapper pagination-total">
+                Pagina @(Model.PageCount < Model.CurrentPage ? 0 : Model.CurrentPage) di @Model.PageCount
+                @Html.PagedListPager(Model.UtentiDaCensirePaged, page => Url.Action("CambiaPagina", new { page = page }), new PagedListRenderOptions
+                   {
+                       LiElementClasses = new string[] { "page-item" },
+                       MaximumPageNumbersToDisplay = 10
+                    })
+            </nav>
+        }
+        using (Html.BeginForm("Esporta", "Candidature", FormMethod.Post))
+        {
+            <div>
+                <button id="btStampa" class="btn btnStampa btn-icon" alt="Stampa" title="Stampa" formaction='@Url.Action("Esporta")' formmethod="post" formnovalidate="formnovalidate">
+                    <span class="rounded-icon">
+                        <svg class="icon icon-primary">
+                            <use xlink:href="~/bootstrapitalia/svg/sprite.svg#it-download"></use>
+                        </svg>
+                    </span>
+                    <span>Esporta schede</span>
+                </button>
+            </div>
+        }
+    }
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $(".collapse").collapse('hide');
+
+
+        })
+
+    </script>
+}
+

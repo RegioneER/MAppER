@@ -1,0 +1,60 @@
+﻿@model Mapper.Models.Scheda
+
+@if (Model.id > 0)
+{
+    if (Model.idStatoSessione == (int)Mapper.Models.StatoSessione.Stato.InLavorazione)
+    {
+        <div class="row">
+            <div class="col-sm-12">
+                <a href='@Url.Action("Create", "Osservazione", new { idScheda= Model.id})' title="Aggiungi operatore" class="btn btnNuovo btn-icon" style="text-decoration:none">
+                    <span class="rounded-icon">
+                        <svg class="icon icon-primary">
+                            <use xlink:href="~/bootstrapitalia/svg/sprite.svg#it-plus"></use>
+                        </svg>
+                    </span>
+                    <span>Aggiungi operatore</span>
+                </a>
+            </div>
+        </div>
+        <br />
+    }
+
+    if (Model.Osservazione != null && Model.Osservazione.Count() > 0)
+    {
+        foreach (Mapper.Models.Osservazione item in Model.Osservazione.OrderByDescending(x => x.id))
+        {
+            string esterno = item.operatoreEsterno.Value ? " (Esterno)" : "";
+            Html.Hidden(item.id.ToString());
+            <div class="row ">
+                <div class="col-sm-12">
+                    <!--start card-->
+                    <div class="card-wrapper card-space ">
+                        <div class="card card-bg no-after @item.Operatore.ClasseColore">
+                            <div class="card-body ">
+                                <h5 class="card-title">
+                                    @item.Operatore.nomeCategoria  @esterno
+                                    &nbsp; &nbsp;
+                                    <img src="~/Content/Image/Pencil.png" />Opportunità: @item.Opportunita.Count()
+                                    <img src="~/Content/Image/Account.png" />Operatori: @item.numOperatori
+                                </h5>
+                                <div class="it-card-footer ">
+                                    <span class="card-signature">inserita il @item.Scheda.data</span>
+                                    @if (Model.idStatoSessione == (int)Mapper.Models.StatoSessione.Stato.InLavorazione)
+                                    {
+                                        <a href='@Url.Action("Create", "Opportunita", new {idScheda= item.idScheda, idOsservazione = item.id})' title="Aggiungi opportunità" class="btn btnNuovoDettaglio btn-sm float-center" style="text-decoration:none"> Aggiungi opportunità</a>
+                                    }
+                                    <a href='@Url.Action("Edit", "Osservazione", new { idScheda= item.Scheda.id, idOsservazione = item.id})' title="Dettaglio osservazione" class="btn btnDettaglio btn-sm float-right" style="text-decoration:none"> Vai ai dettagli</a>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--end card-->
+                </div>
+            </div>
+            <br />
+        }
+    }
+
+}
+

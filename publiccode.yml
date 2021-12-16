@@ -1,0 +1,68 @@
+# This repository adheres to the publiccode.yml standard by including this 
+# metadata file that makes public software easily discoverable.
+# More info at https://github.com/italia/publiccode.yml
+
+publiccodeYmlVersion: '0.2'
+categories:
+  - application-development
+  - content-management
+logo: docs/rer-logo.png
+dependsOn:
+  proprietary:
+    - name: Microsoft .NET
+      optional: false
+      version: '4.8'
+      versionMax: ''
+      versionMin: '4.8'
+description:
+  it:
+    features:
+      - Raccolta dati sul campo
+      - Analisi dei dati raccolti
+    genericName: MAppER (Mani App Emilia-Romagna)
+    longDescription: >
+      
+    shortDescription: 
+    screenshots:
+developmentStatus: stable
+it:
+  riuso:
+    codiceIPA: r_emiro
+  conforme:
+    gdpr: true
+    lineeGuidaDesign: true
+    misureMinimeSicurezza: true
+    modelloInteroperabilita: true
+  countryExtensionVersion: '0.2'
+  piattaforme:
+    anpr: false
+    cie: false
+    pagopa: false
+    spid: false
+legal:
+  license: AGPL-3.0-or-later
+  mainCopyrightOwner: Regione Emilia-Romagna
+  repoOwner: Regione Emilia-Romagna
+localisation:
+  availableLanguages:
+    - it
+  localisationReady: true
+maintenance:
+  contacts:
+    - affiliation: Regione Emilia-Romagna
+      email: webmaster@regione.emilia-romagna.it
+      name: Sara Turra
+  contractors:
+    - name: Engineering S.p.A.
+      until: '2022-12-31'
+      website: 'https://www.engineering.it/'
+  type: contract
+name: MAppER (Mani App Emilia-Romagna)
+platforms:
+  - web
+releaseDate: '2021-12-15'
+softwareType: standalone/web
+softwareVersion: 1.0.0.0
+url: 'https://github.com/RegioneER/mapper'
+usedBy:
+  - Regione Emilia-Romagna

@@ -1,0 +1,110 @@
+﻿@model Mapper.Models.SchedaManager
+
+@using PagedList.Mvc;
+@{
+    string stato = null;
+    string colore = null;
+    string strutturaCorrente = "";
+    string strutturaDataScheda = "";
+}
+
+<br />
+
+@if (Model != null)
+{
+    if (Model.SchedePaged == null || Model.TotaleSchede == 0)
+    {
+        <div class="form-group col">
+            <div class="alert alert-warning" role="alert">
+                <h4>Attenzione</h4> Nessun risultato trovato.
+            </div>
+        </div>
+    }
+    else
+    {
+        <h3>Ho trovato @Model.TotaleSchede risultati</h3>
+        <br />
+        foreach (Mapper.Models.Scheda item in Model.SchedePaged)
+        {
+            @Html.Hidden(item.id.ToString());
+            {
+                stato = "";
+                colore = "";
+                if (item.idStatoSessione == (int)Mapper.Models.StatoSessione.Stato.Consolidata)
+                {
+                    colore = "schedaConsolidata";
+                }
+                else if (item.idStatoSessione == (int)Mapper.Models.StatoSessione.Stato.Cancellata)
+                {
+                    colore = "schedaEliminata";
+                }
+                stato = item.StatoSessione.DescrizionePubblica;
+                strutturaCorrente = item.AnagraficaAttuale;
+                strutturaDataScheda = item.AnagraficaDataScheda;
+            }
+            <div class="row">
+                <div class="col-12">
+                    <!--start card-->
+                    <div class="card-wrapper card-space">
+                        <div class="card card-bg no-after @colore">
+                            <div class="card-body ">
+                                <div class="category-top">
+                                    <span>@strutturaCorrente</span>
+                                    @if (strutturaCorrente.Equals(strutturaDataScheda, StringComparison.CurrentCultureIgnoreCase) == false)
+                                    {
+                                        <br />
+                                        <br />
+                                        <span>(@strutturaDataScheda)</span>
+                                    }
+                                </div>
+                                <h5 class="card-title">
+                                    Scheda n. @item.id del @item.data.ToShortDateString() @stato
+                                    &nbsp; &nbsp;
+                                    <img src="~/Content/Image/Pencil.png" alt="Totale opportunità" /> Opportunità: @item.TotaleOpportunita
+                                    <img src="~/Content/Image/Account.png" alt="Totale soggetti" />Operatori: @item.TotaleSoggetti
+                                </h5>
+                                <p class="card-text">
+                                    adesioni: @item.Adesioni%
+                                    &nbsp; &nbsp;
+                                    non adesioni: @item.NonAdesioni%
+                                </p>
+                                <div class="it-card-footer">
+                                    <span class="card-signature">inserita il @item.dataInserimento</span>
+                                    <a href='@Url.Action("Edit", "Scheda", new { idScheda = item.id })' title="Dettaglio scheda" class="btn btnDettaglio btn-sm float-right" style="text-decoration:none"><i class="fas fa-filter"></i> Vai al dettaglio</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--end card-->
+                </div>
+            </div>
+        }
+        if (@Model.PageCount > 1)
+        {
+            <nav class="pagination-wrapper pagination-total">
+                Pagina @(Model.PageCount < Model.CurrentPage ? 0 : Model.CurrentPage) di @Model.PageCount
+                @Html.PagedListPager(Model.SchedePaged, page => Url.Action("ChangePage", new { page = page }), new PagedListRenderOptions
+           {
+               LiElementClasses = new string[] { "page-item" },
+               MaximumPageNumbersToDisplay = 10
+           })
+            </nav>
+        }
+    }
+
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $(".collapse").collapse('hide');
+
+        var totaleSchede = "@Model.TotaleSchede";
+        if (totaleSchede > 0) {
+            $("#btStampa").attr("disabled", false);
+        }
+
+
+        })
+
+    </script>
+
+}

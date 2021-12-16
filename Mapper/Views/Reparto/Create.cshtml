@@ -1,0 +1,24 @@
+﻿@model Mapper.Models.vwReparto
+
+@{
+    ViewBag.Title = "Mapper - Nuovo Reparto";
+    ViewBag.TitleMin = "Nuovo Reparto";
+    ViewBag.isHome = false;
+    ViewBag.PathBack = "Reparti/BackSearch";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.Partial("Partial/_partialDettaglio")
+    <br />
+
+}
+
+@Html.Partial("Partial/Scripts/_partialScripts")
+
+@section scripts{
+    @Scripts.Render("~/bundles/jqueryval")
+}
+

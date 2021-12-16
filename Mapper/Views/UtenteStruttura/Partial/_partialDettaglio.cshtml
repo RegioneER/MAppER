@@ -1,0 +1,80 @@
+﻿@model Mapper.Models.UtenteStruttura
+
+@Html.Partial("TempMessage")
+
+<div class="linkBackMax float-right">
+    <a href="@Url.Action("Edit","Utente", new { idUtente = Model.idUtente, idRuolo = Model.idRuolo})"><svg class="icon icon-sm icon-primary mr-2"><use xlink:href="~/bootstrapitalia/svg/sprite.svg#it-arrow-left"></use></svg> Torna indietro</a>
+</div>
+<br class="linkBackMax" />
+<br />
+
+<div>
+    @Html.HiddenFor(m => m.ID)
+    @Html.HiddenFor(m => m.idUtente)
+    @Html.HiddenFor(m => m.idRuolo)
+    @Html.HiddenFor(m => m.idWebServiceStruttura)
+
+    <div class="form-row form-group bootstrap-select-wrapper myRegione">
+        @*@(!String.IsNullOrEmpty((String)ViewBag.EnableRegione) ? "disabled" : "")">*@
+        @Html.LabelFor(model => model.codRegione, "Regione", new { @class = "control-label" })
+        @Html.DropDownListFor(model => model.codRegione, (IEnumerable<SelectListItem>)ViewBag.Regione, "-- Seleziona regione --", htmlAttributes: new { @class = "form-control", data_show_subtext = "true", data_live_search = "true" })
+        @Html.ValidationMessageFor(model => model.codRegione, null, new { @class = "text-danger" })
+    </div>
+    <div id="divAzienda" class="form-row form-group bootstrap-select-wrapper myAzienda ">
+        @Html.LabelFor(model => model.codAzienda, "Azienda", new { @class = "control-label" })
+        @Html.DropDownListFor(model => model.codAzienda, (IEnumerable<SelectListItem>)ViewBag.Azienda, "-- Seleziona azienda --", htmlAttributes: new { @class = "form-control", data_show_subtext = "true", data_live_search = "true" })
+        @Html.ValidationMessageFor(model => model.codAzienda, null, new { @class = "text-danger" })
+    </div>
+    <div id="divTipoStruttura" class="form-row form-group bootstrap-select-wrapper myTipoStruttura ">
+        <label class="control-label" for="TipoStruttura">Tipo struttura</label>
+        @Html.DropDownList("TipoStruttura", null, " -- Seleziona un tipo di struttura --", htmlAttributes: new { @class = "form-control ", data_show_subtext = "true", data_live_search = "true" })
+    </div>
+    <div id="divPubblicaPrivata" class="form-group col-lg-3 bootstrap-select-wrapper ">
+        <label class="control-label" for="PubblichePrivate">Pubbliche / Private</label>
+        @Html.DropDownList("PubblicaPrivata", null, htmlAttributes: new { @class = "form-control", data_show_subtext = "true", data_live_search = "true", aria_label = "Cancellate" })
+    </div>
+    @if (Model.idRuolo == (int)Ruolo.Osservatore || Model.idRuolo == (int)Ruolo.ReferenteStruttura)
+    {
+        <div id="divStruttura" class="form-row form-group bootstrap-select-wrapper myStruttura ">
+            @Html.LabelFor(model => model.KeyStrutturaForDisplay, "Struttura", new { @class = "control-label" })
+            @Html.DropDownListFor(model => model.KeyStrutturaForDisplay, (IEnumerable<SelectListItem>)ViewBag.Struttura, "-- Seleziona struttura --", htmlAttributes: new { @class = "form-control ", data_show_subtext = "true", data_live_search = "true" })
+            @Html.ValidationMessageFor(model => model.KeyStrutturaForDisplay, null, new { @class = "text-danger" })
+        </div>
+    }
+    @if (Model.idRuolo == (int)Ruolo.Osservatore)
+    {
+        <div id="divReparto" class="form-row form-group bootstrap-select-wrapper myReparto ">
+            @Html.LabelFor(model => model.KeyRepartoForDisplay, "Reparto", new { @class = "control-label" })
+            @Html.DropDownListFor(model => model.KeyRepartoForDisplay, (IEnumerable<SelectListItem>)ViewBag.ddlReparto, "-- Seleziona reparto --", htmlAttributes: new { @class = "form-control", data_show_subtext = "true", data_live_search = "true" })
+            @Html.ValidationMessageFor(model => model.KeyRepartoForDisplay, null, new { @class = "text-danger" })
+        </div>
+    }
+    <div class="form-row">
+        <div class="it-datepicker-wrapper col-lg-3">
+            <div class="form-group">
+                @Html.LabelFor(model => model.DataDalForDisplay, "Dal", new { @class = "control-label" })
+                @Html.TextBoxFor(m => m.DataDalForDisplay, null, htmlAttributes: new { @maxlength = "10", @class = "form-control it-date-datepicker", @placeholder = "gg/mm/aaaa" })
+                @Html.ValidationMessageFor(m => m.DataDalForDisplay, null, new { @class = "text-danger" })
+                @Html.HiddenFor(m => m.dataDal)
+            </div>
+        </div>
+        <div class="it-datepicker-wrapper col-lg-3">
+            <div class="form-group">
+                @Html.LabelFor(model => model.DataAlForDisplay, "Al", new { @class = "control-label" })
+                @Html.TextBoxFor(m => m.DataAlForDisplay, null, htmlAttributes: new { @maxlength = "10", @class = "form-control it-date-datepicker", @placeholder = "gg/mm/aaaa" })
+                @Html.ValidationMessageFor(m => m.DataAlForDisplay, null, new { @class = "text-danger" })
+                @Html.HiddenFor(m => m.dataAl)
+            </div>
+        </div>
+    </div>
+    <button name="btnSalva" id="btnSalva" type="submit" title="Aggiungi a lista" class="btn btnSalva btn-icon">
+        <span class="rounded-icon">
+            <svg class="icon icon-primary">
+                <use xlink:href="~/bootstrapitalia/svg/sprite.svg#it-check"></use>
+            </svg>
+        </span>
+        <span>Aggiungi a lista</span>
+    </button>
+
+</div>
+

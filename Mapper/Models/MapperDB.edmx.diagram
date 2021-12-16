@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="f21f674c25d34aab9eafa93da13aada3" Name="Diagram1" ZoomLevel="65">
+        <EntityTypeShape EntityType="MapperModel.Azione" Width="1.5" PointX="3" PointY="5.25" />
+        <EntityTypeShape EntityType="MapperModel.Bacteria" Width="1.5" PointX="3" PointY="10.5" />
+        <EntityTypeShape EntityType="MapperModel.Indicazione" Width="1.5" PointX="3" PointY="8" />
+        <EntityTypeShape EntityType="MapperModel.Log" Width="1.5" PointX="10" PointY="1" />
+        <EntityTypeShape EntityType="MapperModel.LogType" Width="1.5" PointX="7.75" PointY="1.375" />
+        <EntityTypeShape EntityType="MapperModel.Opportunita" Width="1.5" PointX="5.25" PointY="1" />
+        <EntityTypeShape EntityType="MapperModel.Osservazione" Width="1.5" PointX="3" PointY="1.125" />
+        <EntityTypeShape EntityType="MapperModel.Ruoli" Width="1.5" PointX="5.75" PointY="9.125" />
+        <EntityTypeShape EntityType="MapperModel.StatoCandidatura" Width="1.5" PointX="5.75" PointY="6.25" />
+        <EntityTypeShape EntityType="MapperModel.StatoSessione" Width="1.5" PointX="7.75" PointY="4.75" />
+        <EntityTypeShape EntityType="MapperModel.UltimaPosizione" Width="1.5" PointX="9.75" PointY="4.75" />
+        <EntityTypeShape EntityType="MapperModel.vwRegione" Width="1.5" PointX="10.75" PointY="10.75" />
+        <EntityTypeShape EntityType="MapperModel.vwTipoAnagrafeRegionale" Width="1.5" PointX="0.75" PointY="13.75" />
+        <AssociationConnector Association="MapperModel.FK_Opportunità_Azioni" />
+        <AssociationConnector Association="MapperModel.FK_Opportunita_Bacteria" />
+        <AssociationConnector Association="MapperModel.FK_Opportunita_Indicazione" />
+        <AssociationConnector Association="MapperModel.FK_Log_LogType" />
+        <AssociationConnector Association="MapperModel.FK_Opportunità_Osservazioni" />
+        <EntityTypeShape EntityType="MapperModel.vwAreaDisciplina" Width="1.5" PointX="12.375" PointY="13.75" />
+        <EntityTypeShape EntityType="MapperModel.Scheda" Width="1.5" PointX="15.25" PointY="8.875" />
+        <AssociationConnector Association="MapperModel.FK_Osservazioni_Schede" />
+        <AssociationConnector Association="MapperModel.FK_Scheda_StatoSessione" />
+        <EntityTypeShape EntityType="MapperModel.Operatore" Width="1.5" PointX="14.375" PointY="13.875" />
+        <AssociationConnector Association="MapperModel.FK_Osservazione_Operatore" />
+        <EntityTypeShape EntityType="MapperModel.vwAzienda" Width="1.5" PointX="10.375" PointY="7.75" />
+        <EntityTypeShape EntityType="MapperModel.Utente" Width="1.5" PointX="8.25" PointY="15" />
+        <AssociationConnector Association="MapperModel.FK_Utenti_Ruoli" />
+        <AssociationConnector Association="MapperModel.FK_Scheda_Utente" />
+        <EntityTypeShape EntityType="MapperModel.UtenteDaCensire" Width="1.5" PointX="8" PointY="7.5" />
+        <AssociationConnector Association="MapperModel.FK_UtenteDaCensire_Ruoli" />
+        <AssociationConnector Association="MapperModel.FK_UtenteDaCensire_StatoCandidatura" />
+        <EntityTypeShape EntityType="MapperModel.vwReparto" Width="1.5" PointX="16.375" PointY="0.75" />
+        <EntityTypeShape EntityType="MapperModel.vwStruttura" Width="1.5" PointX="12.375" PointY="0.75" />
+        <EntityTypeShape EntityType="MapperModel.TipologiaStruttura" Width="1.5" PointX="5.375" PointY="12.75" />
+        <EntityTypeShape EntityType="MapperModel.UtenteStruttura" Width="1.5" PointX="10.5" PointY="17.125" />
+        <AssociationConnector Association="MapperModel.FK_UtenteStruttura_Utente" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

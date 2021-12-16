@@ -1,0 +1,112 @@
+﻿@model Mapper.Models.vwReparto
+@{
+    bool daWeb = (Model.IdWebServiceReparto == 1);
+}
+@Html.Partial("TempMessage")
+
+<div class="linkBackMax float-right">
+    <a href="@Url.Action("BackSearch", "Reparti", null)"><svg class="icon icon-sm icon-primary mr-2"><use xlink:href="~/bootstrapitalia/svg/sprite.svg#it-arrow-left"></use></svg> Torna indietro</a>
+</div>
+<br class="linkBackMax" />
+<br />
+
+<div>
+    @Html.HiddenFor(m => m.IdReparto)
+    @Html.HiddenFor(m => m.IdWebServiceReparto)
+    @Html.HiddenFor(m => m.Stato)
+    @if (daWeb)
+    {
+        @Html.HiddenFor(m => m.codAreaDisciplina)
+        @Html.HiddenFor(m => m.CodDisciplina)
+        @Html.HiddenFor(m => m.ProgressivoDivisione)
+    }
+
+    @if (Model.IdReparto > 0)
+    {
+        @Html.HiddenFor(m => m.CodRegione)
+        @Html.HiddenFor(m => m.CodAzienda)
+        @Html.HiddenFor(m => m.keyStruttura)
+        @Html.HiddenFor(m=> m.NomeOriginale)
+        <h4>Regione: @Model.NomeRegione</h4>
+        <h4>Azienda: @Model.NomeAzienda</h4>
+        <h4>Struttura: @Model.NomeStruttura</h4>
+        <h4>Nome originale: @Model.NomeOriginale</h4>
+        <br />
+    }
+
+    else
+    {
+        <div class="form-row form-group bootstrap-select-wrapper myRegione  @(!String.IsNullOrEmpty((String)ViewBag.EnableRegione) ? "disabled" : "")">
+            <label class="control-label" for="Regione">Regione</label>
+            @Html.DropDownList("Regione", null, " -- Seleziona una regione --", htmlAttributes: new { @class = "form-control", data_show_subtext = "true", data_live_search = "true", aria_label = "Regione" })
+            @Html.Hidden("codRegione")
+        </div>
+        <div id="divAzienda" class="form-row form-group bootstrap-select-wrapper myAzienda">
+            <label class="control-label" for="Azienda">Azienda</label>
+            @Html.DropDownList("Azienda", null, " -- Seleziona un'azienda --", htmlAttributes: new { @class = "form-control", data_show_subtext = "true", data_live_search = "true", aria_label = "Azienda" })
+            @Html.Hidden("codAzienda")
+        </div>
+        <div id="divTipoStruttura" class="form-row form-group bootstrap-select-wrapper myTipoStruttura ">
+            <label class="control-label" for="TipoStruttura">Tipo struttura</label>
+            @Html.DropDownList("TipoStruttura", null, " -- Seleziona un tipo di struttura --", htmlAttributes: new { @class = "form-control ", data_show_subtext = "true", data_live_search = "true", aria_label = "TipoStruttura" })
+            @Html.Hidden("codTipoStruttura")
+        </div>
+        <div class="form-group col-lg-3 bootstrap-select-wrapper ">
+            <label class="control-label" for="PubblichePrivate">Pubbliche / Private</label>
+            @Html.DropDownList("PubblicaPrivata", null, htmlAttributes: new { @class = "form-control", data_show_subtext = "true", data_live_search = "true", aria_label = "Cancellate" })
+        </div>
+        <div id="divStruttura" class="form-row form-group bootstrap-select-wrapper myStruttura ">
+            <label class="control-label" for="Struttura">Struttura</label>
+            @Html.DropDownList("Struttura", null, " -- Seleziona una struttura --", htmlAttributes: new { @class = "form-control", data_show_subtext = "true", data_live_search = "true", aria_label = "Struttura" })
+            @Html.Hidden("keyStruttura")
+        </div>
+    }
+
+    <div class="form-row ">
+        @Html.LabelFor(model => model.Nome, "Nome del reparto", new { @class = "control-label" })
+        @Html.TextBoxFor(m => m.Nome, htmlAttributes: new { @maxlength = "100", @class = "form-control" })
+        @Html.ValidationMessageFor(model => model.Nome, null, new { @class = "text-danger" })
+    </div>
+    <br />
+    @if (!daWeb)
+    {
+        <br />
+        <div class="form-row bootstrap-select-wrapper">
+            @Html.LabelFor(model => model.codAreaDisciplina, "Disciplina/Area", new { @class = "control-label" })
+            @Html.DropDownListFor(model => model.codAreaDisciplina, (IEnumerable<SelectListItem>)ViewBag.Disciplina, " -- Seleziona un profilo --", htmlAttributes: new { @class = "form-control", data_show_subtext = "true", data_live_search = "true", aria_label = "Disciplina" }).SetDisabled(daWeb)
+            @Html.ValidationMessageFor(model => model.codAreaDisciplina, null, new { @class = "text-danger" })
+        </div>
+        <br />
+    }
+    <div class="form-row">
+        @Html.LabelFor(model => model.Descrizione, "Descrizione del reparto", new { @class = "control-label" })
+        @Html.TextBoxFor(m => m.Descrizione, htmlAttributes: new { @maxlength = "100", @class = "form-control" })
+    </div>
+
+    <div class="form-check">
+        <input id="Cancella" name="Cancella" type="checkbox" value="@ViewBag.Cancella" @(Model.Cancellato == true ? "checked" : "")>
+        <label for="Cancella">Cancellato</label>
+    </div>
+    <br />
+    <div class="d-flex justify-content-between">
+        <button name="btnSalva" id="btnSalva" type="submit" title="Salva" class="btn btnSalva btn-icon">
+            <span class="rounded-icon">
+                <svg class="icon icon-primary">
+                    <use xlink:href="~/bootstrapitalia/svg/sprite.svg#it-check"></use>
+                </svg>
+            </span>
+            <span>Salva</span>
+        </button>
+        @if (Model.IdReparto > 0 && Model.Cancellato == false)
+        {
+            <a id="btnElimina" href="@Url.Action("Delete", "Reparto", new { keyReparto = Model.KeyReparto })" onclick='return (BootstapConfirm("Sei sicuro di voler eliminare il reparto?", this.id, "Conferma eliminazione"));' type="button" class="btn btnElimina btn-icon" title="Elimina" style="text-decoration:none">
+                <span class="rounded-icon">
+                    <svg class="icon icon-primary">
+                        <use xlink:href="~/bootstrapitalia/svg/sprite.svg#it-close"></use>
+                    </svg>
+                </span>
+                <span>Elimina</span>
+            </a>
+        }
+    </div>
+</div>

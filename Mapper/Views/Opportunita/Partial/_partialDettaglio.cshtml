@@ -1,0 +1,191 @@
+﻿@model Mapper.Models.Opportunita
+
+@Html.Partial("TempMessage")
+
+@{
+    bool disabilita = Model.Osservazione != null && (Model.Osservazione.Scheda.StatoSessione.id == (int)Mapper.Models.StatoSessione.Stato.Consolidata || Model.Osservazione.Scheda.StatoSessione.id == (int)Mapper.Models.StatoSessione.Stato.Cancellata);
+}
+
+@Html.Hidden("Offline")
+@Html.Hidden("idScheda", (int)ViewBag.IdScheda)
+@Html.HiddenFor(model => model.id, new { Value = ViewBag.id })
+@Html.HiddenFor(model => model.idAzione)
+@Html.HiddenFor(model => model.idIndicazione)
+<div class="linkBackMax float-right">
+    <a href="@Url.Action("Edit","Scheda", new { idScheda = (int)ViewBag.IdScheda})" alt="Torna indietro"><svg class="icon icon-sm icon-primary mr-2"><use xlink:href="~/bootstrapitalia/svg/sprite.svg#it-arrow-left"></use></svg> Torna indietro</a>
+</div>
+<br />
+<br />
+@if (Model.id == 0)
+{
+    <div class="alert alert-info" role="alert">
+        Necessario cliccare Salva prima di selezionare un nuovo operatore e inserire una nuova opportunità.
+    </div>
+    <br />
+    <div class="card-wrapper card-space col-12">
+        <div class="card card-bg no-after">
+            <div class="card-body">
+                <h5 class="card-title">
+                    Operatore
+                </h5>
+                <p class="card-text">
+                    <div class="form-row form-group bootstrap-select-wrapper">
+                        @Html.DropDownListFor(m => m.idOsservazione, (IEnumerable<SelectListItem>)ViewBag.ListaOperatori, "-- Seleziona un operatore --", htmlAttributes: new { data_show_subtext = "true", data_live_search = "true" }).SetDisabled(disabilita)
+                        @Html.ValidationMessageFor(m => m.idOsservazione, null, new { @class = "text-danger" })
+                    </div>
+                </p>
+            </div>
+        </div>
+    </div>
+}
+
+<div class="card-wrapper card-space col-sm-12">
+    <div class="card card-bg no-after">
+        <div class="card-body">
+            <h5 class="card-title">
+                Indicazione
+            </h5>
+            <p class="card-text">
+                <div class="row form-group">
+                    <div class="form-check form-check-inline">
+                        <div class="imageCheckHolder">
+                            <input name="gruppo1" type="radio" value="@((int)Mapper.Models.Indicazione.Stato.PreContattoPaziente)" id="@Mapper.Models.Indicazione.Stato.PreContattoPaziente.ToString()" @(Model != null && Model.idIndicazione == (int)Mapper.Models.Indicazione.Stato.PreContattoPaziente ? "checked" : "") @(disabilita ? "disabled" : "")>
+                            <label class="" title="@Mapper.Models.Indicazione.Stato.PreContattoPaziente.ToString()" for=@Mapper.Models.Indicazione.Stato.PreContattoPaziente.ToString()>
+                                <img src="~/Content/Image/pre_contatto_icon.png" alt="@Mapper.Models.Indicazione.Stato.PreContattoPaziente.ToString()" />
+                            </label>
+                            <div class="caption"><br />Pre contatto<br />paziente</div>
+                        </div>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <div class="imageCheckHolder">
+                            <input name="gruppo1" type="radio" value="@((int)Mapper.Models.Indicazione.Stato.PreManovraAsepsi)" id=@Mapper.Models.Indicazione.Stato.PreManovraAsepsi.ToString() @(Model != null && Model.idIndicazione == (int)Mapper.Models.Indicazione.Stato.PreManovraAsepsi ? "checked" : "") @(disabilita ? "disabled" : "")>
+                            <label title="@Mapper.Models.Indicazione.Stato.PreManovraAsepsi.ToString()" for=@Mapper.Models.Indicazione.Stato.PreManovraAsepsi.ToString()>
+                                <img src="~/Content/Image/pre_asepsi_icon.png" alt="@Mapper.Models.Indicazione.Stato.PreManovraAsepsi.ToString()" />
+                            </label>
+                            <div class="caption"><br />Pre manovra<br />asepsi</div>
+                        </div>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <div class="imageCheckHolder">
+                            <input name="gruppo1" type="radio" value="@((int)Mapper.Models.Indicazione.Stato.DopoContattoFluido)" id=@Mapper.Models.Indicazione.Stato.DopoContattoFluido.ToString() @(Model != null && Model.idIndicazione == (int)Mapper.Models.Indicazione.Stato.DopoContattoFluido ? "checked" : "") @(disabilita ? "disabled" : "")>
+                            <label title="@Mapper.Models.Indicazione.Stato.DopoContattoFluido.ToString()" for=@Mapper.Models.Indicazione.Stato.DopoContattoFluido.ToString()>
+                                <img src="~/Content/Image/dp-fluido_icon.png" alt="@Mapper.Models.Indicazione.Stato.DopoContattoFluido.ToString()" />
+                            </label>
+                            <div class="caption"><br />Dopo contatto<br />fluido</div>
+                        </div>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <div class="imageCheckHolder">
+                            <input name="gruppo1" type="radio" value="@((int)Mapper.Models.Indicazione.Stato.DopoContattoPaziente)" id=@Mapper.Models.Indicazione.Stato.DopoContattoPaziente.ToString() @(Model != null && Model.idIndicazione == (int)Mapper.Models.Indicazione.Stato.DopoContattoPaziente ? "checked" : "") @(disabilita ? "disabled" : "")>
+                            <label title="@Mapper.Models.Indicazione.Stato.DopoContattoPaziente.ToString()" for=@Mapper.Models.Indicazione.Stato.DopoContattoPaziente.ToString()>
+                                <img src="~/Content/Image/dp-paziente_icon.png" alt="@Mapper.Models.Indicazione.Stato.DopoContattoPaziente.ToString()" />
+                            </label>
+                            <div class="caption"><br />Dopo contatto<br />paziente</div>
+                        </div>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <div class="imageCheckHolder">
+                            <input name="gruppo1" type="radio" value="@((int)Mapper.Models.Indicazione.Stato.DopoContattoAmbiente)" id=@Mapper.Models.Indicazione.Stato.DopoContattoAmbiente.ToString() @(Model != null && Model.idIndicazione == (int)Mapper.Models.Indicazione.Stato.DopoContattoAmbiente ? "checked" : "") @(disabilita ? "disabled" : "")>
+                            <label title="@Mapper.Models.Indicazione.Stato.DopoContattoAmbiente.ToString()" for=@Mapper.Models.Indicazione.Stato.DopoContattoAmbiente.ToString()>
+                                <img src="~/Content/Image/dp-ambiente_icon.png" alt="@Mapper.Models.Indicazione.Stato.DopoContattoAmbiente.ToString()" />
+                            </label>
+                            <div class="caption"><br />Dopo contatto<br />ambiente</div>
+                        </div>
+                    </div>
+                </div>
+                <br />
+            </p>
+        </div>
+    </div>
+</div>
+<div class="card-wrapper card-space col-sm-12">
+    <div class="card card-bg no-after">
+        <div class="card-body">
+            <h5 class="card-title">
+                Azione
+            </h5>
+            <p class="card-text">
+                <div class="row form-group">
+                    <div class="form-check form-check-inline">
+                        <div class="imageCheckHolder">
+                            <input name="gruppo2" type="radio" value="@((int)Mapper.Models.Azione.Stato.Frizione)" id=@Mapper.Models.Azione.Stato.Frizione.ToString() @(Model != null && Model.idAzione == (int)Mapper.Models.Azione.Stato.Frizione ? "checked" : "") @(disabilita ? "disabled" : "")>
+                            <label title="@Mapper.Models.Azione.Stato.Frizione.ToString()" for=@Mapper.Models.Azione.Stato.Frizione.ToString()>
+                                <img src="~/Content/Image/emoticon-green.png" alt="@Mapper.Models.Azione.Stato.Frizione.ToString()" />
+                            </label>
+                            <div class="caption"><br />Frizione</div>
+                        </div>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <div class="imageCheckHolder">
+                            <input name="gruppo2" type="radio" value="@((int)Mapper.Models.Azione.Stato.Lavaggio)" id=@Mapper.Models.Azione.Stato.Lavaggio.ToString() @(Model != null && Model.idAzione == (int)Mapper.Models.Azione.Stato.Lavaggio ? "checked" : "") @(disabilita ? "disabled" : "")>
+                            <label title="@Mapper.Models.Azione.Stato.Lavaggio.ToString()" for=@Mapper.Models.Azione.Stato.Lavaggio.ToString()>
+                                <img src="~/Content/Image/emoticon-green.png" alt="@Mapper.Models.Azione.Stato.Lavaggio.ToString()" />
+                            </label>
+                            <div class="caption"><br />Lavaggio</div>
+                        </div>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <div class="imageCheckHolder">
+                            <input name="gruppo2" type="radio" value="@((int)Mapper.Models.Azione.Stato.Nessuna)" id=@Mapper.Models.Azione.Stato.Nessuna.ToString() @(Model != null && Model.idAzione == (int)Mapper.Models.Azione.Stato.Nessuna ? "checked" : "") @(disabilita ? "disabled" : "")>
+                            <label title="@Mapper.Models.Azione.Stato.Nessuna.ToString()" for=@Mapper.Models.Azione.Stato.Nessuna.ToString()>
+                                <img src="~/Content/Image/emoticon-red.png" alt="@Mapper.Models.Azione.Stato.Nessuna.ToString()" />
+                            </label>
+                            <div class="caption"><br />Nessuna</div>
+                        </div>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <div class="imageCheckHolder">
+                            <input name="gruppo2" type="radio" value="@((int)Mapper.Models.Azione.Stato.NessunaConGuanti)" id=@Mapper.Models.Azione.Stato.NessunaConGuanti.ToString() @(Model != null && Model.idAzione == (int)Mapper.Models.Azione.Stato.NessunaConGuanti ? "checked" : "") @(disabilita ? "disabled" : "")>
+                            <label title="@Mapper.Models.Azione.Stato.NessunaConGuanti.ToString()" for=@Mapper.Models.Azione.Stato.NessunaConGuanti.ToString()>
+                                <img src="~/Content/Image/emoticon-red.png" alt="@Mapper.Models.Azione.Stato.NessunaConGuanti.ToString()" />
+                            </label>
+                            <div class="caption"><br />Nessuna<br />con guanti</div>
+                        </div>
+                    </div>
+                </div>
+                <br />
+            </p>
+        </div>
+    </div>
+</div>
+<div class="card-wrapper card-space col-12">
+    <div class="card card-bg no-after">
+        <div class="card-body">
+            <h5 class="card-title">
+                Tipo colonizzazione
+            </h5>
+            <p class="card-text">
+                <div class="row form-group bootstrap-select-wrapper">
+                    @Html.DropDownListFor(m => m.idBacteria, (IEnumerable<SelectListItem>)ViewBag.Batterio, "-- Seleziona un microrganismo --", htmlAttributes: new { data_show_subtext = "true", data_live_search = "true" }).SetDisabled(disabilita)
+                    @Html.ValidationMessageFor(m => m.idBacteria, null, new { @class = "text-danger" })
+                </div>
+                <br />
+            </p>
+        </div>
+    </div>
+</div>
+
+@if (!disabilita)
+{
+    <div class="d-flex justify-content-between">
+        <button name="btnSalva" id="btnSalva" type="submit" title="Salva opportunità" class="btn btnSalva btn-icon">
+            <span class="rounded-icon">
+                <svg class="icon icon-primary">
+                    <use xlink:href="~/bootstrapitalia/svg/sprite.svg#it-check"></use>
+                </svg>
+            </span>
+            <span>Salva</span>
+        </button>
+        @if (Model.id > 0)
+        {
+            <button id="btnElimina" onclick='if (BootstapConfirm("Sei sicuro di voler eliminare questa opportunità? Una volta eliminata non sarà più recuperabile.", this.id, "Conferma eliminazione")) { EliminaOpportunita("@Model.idOsservazione", "@Model.id")}' type="button" class="btn btnElimina btn-icon float-right" title="Elimina l'opportunità">
+                <span class="rounded-icon">
+                    <svg class="icon icon-primary">
+                        <use xlink:href="~/bootstrapitalia/svg/sprite.svg#it-close"></use>
+                    </svg>
+                </span>
+                <span>Elimina</span>
+            </button>
+        }
+    </div>
+}

@@ -1,0 +1,42 @@
+﻿<script type="text/javascript">
+
+    var optionToSet = "nessun microrganismo";
+
+    $("#idOsservazione").change(function () {
+        $("input[name='gruppo1'][type='radio']").each(function () { $(this).prop('checked', false); });
+        $("input[name='gruppo2'][type='radio']").each(function () { $(this).prop('checked', false); });
+
+        $("#idBacteria option").filter(function () {
+            // Get the option by its text
+            var hasText = $.trim($(this).text()) == optionToSet;
+            if (hasText) {
+                // Set the "selected" value of the <select>.
+                $("#idBacteria").val($(this).val());
+                // Force a refresh.
+                $("#idBacteria").selectpicker('refresh')
+            }
+        }).prop('selected', true);
+
+    });
+
+    $("input[name='gruppo1'][type='radio']").change(function () {
+            $("#idIndicazione").val($(this).val());
+    });
+
+    $("input[name='gruppo2'][type='radio']").change(function () {
+            $("#idAzione").val($(this).val());
+    });
+
+   function EliminaOpportunita( idOsservazione, idOpportunita) {
+        $.ajax({
+            url: '@Url.Action("Delete", "Opportunita")',
+            type: "POST",
+            data: { IDOsservazione: idOsservazione, IDOpportunita: idOpportunita },
+            dataType: "JSON",
+            success: function (returnData) {
+                window.location = returnData.newurl;
+            }
+        });
+    }
+
+</script>

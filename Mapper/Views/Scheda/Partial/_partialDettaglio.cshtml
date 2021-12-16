@@ -1,0 +1,181 @@
+﻿@model Mapper.Models.Scheda
+
+@Html.Partial("TempMessage")
+
+@{
+    bool disabilitaRegione = !String.IsNullOrEmpty((String)ViewBag.EnableRegione);
+    //bool disabilitaAzienda = !String.IsNullOrEmpty((String)ViewBag.EnableAzienda);
+    //bool disabilitaStruttura = !String.IsNullOrEmpty((String)ViewBag.EnableStruttura);
+    bool SbloccaSchedaVisibile = (bool)ViewBag.EnableSbloccaScheda;
+
+    bool disabilitaScheda = (Model != null && (Model.idStatoSessione == (int)Mapper.Models.StatoSessione.Stato.Consolidata || Model.idStatoSessione == (int)Mapper.Models.StatoSessione.Stato.Cancellata));
+}
+
+@Html.HiddenFor(model => model.id)
+@Html.HiddenFor(model => model.dataInserimento)
+@Html.Hidden("DataInserimentoDate", (string)ViewBag.DataInserimentoDate)
+@Html.Hidden("DataInserimentoTime", (string)ViewBag.DataTime)
+@Html.Hidden("idStatoSessione", (int)ViewBag.idStatoSessione)
+
+<div class="linkBackMax float-right">
+    <a href="@Url.Action("BackSearch","Schede")" alt="Torna indietro"><svg class="icon icon-sm icon-primary mr-2"><use xlink:href="~/bootstrapitalia/svg/sprite.svg#it-arrow-left"></use></svg> Torna indietro</a>
+</div>
+<br class="linkBackMax" />
+<div id="collapseDiv1-sc1" class="collapse-div collapse-background-active" role="tablist">
+    <div class="collapse-header" id="heading1-sc1">
+        <button data-toggle="collapse" data-target="#collapse1-sc1" aria-expanded="true" aria-controls="collapse1-sc1" type="button">
+            Mostra/Nascondi dettaglio scheda
+        </button>
+    </div>
+    <div id="collapse1-sc1" class="collapse show" role="tabpanel" aria-labelledby="heading1-sc1">
+        <div class="collapse-body">
+            <p>DATA E ORA COMPILAZIONE @ViewBag.DataOraInserimento </p>
+            <br />
+            @Html.HiddenFor(m => m.idUtente)
+
+            <div class="row">
+                <div class="it-datepicker-wrapper col-lg-3">
+                    <div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.DataSchedaForDisplay, "Data", new { @class = "control-label" }).SetDisabled(disabilitaScheda)
+                            @if (disabilitaScheda)
+                            {
+                                @Html.TextBoxFor(m => m.DataSchedaForDisplay).SetDisabled(true)
+                            }
+                            else
+                            {
+                                @Html.TextBoxFor(m => m.DataSchedaForDisplay, htmlAttributes: new { @maxlength = "10", @class = "form-control it-date-datepicker", @placeholder = "gg/mm/aaaa" })//.SetDisabled(disabilitaScheda)
+                            }
+
+                            @Html.ValidationMessageFor(m => m.DataSchedaForDisplay, null, new { @class = "text-danger" })
+                            @Html.Hidden("DataScheda", (string)ViewBag.DataScheda)
+                        </div>
+                    </div>
+                </div>
+                <div class="it-timepicker-wrapper col-lg-3">
+                    <div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.TimeSchedaForDisplay, "Ora", new { @class = "control-label" }).SetDisabled(disabilitaScheda)
+                            @if (disabilitaScheda)
+                            {
+                                @Html.TextBoxFor(m => m.TimeSchedaForDisplay).SetDisabled(true)
+                            }
+                            else
+                            {
+                                @Html.TextBoxFor(m => m.TimeSchedaForDisplay, htmlAttributes: new { @maxlength = "10", @class = "form-control", @placeholder = "hh:mm" })//.SetDisabled(disabilitaScheda)
+                            }
+                            @Html.ValidationMessageFor(m => m.TimeSchedaForDisplay, null, new { @class = "text-danger" })
+                            @Html.Hidden("TimeScheda", (string)ViewBag.TimeScheda)
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <br />
+            <div class="row form-group bootstrap-select-wrapper myRegione @(disabilitaRegione || disabilitaScheda ? "disabled" : "")">
+                <label class="control-label" for="Regione">Regione</label>
+                @Html.DropDownList("Regione", null, " -- Seleziona una regione --", htmlAttributes: new { @class = "form-control", data_show_subtext = "true", data_live_search = "true", aria_label = "Regione" }).SetDisabled(disabilitaRegione || disabilitaScheda)
+                @Html.Hidden("codRegione")
+            </div>
+            <br />
+            <div class="row form-group bootstrap-select-wrapper myAzienda @(disabilitaScheda ? "disabled" : "")">
+                <label class="control-label" for="Azienda">Azienda</label>
+                @Html.DropDownList("Azienda", null, " -- Seleziona un'azienda --", htmlAttributes: new { @class = "form-control", data_show_subtext = "true", data_live_search = "true", aria_label = "Azienda" }).SetDisabled(disabilitaScheda)
+                @Html.Hidden("codAzienda")
+            </div>
+            <br />
+            <div class="row form-group bootstrap-select-wrapper myTipoStruttura col-lg-8 @(disabilitaScheda ? "disabled" : "")">
+                <label class="control-label" for="TipoStruttura">Tipo struttura</label>
+                @Html.DropDownList("TipoStruttura", null, " -- Seleziona un tipo di struttura --", htmlAttributes: new { @class = "form-control ", data_show_subtext = "true", data_live_search = "true", aria_label = "TipoStruttura" }).SetDisabled(disabilitaScheda)
+                @Html.Hidden("codTipoStruttura")
+            </div>
+            <br />
+            <div class="row form-group col-lg-3 bootstrap-select-wrapper @(disabilitaScheda ? "disabled" : "")">
+                <label class="control-label" for="PubblichePrivate">Pubbliche / Private</label>
+                @Html.DropDownList("PubblicaPrivata", null, htmlAttributes: new { @class = "form-control", data_show_subtext = "true", data_live_search = "true", aria_label = "Cancellate" })
+            </div>
+            <br />
+            <div class="row form-group bootstrap-select-wrapper myStruttura @(disabilitaScheda ? "disabled" : "")">
+                <label class="control-label" for="Struttura">Struttura</label>
+                @Html.DropDownList("Struttura", null, " -- Seleziona una struttura --", htmlAttributes: new { @class = "form-control", data_show_subtext = "true", data_live_search = "true", aria_label = "Struttura" }).SetDisabled(disabilitaScheda)
+                @Html.Hidden("codStruttura")
+            </div>
+            <br />
+            <div class="row form-group bootstrap-select-wrapper myReparto  @(disabilitaScheda ? "disabled" : "")">
+                @Html.DropDownListFor(model => model.KeyReparto, (IEnumerable<SelectListItem>)ViewBag.ddlReparto, " -- Seleziona un reparto --", htmlAttributes: new { @class = "form-control", data_show_subtext = "true", data_live_search = "true", aria_label = "Reparto" }).SetDisabled(disabilitaScheda)
+                @Html.ValidationMessageFor(model => model.KeyReparto, null, new { @class = "text-danger" })
+            </div>
+            <br />
+            <div id="divDurata" class="row col-lg-6">
+                <label class="control-label" for="durataSessione">Durata dell'osservazione</label>
+                @Html.TextBoxFor(m => m.durataSessione, htmlAttributes: new { @maxlength = "10", @class = "form-control", @type = "number", @value = ViewBag.Durata }).SetDisabled(disabilitaScheda)
+                @Html.ValidationMessageFor(m => m.durataSessione, null, new { @class = "text-danger" })
+            </div>
+            @if (Model.id > 0)
+            {
+                <br />
+                <div class="row col-lg-6">
+                    <div class="form-check">
+                        <input id="Cancellata" name="Cancellata" class="ruolo-enable" value=@ViewBag.Cancellata @(ViewBag.Cancellata == "on" ? "checked" : "") type="checkbox" @(Model.idStatoSessione != (int)Mapper.Models.StatoSessione.Stato.Cancellata ? "disabled" : "" )>
+                        <label for="Cancellata" class="disabled">Cancellata</label>
+                    </div>
+                </div>
+            }
+            <br />
+            @if (Model.idStatoSessione != (int)Mapper.Models.StatoSessione.Stato.Consolidata)
+            {
+                <div class="row">
+                    <div class="d-flex justify-content-center col-xs-12 col-md-4">
+                        <button name="btnSalva" id="btnSalva" type="submit" title="Salva scheda" class="btn btnSalva btn-icon">
+                            <span class="rounded-icon">
+                                <svg class="icon icon-primary">
+                                    <use xlink:href="~/bootstrapitalia/svg/sprite.svg#it-check"></use>
+                                </svg>
+                            </span>
+                            <span>Salva</span>
+                        </button>
+                    </div>
+                    <div class="d-flex justify-content-center col-xs-12 col-md-4">
+                        @if (Model.id > 0 && Model.idStatoSessione == (int)Mapper.Models.StatoSessione.Stato.InLavorazione)
+                        {
+                            <button id="btnConsolida" onclick='if (BootstapConfirm("Sei sicuro di voler consolidare la scheda?", this.id, "Conferma consolidazione")) { ConsolidaScheda("@Model.id")}' type="button" class="btn btnConsolida btn-icon" title="Consolida la scheda">
+                                <span class="rounded-icon">
+                                    <svg class="icon icon-primary">
+                                        <use xlink:href="~/bootstrapitalia/svg/sprite.svg#it-locked"></use>
+                                    </svg>
+                                </span>
+                                <span>Consolida</span>
+                            </button>
+                        }
+                    </div>
+                    <div class="d-flex justify-content-center col-xs-12 col-md-4">
+                        @if (Model.id > 0 && (Model.idStatoSessione == (int)Mapper.Models.StatoSessione.Stato.InLavorazione))
+                        {
+                            <button id="btnElimina" onclick='if (BootstapConfirm("Sei sicuro di voler eliminare la scheda?", this.id, "Conferma eliminazione")) { CancellaScheda("@Model.id")}' type="button" class="btn btnElimina btn-icon" title="Elimina la scheda">
+                                <span class="rounded-icon">
+                                    <svg class="icon icon-primary">
+                                        <use xlink:href="~/bootstrapitalia/svg/sprite.svg#it-close"></use>
+                                    </svg>
+                                </span>
+                                <span>Elimina</span>
+                            </button>
+                        }
+                    </div>
+                </div>
+            }
+            else
+            {
+                if (SbloccaSchedaVisibile)
+                {
+                    <button id="btnSbloccaScheda" onclick='if (BootstapConfirm("Sei sicuro di voler sbloccare la scheda?", this.id, "Conferma lo sblocco")) { SbloccaScheda("@Model.id")}' type="button" class="btn btnSalva btn-icon" title="Sblocca la scheda">
+                        <span class="rounded-icon">
+                            <svg class="icon icon-primary">
+                                <use xlink:href="~/bootstrapitalia/svg/sprite.svg#it-unlocked"></use>
+                            </svg>
+                        </span>
+                        <span>Sblocca</span>
+                    </button>
+                }
+            }
+        </div>
+    </div>
+</div>

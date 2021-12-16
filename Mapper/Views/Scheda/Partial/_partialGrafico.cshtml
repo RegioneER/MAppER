@@ -1,0 +1,50 @@
+﻿@model Mapper.Models.Scheda
+
+@if (ViewBag.TabellaGrafico != null)
+{
+    <div id="collapseDiv2-sc2" class="collapse-div collapse-background-active" role="tablist">
+        <div class="collapse-header" id="heading2-sc2">
+            <button data-toggle="collapse" data-target="#collapse2-sc2" aria-expanded="false" aria-controls="collapse2-sc2" type="button">
+                Mostra/Nascondi grafici
+            </button>
+        </div>
+        <div id="collapse2-sc2" class="collapse" role="tabpanel" aria-labelledby="heading2-sc2">
+            <div class="collapse-body">
+
+                <div class="chart-container">
+                    <canvas id="canvas"></canvas>
+                </div>
+
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">Azione</th>
+                                @foreach (Mapper.Models.Indicazione indicazione in ViewBag.Indicazioni)
+                                {
+                                    <th scope="col">@indicazione.tipologia</th>
+                                }
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (Mapper.Models.fn_TabellaOsservazioni_Result item in ViewBag.TabellaGrafico)
+                            {
+                                <tr>
+                                    <th scope="row">@item.Azione</th>
+                                    <td>@(item.Prima_contatto_paziente.HasValue && item.Prima_contatto_paziente.Value > 0 ? @item.Prima_contatto_paziente.Value.ToString() : "")</td>
+                                    <td>@(item.Prima_di_manovra_di_asepsi.HasValue && item.Prima_di_manovra_di_asepsi.Value > 0 ? @item.Prima_di_manovra_di_asepsi.Value.ToString() : "")</td>
+                                    <td>@(item.Dopo_contatto_fluido.HasValue && item.Dopo_contatto_fluido.Value > 0 ? @item.Dopo_contatto_fluido.Value.ToString() : "")</td>
+                                    <td>@(item.Dopo_contatto_paziente.HasValue && item.Dopo_contatto_paziente.Value > 0 ? @item.Dopo_contatto_paziente.Value.ToString() : "")</td>
+                                    <td>@(item.Dopo_contatto_ambiente_.HasValue && item.Dopo_contatto_ambiente_.Value > 0 ? @item.Dopo_contatto_ambiente_.Value.ToString() : "")</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+
+

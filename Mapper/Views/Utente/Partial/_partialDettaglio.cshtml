@@ -1,0 +1,63 @@
+﻿@model Mapper.Models.Utente
+
+@Html.Partial("TempMessage")
+
+<div class="linkBackMax float-right">
+    <a href="@Url.Action("BackSearch","Utenti", null)"><svg class="icon icon-sm icon-primary mr-2"><use xlink:href="~/bootstrapitalia/svg/sprite.svg#it-arrow-left"></use></svg> Torna indietro</a>
+</div>
+<br class="linkBackMax" />
+
+<div>
+    @Html.HiddenFor(m => m.id)
+    @Html.HiddenFor(m => m.username)
+    @Html.HiddenFor(m => m.cognome)
+    @Html.HiddenFor(m => m.nome)
+    @Html.HiddenFor(m => m.email)
+    
+    <h3>@Model.nome  @Model.cognome</h3>
+    <h4>Username: @Model.username</h4>
+    <br />
+    @Html.LabelFor(model => model.CodiceFiscale, "CodiceFiscale", new { @class = "control-label" })
+    @Html.TextBoxFor(m => m.CodiceFiscale, htmlAttributes: new { @maxlength = "16", @class = "form-control" })
+    <br />
+
+    <div class="form-row">
+        <div>
+            <div class="form-check">
+                <input id="isCancellato" type="checkbox" @(Model.cancellato == true ? "checked" : "")>
+                <label for="isCancellato">Cancellato</label>
+                @Html.Hidden("cancellato")
+            </div>
+        </div>
+    </div>
+    <br />
+    <br />
+    <div class="form-row form-group bootstrap-select-wrapper">
+        @Html.LabelFor(model => model.idRuolo, "Profilo", new { @class = "control-label" })
+        @Html.DropDownListFor(model => model.idRuolo, (IEnumerable<SelectListItem>)ViewBag.Profilo, null, htmlAttributes: new { @class = "form-control", data_show_subtext = "true", data_live_search = "true", aria_label = "Profilo" })
+        @Html.ValidationMessageFor(model => model.idRuolo, null, new { @class = "text-danger" })
+    </div>
+
+    <button id="btnAggiungi" class="btn btnNuovo btn-icon" alt="Aggiungi struttura" title="Aggiungi struttura" formaction='@Url.Action("Edit2", "Utente" )' formmethod="post">
+        <span class="rounded-icon">
+            <svg class="icon icon-primary">
+                <use xlink:href="~/bootstrapitalia/svg/sprite.svg#it-plus"></use>
+            </svg>
+        </span>
+        <span>Associa</span>
+    </button>
+    <br />
+
+    @Html.Partial("Partial/_partialUtenteStrutture")
+    <br />
+    <button name="btnSalva" id="btnSalva" type="submit" title="Salva" class="btn btnSalva btn-icon">
+        <span class="rounded-icon">
+            <svg class="icon icon-primary">
+                <use xlink:href="~/bootstrapitalia/svg/sprite.svg#it-check"></use>
+            </svg>
+        </span>
+        <span>Salva</span>
+    </button>
+
+</div>
+

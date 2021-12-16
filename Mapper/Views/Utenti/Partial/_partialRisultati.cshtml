@@ -1,0 +1,67 @@
+﻿@model Mapper.Models.UtenteManager
+
+@using PagedList.Mvc;
+
+@if (Model != null)
+{
+    if (Model.UtentiPaged == null || Model.TotaleUtenti == 0)
+    {
+        <div class="form-group col">
+            <div class="alert alert-warning" role="alert">
+                <h4>Attenzione</h4> Nessun risultato trovato.
+            </div>
+        </div>
+    }
+    else
+    {
+        <h3>Ho trovato @Model.TotaleUtenti risultati</h3>
+        <br />
+        foreach (Mapper.Models.Utente item in Model.UtentiPaged)
+        {
+
+            <div class="row">
+                <div class="col-12">
+                    <!--start card-->
+                    <div class="card-wrapper card-space">
+                        <div class="card card-bg no-after">
+                            <div class="card-body">
+                                <h5 class="card-title">
+                                    @item.Ruoli.nome
+                                    &nbsp; &nbsp;
+                                </h5>
+                                <p class="card-text">
+                                    <img src="~/Content/Image/Account.png" /> @item.nome @item.cognome
+                                    &nbsp; &nbsp;
+
+                                </p>
+                                <div class="it-card-footer">
+                                    <a href='@Url.Action("Edit", "Utente", new { idUtente = item.id })' title="Vai ai dettagli" class="btn btnDettaglio btn-sm float-right"><i class="fas fa-filter" style="text-decoration:none"></i> Vai al dettaglio</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--end card-->
+                </div>
+            </div>
+        }
+        if (@Model.PageCount > 1)
+        {
+            <nav class="pagination-wrapper pagination-total">
+                Pagina @(Model.PageCount < Model.CurrentPage ? 0 : Model.CurrentPage) di @Model.PageCount
+                @Html.PagedListPager(Model.UtentiPaged, page => Url.Action("CambiaPagina", new { page = page }), new PagedListRenderOptions
+                   {
+                       LiElementClasses = new string[] { "page-item" },
+                       MaximumPageNumbersToDisplay = 10
+                    })
+            </nav>
+        }
+    }
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $(".collapse").collapse('hide');
+        })
+
+    </script>
+}
+

@@ -1,0 +1,9 @@
+﻿@model Exception
+@{
+    ViewBag.isHome = true;
+    ViewBag.Title = "Mapper - Errore";
+    ViewBag.TitleMin = "Errore";
+    ViewBag.PathBack = "";
+    //Layout = "~/Views/Shared/_Layout.cshtml";
+    }
+@Html.Partial("_partialViewError", Model)

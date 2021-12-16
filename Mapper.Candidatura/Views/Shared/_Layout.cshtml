@@ -1,0 +1,291 @@
+﻿<!DOCTYPE html>
+@{
+    if (ViewBag.Title == null)
+    {
+        ViewBag.Title = "Mapper";
+    }
+}
+<html xmlns="http://www.w3.org/1999/xhtml" lang="it">
+<head id="Head1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>
+        @ViewBag.Title
+    </title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="~/bootstrapitalia/css/bootstrap-italia.min.css" />
+    <link rel="stylesheet" href="~/bootstrapitalia/css/bootstrap-rer.css" />
+    <script>window.__PUBLIC_PATH__ = '/Mapper.Candidatura/bootstrapitalia/fonts'</script>
+    <script src="~/Scripts/jquery-3.5.1.min.js"></script>
+    <script src="~/Scripts/umd/popper.min.js"></script>
+    <script src="~/Scripts/bootstrap-select.min.js"></script>
+    <link href="~/Content/ExtraStyles.css" rel="stylesheet" type="text/css" />
+    <script src="~/Scripts/bootbox.js"></script>
+
+    @Scripts.Render("~/bundles/modernizr")
+    <style>
+        .icon.icon-captcha {
+            width: 128px;
+        }
+
+            .icon.icon-captcha.icon-padded {
+                padding: 16px
+            }
+
+        #divTitle {
+            display: none;
+            color: white;
+        }
+
+        #linkBackMin {
+            display: none;
+        }
+
+        .linkBackMax {
+            display: inline-block;
+        }
+
+        @@media screen and (max-width: 992px) {
+
+            .it-header-wrapper {
+                display: none;
+            }
+
+            #divTitle {
+                color: white;
+                display: inline-block;
+                padding: 8px 0px 0px 0px;
+            }
+
+            #linkBackMin {
+                display: inline-block;
+            }
+
+            .linkBackMax {
+                display: none;
+            }
+
+            .navbar {
+                padding: 0px 0px 0px 0px;
+            }
+        }
+    </style>
+
+</head>
+<body>
+    <script type="text/javascript">
+        var x = document.getElementsByTagName("body");
+        var i;
+        for (i = 0; i < x.length; i++) {
+            x[i].className = "t-Pac c-hideFocus enhanced";
+        }
+    </script>
+    <div class="skiplinks">
+        <a class="sr-only sr-only-focusable" href="#content" accesskey="k">Vai al contenuto principale</a>
+    </div>
+    <header class="it-header-wrapper">
+        <div class="it-header-slim-wrapper">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="it-header-slim-wrapper-content">
+                            <a class="d-lg-block navbar-brand" href="http://www.regione.emilia-romagna.it">Regione Emilia-Romagna</a>
+                        </div>
+                        <div id="logout">
+                            <a id="logout-link" href="#">ESCI</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="it-nav-wrapper">
+            <div class="it-header-center-wrapper">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="it-header-center-content-wrapper">
+                                <div class="it-brand-wrapper d-flex flex-row bd-highlight mb-2">
+                                    <div class="Header-logo bd-highlight">
+                                        <a href="http://www.regione.emilia-romagna.it" tabindex="-1" id="logo-link">
+                                            <img id="imgLogo" src="~/img/Mapper2.png" alt="Vai alla Home page - Logo Regione Emilia-Romagna">
+                                        </a>
+                                    </div>
+                                    <div class="Header-title p-4 bd-highlight">
+                                        <a id="header-link" href="https://www.regione.emilia-romagna.it">
+                                            <h2 class="Header-titleLink no_toc" style="">
+                                                <span id="header-title">@ViewBag.Title</span>
+                                                <span id="header-subtitle" class="subtitle"></span>
+                                            </h2>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    <div class="it-header-navbar-wrapper sticky-top">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <nav class="navbar navbar-expand-lg has-megamenu" id="Header-navbar">
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="navbar navbar-collapse collapse">
+        <div class="u-layout-wide u-layoutCenter">
+            <div class="navbar-collapse collapse">
+            </div>
+        </div>
+    </div>
+    <div id="main" class="u-layout-wide u-layoutCenter u-layout-r-withGutter">
+        <a id="contentbegin"></a>
+        <nav class="breadcrumb-container" aria-label="sei qui:" role="navigation">
+            <ul class="breadcrumb light mx-auto">
+                <li id="breadcrumbs-home" class="breadcrumb-item">
+                    <a id="breadcrumbs-homelink" href="http://www.regione.emilia-romagna.it" title="Home page"><span class="fas fa-home"></span><span class="sr-only">Home page</span></a>
+                </li>
+                @Html.Raw(Html.BuildBreadcrumbNavigation((String)ViewBag.Title))
+            </ul>
+        </nav>
+        <div id="content">
+            <div class="container my-4">
+                <div class="contenuti_pagine_interne">
+                    <a href="#" aria-hidden="true" data-attribute="back-to-top" class="back-to-top" id="example">
+                        <svg class="icon icon-light">
+                            <use xlink:href="~/bootstrapitalia/svg/sprite.svg#it-arrow-up"></use>
+                        </svg>
+                    </a>
+                    @RenderBody()
+                </div>
+            </div>
+        </div>
+        <hr />
+    </div>
+    <footer class="it-footer">
+        <div class="it-footer-main">
+            <div class="container">
+                <section>
+                    <div class="row clearfix">
+                        <div class="col-sm-12">
+                            <div class="it-brand-wrapper">
+                                <img src="~/img/marchio-rer-w.png" alt="Regione Emilia-Romagna" class="image-inline" id="logo-footer" />
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section class="py-4">
+                    <div class="row">
+                        <div class="col-sm pb-2 text-white">
+                            <h4>Recapiti</h4>
+                            <p>
+                                <strong>Regione Emilia-Romagna</strong>
+                                <br>
+                                Viale Aldo Moro, 52
+                                <br>
+                                40127 Bologna
+                                <br>
+                                <strong>Centralino </strong><a class="list-item" href="tel:+39.0515271">051 5271</a>
+                                <br /><a class="list-item" href="http://wwwservizi.regione.emilia-romagna.it/Cercaregione/Default.aspx?cons=0">Cerca telefoni o indirizzi</a>
+                            </p>
+                        </div>
+
+                        <div class="col-sm pb-2">
+                            <h4>
+                                <span title="Ufficio relazioni con il pubblico">URP</span>
+                            </h4>
+                            <div class="link-list-wrapper">
+                                <p>
+                                    <strong>Sito web: </strong><a class="list-item" href="http://www.regione.emilia-romagna.it/urp/">www.regione.emilia-romagna.it/urp</a>
+                                    <br />
+                                    <strong>Numero verde:</strong> <a class="list-item" href="tel:+39.800662200">800.66.22.00</a>
+                                    <br />
+                                    <strong>Scrivici:</strong>
+                                    <a class="list-item" href="mailto:urp@regione.emilia-romagna.it">e-mail</a> - <a class="list-item" href="mailto:urp@postacert.regione.emilia-romagna.it">PEC</a>
+                            </div>
+                        </div>
+                        <div class="col-sm pb-2 text-white">
+                            <h4>Trasparenza</h4>
+                            <div class="link-list-wrapper">
+                                <ul class="footer-list link-list clearfix">
+                                    <li><a href="http://trasparenza.regione.emilia-romagna.it/">Amministrazione trasparente</a></li>
+                                    <li><a href="http://www.regione.emilia-romagna.it/note-legali">Note legali e copyright</a></li>
+                                    <li><a href="https://www.regione.emilia-romagna.it/privacy">Privacy e Cookies</a></li>
+                                    <li><a href="https://www.regione.emilia-romagna.it/accessibilita">Dichiarazione di accessibilit&agrave;</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+        <div class="it-footer-small-prints clearfix">
+        </div>
+    </footer>
+
+    <script type="text/javascript">
+        function SetOverlay(showOverlay, overlayID) {
+            if (showOverlay == true)
+                jQuery('#overlay').fadeIn(200);
+            else
+                jQuery('#overlay').fadeOut(200);
+        }
+        function errorFunc(jqXHR, exception) {
+            var msg = '';
+            if (jqXHR.status === 0) {
+                msg = 'Not connect.\n Verify Network.';
+            } else if (jqXHR.status == 404) {
+                msg = 'Requested page not found. [404]';
+            } else if (jqXHR.status == 500) {
+                msg = 'Internal Server Error [500].';
+            } else if (exception === 'parsererror') {
+                msg = 'Requested JSON parse failed.';
+            } else if (exception === 'timeout') {
+                msg = 'Time out error.';
+            } else if (exception === 'abort') {
+                msg = 'Ajax request aborted.';
+            } else {
+                msg = 'Uncaught Error.\n' + jqXHR.responseText;
+            }
+            SetOverlay(false);
+            alert(msg);
+        }
+
+        function BootstapConfirm(msg, controlID, titolo) {
+            if (confirmed) { return true; }
+            bootbox.confirm({
+                title: titolo,
+                message: msg,
+                buttons: {
+                    confirm: { label: 'OK' },
+                    cancel: { label: 'Annulla' }
+                },
+                backdrop: false,
+                callback: function (result) {
+                    if (result) {
+                        if (controlID != null) {
+                            var controlToClick = document.getElementById(controlID);
+                            if (controlToClick != null) {
+                                confirmed = true;
+                                controlToClick.click();
+                                confirmed = false;
+                            }
+                        }
+                    }
+                }
+            });
+            return false;
+        }
+    </script>
+    <script type="text/javascript" src="~/bootstrapitalia/js/bootstrap-italia.bundle.min.js"></script>
+    <script defer src="~/fontawesome/v5.11.2/js/all.js"></script>
+    <script defer src="~/fontawesome/v5.11.2/js/v4-shims.js"></script>
+    <script type="text/javascript" src="~/Scripts/bootbox.js"></script>
+    <script type="text/javascript" src="~/Scripts/functions.js"></script>
+    @RenderSection("Scripts", false)
+</body>
+</html>

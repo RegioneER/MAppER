@@ -1,0 +1,32 @@
+﻿@model Mapper.Models.Utente
+@{
+    ViewBag.Title = "Mapper - Dettaglio Utente";
+    ViewBag.TitleMin = "Dettaglio Utente";
+    ViewBag.isHome = false;
+    ViewBag.PathBack = "Utenti/BackSearch";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.Partial("Partial/_partialDettaglio")
+    <br />
+}
+
+@Html.Partial("Partial/Scripts/_partialScripts")
+
+@section scripts{
+    @Scripts.Render("~/bundles/jqueryval")
+}
+
+
+
+
+
+
+
+
+
+
+

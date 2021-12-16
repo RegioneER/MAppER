@@ -1,0 +1,26 @@
+﻿@model Mapper.Models.Osservazione
+
+@{
+    ViewBag.Title = "Mapper - Nuovo Operatore (Scheda n." + Model.idScheda + ")";
+    ViewBag.TitleMin = "Nuovo Operatore";
+    ViewBag.isHome = false;
+    ViewBag.PathBack = "Scheda/Edit?idScheda=" + Model.idScheda;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.Partial("Partial/_partialDettaglio")
+    <br />
+    @Html.Partial("Partial/_partialGrafico")
+    <br />
+    @Html.Partial("Partial/_partialOpportunita")
+}
+
+
+@Html.Partial("Partial/Scripts/_partialScripts")
+
+@section scripts{
+    @Scripts.Render("~/bundles/jqueryval")
+}

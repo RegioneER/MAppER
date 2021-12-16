@@ -1,0 +1,74 @@
+﻿@model Mapper.Models.Osservazione
+
+@Html.Partial("TempMessage")
+
+@{
+    bool disabilita = Model.Scheda != null && (Model.Scheda.idStatoSessione == (int)Mapper.Models.StatoSessione.Stato.Consolidata || Model.Scheda.idStatoSessione == (int)Mapper.Models.StatoSessione.Stato.Cancellata);
+    string esterno = Model.operatoreEsterno == true ? "checked" : "";
+    string aria = Model.id == 0 ? "true" : "false";
+    string collapse = Model.id == 0 ? "show" : "";
+}
+
+@Html.HiddenFor(model => model.id, new { Value = ViewBag.id })
+@Html.HiddenFor(model => model.idScheda)
+<div class="linkBackMax float-right">
+    <a href="@Url.Action("Edit","Scheda", new { idScheda = Model.idScheda})" alt="Torna indietro"><svg class="icon icon-sm icon-primary mr-2"><use xlink:href="~/bootstrapitalia/svg/sprite.svg#it-arrow-left"></use></svg> Torna indietro</a>
+</div>
+<br class="linkBackMax" />
+<div id="collapseDiv1-sc1" class="collapse-div collapse-background-active" role="tablist">
+    <div class="collapse-header" id="heading1-sc1">
+        <button data-toggle="collapse" data-target="#collapse1-sc1" aria-expanded="@aria" aria-controls="collapse1-sc1" type="button">
+            Mostra/Nascondi dettaglio operatore
+        </button>
+    </div>
+    <div id="collapse1-sc1" class="collapse @collapse" role="tabpanel" aria-labelledby="heading1-sc1">
+        <div class="collapse-body">
+            <br />
+            <div class="row form-group bootstrap-select-wrapper">
+                <label class="control-label" for="idOperatore">Categoria</label>
+                @Html.DropDownListFor(m => m.idOperatore, (IEnumerable<SelectListItem>)ViewBag.Operatore, " -- Seleziona una categoria --", htmlAttributes: new { @class = "form-control", data_show_subtext = "true", data_live_search = "true" }).SetDisabled(@disabilita)
+                @Html.ValidationMessageFor(m => m.idOperatore, null, new { @class = "text-danger" })
+            </div>
+            <div class="form-check col-2">
+                <div class="toggles">
+                    <label for="Esterno">
+                        Esterno
+                        <input type="checkbox" id="Esterno" name="Esterno" @esterno @(disabilita == true ? "disabled" : "")>
+                        <span class="lever"></span>
+                    </label>
+                </div>
+            </div>
+            <br />
+            <div class="row col-lg-2">
+                <label class="control-label" for="numOperatori">Numero</label>
+                @Html.TextBoxFor(model => model.numOperatori, htmlAttributes: new { @class = "form-control" }).SetDisabled(@disabilita)
+                @Html.ValidationMessageFor(m => m.numOperatori, null, new { @class = "text-danger" })
+            </div>
+            <br />
+            @if (!disabilita)
+            {
+                <div class="d-flex justify-content-between">
+                    <button name="btnSalva" id="btnSalva" type="submit" title="Salva osservazione" class="btn btnSalva btn-icon">
+                        <span class="rounded-icon">
+                            <svg class="icon icon-primary">
+                                <use xlink:href="~/bootstrapitalia/svg/sprite.svg#it-check"></use>
+                            </svg>
+                        </span>
+                        <span>Salva</span>
+                    </button>
+                    @if (Model.id > 0 && Model.Scheda != null && Model.Scheda.idStatoSessione == (int)Mapper.Models.StatoSessione.Stato.InLavorazione)
+                    {
+                        <button id="btnElimina" onclick='if (BootstapConfirm("Sei sicuro di voler eliminare questa osservazione? Una eliminata non sarà più recuperabile.", this.id, "Conferma eliminazione")) { EliminaOsservazione("@Model.idScheda", "@Model.id")}' type="button" class="btn btnElimina btn-icon float-right" title="Elimina l'osservazione">
+                            <span class="rounded-icon">
+                                <svg class="icon icon-primary">
+                                    <use xlink:href="~/bootstrapitalia/svg/sprite.svg#it-close"></use>
+                                </svg>
+                            </span>
+                            <span>Elimina</span>
+                        </button>
+                    }
+                </div>
+            }
+        </div>
+    </div>
+</div>

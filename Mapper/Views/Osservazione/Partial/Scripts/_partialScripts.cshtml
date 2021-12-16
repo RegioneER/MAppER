@@ -1,0 +1,59 @@
+﻿<script type="text/javascript">
+
+     function EliminaOsservazione(idScheda, idOsservazione) {
+        $.ajax({
+            url: '@Url.Action("Delete", "Osservazione")',
+            type: "POST",
+            data: { IDScheda: idScheda, IDOsservazione: idOsservazione },
+            dataType: "JSON",
+            success: function (returnData) {
+                window.location = returnData.newurl;
+            }
+        });
+    }
+
+    $.ajax({
+                        type: "POST",
+                        url: '@Url.Action("CreateChart")',
+                        data: "{ idOsservazione: @Model.id }" ,
+                        contentType: "application/json; charset=utf-8",
+                        dataType: "json",
+        success: function (chData) {
+            var aData = chData;
+            var aLabels = aData[0];
+            var aDataAdesioni = aData[1];
+            var aDataNonAdesioni = aData[2];
+            var dataT = {
+                labels: ["Pre paziente", "Pre asepsi", "Dopo fluido", "Dopo paziente", "Dopo ambiente"],
+                datasets: [{
+                    label: "% adesioni",
+                    data: aDataAdesioni,
+                    backgroundColor: "green"
+                }, {
+                    label: "% non adesioni",
+                    data: aDataNonAdesioni,
+                    backgroundColor: "red"
+                }]
+            };
+            var ctx = $("#canvas").get(0).getContext("2d");
+            var myNewChart = new Chart(ctx, {
+                type: 'bar',
+                data: dataT
+                ,
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        xAxes: [{
+                            stacked: true
+                        }],
+                        yAxes: [{
+                            stacked: true
+                        }]
+                    }
+                }
+            });
+        }
+                    });
+
+</script>

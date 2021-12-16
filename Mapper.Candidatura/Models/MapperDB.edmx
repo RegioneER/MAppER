@@ -1,0 +1,963 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="MapperModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Ruoli">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nome" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="ordinale" Type="int" />
+        </EntityType>
+        <EntityType Name="StatoCandidatura">
+          <Key>
+            <PropertyRef Name="Codice" />
+          </Key>
+          <Property Name="Codice" Type="int" Nullable="false" />
+          <Property Name="Descrizione" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <!--Errori trovati durante la generazione:
+avviso 6002: Nessuna chiave primaria definita per la tabella/visualizzazione 'Mapper.dbo.TipologiaStruttura'. La chiave è stata dedotta e la definizione è stata creata come tabella/visualizzazione di sola lettura.-->
+        <EntityType Name="TipologiaStruttura">
+          <Key>
+            <PropertyRef Name="CodTipologia" />
+            <PropertyRef Name="Descrizione" />
+            <PropertyRef Name="IsAttivo" />
+            <PropertyRef Name="Ordinale" />
+          </Key>
+          <Property Name="CodTipologia" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Descrizione" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="TipoEnte" Type="nvarchar" MaxLength="10" />
+          <Property Name="IsAttivo" Type="bit" Nullable="false" />
+          <Property Name="Ordinale" Type="int" Nullable="false" />
+          <Property Name="CodAreaDisciplina" Type="int" />
+        </EntityType>
+        <EntityType Name="Utente">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="username" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="nome" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="cognome" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="email" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="idRuolo" Type="int" Nullable="false" />
+          <Property Name="attivato" Type="bit" Nullable="false" />
+          <Property Name="cancellato" Type="bit" Nullable="false" />
+          <Property Name="CodiceFiscale" Type="varchar" MaxLength="16" />
+        </EntityType>
+        <EntityType Name="UtenteDaCensire">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CodiceFiscale" Type="varchar" MaxLength="16" Nullable="false" />
+          <Property Name="CodRegione" Type="varchar" MaxLength="3" Nullable="false" />
+          <Property Name="CodAzienda" Type="varchar" MaxLength="3" Nullable="false" />
+          <Property Name="Cognome" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Nome" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Email" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Pubblico" Type="bit" Nullable="false" />
+          <Property Name="IdRuolo" Type="int" Nullable="false" />
+          <Property Name="IdStato" Type="int" Nullable="false" />
+          <Property Name="DataCandidatura" Type="datetime" Nullable="false" />
+          <Property Name="KeyStruttura" Type="varchar" MaxLength="61" Nullable="false" />
+          <Property Name="IndirizzoIPCandidatura" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="UtenteStruttura">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="idUtente" Type="int" Nullable="false" />
+          <Property Name="codRegione" Type="varchar" MaxLength="3" Nullable="false" />
+          <Property Name="codAzienda" Type="varchar" MaxLength="3" />
+          <Property Name="idStrutturaErogatrice" Type="int" />
+          <Property Name="idWebServiceStruttura" Type="int" />
+          <Property Name="idReparto" Type="int" />
+          <Property Name="idWebServiceReparto" Type="int" />
+          <Property Name="dataDal" Type="datetime" Nullable="false" />
+          <Property Name="dataAl" Type="datetime" />
+        </EntityType>
+        <!--Errori trovati durante la generazione:
+avviso 6002: Nessuna chiave primaria definita per la tabella/visualizzazione 'Mapper.dbo.vwAreaDisciplina'. La chiave è stata dedotta e la definizione è stata creata come tabella/visualizzazione di sola lettura.-->
+        <EntityType Name="vwAreaDisciplina">
+          <Key>
+            <PropertyRef Name="CodAreaDisciplina" />
+            <PropertyRef Name="Nome" />
+            <PropertyRef Name="Ordinale" />
+          </Key>
+          <Property Name="CodAreaDisciplina" Type="int" Nullable="false" />
+          <Property Name="Nome" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Descrizione" Type="varchar" MaxLength="1000" />
+          <Property Name="Ordinale" Type="int" Nullable="false" />
+        </EntityType>
+        <!--Errori trovati durante la generazione:
+avviso 6002: Nessuna chiave primaria definita per la tabella/visualizzazione 'Mapper.dbo.vwAzienda'. La chiave è stata dedotta e la definizione è stata creata come tabella/visualizzazione di sola lettura.-->
+        <EntityType Name="vwAzienda">
+          <Key>
+            <PropertyRef Name="CodRegione" />
+            <PropertyRef Name="CodAzienda" />
+            <PropertyRef Name="DataInizio" />
+          </Key>
+          <Property Name="CodRegione" Type="varchar" MaxLength="3" Nullable="false" />
+          <Property Name="CodAzienda" Type="varchar" MaxLength="3" Nullable="false" />
+          <Property Name="Denominazione" Type="varchar" MaxLength="1026" />
+          <Property Name="DataInizio" Type="date" Nullable="false" />
+          <Property Name="DataFine" Type="date" />
+          <Property Name="KeyAzienda" Type="varchar" MaxLength="34" />
+        </EntityType>
+        <!--Errori trovati durante la generazione:
+avviso 6002: Nessuna chiave primaria definita per la tabella/visualizzazione 'Mapper.dbo.vwRegione'. La chiave è stata dedotta e la definizione è stata creata come tabella/visualizzazione di sola lettura.-->
+        <EntityType Name="vwRegione">
+          <Key>
+            <PropertyRef Name="CodRegione" />
+            <PropertyRef Name="Denominazione" />
+          </Key>
+          <Property Name="CodRegione" Type="varchar" MaxLength="3" Nullable="false" />
+          <Property Name="Denominazione" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <!--Errori trovati durante la generazione:
+avviso 6002: Nessuna chiave primaria definita per la tabella/visualizzazione 'Mapper.dbo.vwReparto'. La chiave è stata dedotta e la definizione è stata creata come tabella/visualizzazione di sola lettura.-->
+        <EntityType Name="vwReparto">
+          <Key>
+            <PropertyRef Name="IdWebServiceReparto" />
+            <PropertyRef Name="IdReparto" />
+            <PropertyRef Name="IdStrutturaErogatrice" />
+            <PropertyRef Name="DataRiferimentoStruttura" />
+            <PropertyRef Name="idWebServiceStruttura" />
+            <PropertyRef Name="DataInizio" />
+            <PropertyRef Name="NomeOriginale" />
+            <PropertyRef Name="CodRegione" />
+            <PropertyRef Name="CodAzienda" />
+            <PropertyRef Name="CodiceTipologiaStruttura" />
+            <PropertyRef Name="CodTipoAnagrafeRegionale" />
+            <PropertyRef Name="Stato" />
+          </Key>
+          <Property Name="IdWebServiceReparto" Type="int" Nullable="false" />
+          <Property Name="IdReparto" Type="int" Nullable="false" />
+          <Property Name="KeyReparto" Type="varchar" MaxLength="61" />
+          <Property Name="IdStrutturaErogatrice" Type="int" Nullable="false" />
+          <Property Name="DataRiferimentoStruttura" Type="date" Nullable="false" />
+          <Property Name="idWebServiceStruttura" Type="int" Nullable="false" />
+          <Property Name="keyStruttura" Type="varchar" MaxLength="61" />
+          <Property Name="keyStrutturaData" Type="varchar" MaxLength="92" />
+          <Property Name="DataInizio" Type="date" Nullable="false" />
+          <Property Name="DataFine" Type="date" />
+          <Property Name="NomeOriginale" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="Nome" Type="varchar" MaxLength="1000" />
+          <Property Name="Descrizione" Type="varchar" MaxLength="1000" />
+          <Property Name="CodDisciplina" Type="varchar" MaxLength="3" />
+          <Property Name="ProgressivoDivisione" Type="varchar" MaxLength="2" />
+          <Property Name="CodRegione" Type="varchar" MaxLength="3" Nullable="false" />
+          <Property Name="CodAzienda" Type="varchar" MaxLength="3" Nullable="false" />
+          <Property Name="CodiceTipologiaStruttura" Type="varchar" MaxLength="3" Nullable="false" />
+          <Property Name="CodTipoAnagrafeRegionale" Type="varchar" MaxLength="4" Nullable="false" />
+          <Property Name="codAreaDisciplina" Type="int" />
+          <Property Name="Cancellato" Type="bit" />
+          <Property Name="Stato" Type="int" Nullable="false" />
+        </EntityType>
+        <!--Errori trovati durante la generazione:
+avviso 6002: Nessuna chiave primaria definita per la tabella/visualizzazione 'Mapper.dbo.vwStruttura'. La chiave è stata dedotta e la definizione è stata creata come tabella/visualizzazione di sola lettura.-->
+        <EntityType Name="vwStruttura">
+          <Key>
+            <PropertyRef Name="idWebServiceStruttura" />
+            <PropertyRef Name="IdStrutturaErogatrice" />
+            <PropertyRef Name="DataRiferimentoStruttura" />
+            <PropertyRef Name="DataApertura" />
+            <PropertyRef Name="DenominazioneOriginale" />
+            <PropertyRef Name="CodRegione" />
+            <PropertyRef Name="CodAzienda" />
+            <PropertyRef Name="DataInizioAzienda" />
+            <PropertyRef Name="CodMin" />
+            <PropertyRef Name="SubCodMin" />
+            <PropertyRef Name="IdCodStruttura" />
+            <PropertyRef Name="CodTipoAnagrafeRegionale" />
+            <PropertyRef Name="CodiceTipologiaStruttura" />
+            <PropertyRef Name="CodMacroArea" />
+            <PropertyRef Name="DataInizioTipoAnagrafeRegionale" />
+            <PropertyRef Name="IdStrutturaFisica" />
+            <PropertyRef Name="DataInizioStrutturaFisica" />
+            <PropertyRef Name="TimeStampIns" />
+            <PropertyRef Name="TimeStampVar" />
+            <PropertyRef Name="Stato" />
+          </Key>
+          <Property Name="idWebServiceStruttura" Type="int" Nullable="false" />
+          <Property Name="IdStrutturaErogatrice" Type="int" Nullable="false" />
+          <Property Name="DataRiferimentoStruttura" Type="date" Nullable="false" />
+          <Property Name="KeyStruttura" Type="varchar" MaxLength="61" />
+          <Property Name="KeyStrutturaData" Type="varchar" MaxLength="92" />
+          <Property Name="DataFine" Type="date" />
+          <Property Name="DataApertura" Type="date" Nullable="false" />
+          <Property Name="DataChiusura" Type="date" />
+          <Property Name="Denominazione" Type="varchar" MaxLength="336" />
+          <Property Name="DenominazioneOriginale" Type="varchar" MaxLength="150" Nullable="false" />
+          <Property Name="CodRegione" Type="varchar" MaxLength="3" Nullable="false" />
+          <Property Name="CodAzienda" Type="varchar" MaxLength="3" Nullable="false" />
+          <Property Name="DataInizioAzienda" Type="date" Nullable="false" />
+          <Property Name="KeyAzienda" Type="varchar" MaxLength="34" />
+          <Property Name="CodMin" Type="varchar" MaxLength="6" Nullable="false" />
+          <Property Name="SubCodMin" Type="varchar" MaxLength="3" Nullable="false" />
+          <Property Name="IdCodStruttura" Type="int" Nullable="false" />
+          <Property Name="CodTipoAnagrafeRegionale" Type="varchar" MaxLength="4" Nullable="false" />
+          <Property Name="CodiceTipologiaStruttura" Type="varchar" MaxLength="3" Nullable="false" />
+          <Property Name="CodTipoStrutturaMinisteriale" Type="varchar" MaxLength="2" />
+          <Property Name="CodMacroArea" Type="int" Nullable="false" />
+          <Property Name="DataInizioTipoAnagrafeRegionale" Type="date" Nullable="false" />
+          <Property Name="PubblicoPrivato" Type="varchar" MaxLength="1" />
+          <Property Name="isPrivata" Type="bit" />
+          <Property Name="Indirizzo" Type="varchar" MaxLength="100" />
+          <Property Name="CapAggiuntivo" Type="varchar" MaxLength="5" />
+          <Property Name="IdStrutturaFisica" Type="int" Nullable="false" />
+          <Property Name="DataInizioStrutturaFisica" Type="date" Nullable="false" />
+          <Property Name="TimeStampIns" Type="datetime" Nullable="false" />
+          <Property Name="TimeStampVar" Type="datetime" Nullable="false" />
+          <Property Name="Stato" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_UtenteDaCensire_Ruoli">
+          <End Role="Ruoli" Type="Self.Ruoli" Multiplicity="1" />
+          <End Role="UtenteDaCensire" Type="Self.UtenteDaCensire" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Ruoli">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="UtenteDaCensire">
+              <PropertyRef Name="IdRuolo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UtenteDaCensire_StatoCandidatura">
+          <End Role="StatoCandidatura" Type="Self.StatoCandidatura" Multiplicity="1" />
+          <End Role="UtenteDaCensire" Type="Self.UtenteDaCensire" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="StatoCandidatura">
+              <PropertyRef Name="Codice" />
+            </Principal>
+            <Dependent Role="UtenteDaCensire">
+              <PropertyRef Name="IdStato" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UtenteStruttura_Utente">
+          <End Role="Utente" Type="Self.Utente" Multiplicity="1" />
+          <End Role="UtenteStruttura" Type="Self.UtenteStruttura" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Utente">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="UtenteStruttura">
+              <PropertyRef Name="idUtente" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Utenti_Ruoli">
+          <End Role="Ruoli" Type="Self.Ruoli" Multiplicity="1" />
+          <End Role="Utente" Type="Self.Utente" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Ruoli">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Utente">
+              <PropertyRef Name="idRuolo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="fn_TabellaAdesioni" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="idScheda" Type="int" Mode="In" />
+          <Parameter Name="idOsservazione" Type="int" Mode="In" />
+          <ReturnType>
+            <CollectionType>
+              <RowType>
+                <Property Name="Indicazione" Type="varchar" MaxLength="30" />
+                <Property Name="idIndicazione" Type="int" />
+                <Property Name="Adesioni" Type="int" />
+                <Property Name="NonAdesioni" Type="int" />
+                <Property Name="TotIndicazioni" Type="int" />
+                <Property Name="PercAdesione" Type="decimal" Precision="18" Scale="0" />
+                <Property Name="PercNonAdesione" Type="decimal" Precision="18" Scale="0" />
+              </RowType>
+            </CollectionType>
+          </ReturnType>
+        </Function>
+        <Function Name="fn_TabellaOsservazioni" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="idScheda" Type="int" Mode="In" />
+          <Parameter Name="idOsservazione" Type="int" Mode="In" />
+          <ReturnType>
+            <CollectionType>
+              <RowType>
+                <Property Name="Azione" Type="varchar" MaxLength="20" />
+                <Property Name="Prima contatto paziente" Type="int" />
+                <Property Name="Prima di manovra di asepsi" Type="int" />
+                <Property Name="Dopo contatto fluido" Type="int" />
+                <Property Name="Dopo contatto paziente" Type="int" />
+                <Property Name="Dopo contatto ambiente " Type="int" />
+              </RowType>
+            </CollectionType>
+          </ReturnType>
+        </Function>
+        <EntityContainer Name="MapperModelStoreContainer">
+          <EntitySet Name="Ruoli" EntityType="Self.Ruoli" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="StatoCandidatura" EntityType="Self.StatoCandidatura" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Utente" EntityType="Self.Utente" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UtenteDaCensire" EntityType="Self.UtenteDaCensire" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UtenteStruttura" EntityType="Self.UtenteStruttura" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TipologiaStruttura" EntityType="Self.TipologiaStruttura" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [TipologiaStruttura].[CodTipologia] AS [CodTipologia], 
+    [TipologiaStruttura].[Descrizione] AS [Descrizione], 
+    [TipologiaStruttura].[TipoEnte] AS [TipoEnte], 
+    [TipologiaStruttura].[IsAttivo] AS [IsAttivo], 
+    [TipologiaStruttura].[Ordinale] AS [Ordinale], 
+    [TipologiaStruttura].[CodAreaDisciplina] AS [CodAreaDisciplina]
+    FROM [dbo].[TipologiaStruttura] AS [TipologiaStruttura]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="vwAreaDisciplina" EntityType="Self.vwAreaDisciplina" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [vwAreaDisciplina].[CodAreaDisciplina] AS [CodAreaDisciplina], 
+    [vwAreaDisciplina].[Nome] AS [Nome], 
+    [vwAreaDisciplina].[Descrizione] AS [Descrizione], 
+    [vwAreaDisciplina].[Ordinale] AS [Ordinale]
+    FROM [dbo].[vwAreaDisciplina] AS [vwAreaDisciplina]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="vwAzienda" EntityType="Self.vwAzienda" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [vwAzienda].[CodRegione] AS [CodRegione], 
+    [vwAzienda].[CodAzienda] AS [CodAzienda], 
+    [vwAzienda].[Denominazione] AS [Denominazione], 
+    [vwAzienda].[DataInizio] AS [DataInizio], 
+    [vwAzienda].[DataFine] AS [DataFine], 
+    [vwAzienda].[KeyAzienda] AS [KeyAzienda]
+    FROM [dbo].[vwAzienda] AS [vwAzienda]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="vwRegione" EntityType="Self.vwRegione" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [vwRegione].[CodRegione] AS [CodRegione], 
+    [vwRegione].[Denominazione] AS [Denominazione]
+    FROM [dbo].[vwRegione] AS [vwRegione]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="vwReparto" EntityType="Self.vwReparto" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [vwReparto].[IdWebServiceReparto] AS [IdWebServiceReparto], 
+    [vwReparto].[IdReparto] AS [IdReparto], 
+    [vwReparto].[KeyReparto] AS [KeyReparto], 
+    [vwReparto].[IdStrutturaErogatrice] AS [IdStrutturaErogatrice], 
+    [vwReparto].[DataRiferimentoStruttura] AS [DataRiferimentoStruttura], 
+    [vwReparto].[idWebServiceStruttura] AS [idWebServiceStruttura], 
+    [vwReparto].[keyStruttura] AS [keyStruttura], 
+    [vwReparto].[keyStrutturaData] AS [keyStrutturaData], 
+    [vwReparto].[DataInizio] AS [DataInizio], 
+    [vwReparto].[DataFine] AS [DataFine], 
+    [vwReparto].[NomeOriginale] AS [NomeOriginale], 
+    [vwReparto].[Nome] AS [Nome], 
+    [vwReparto].[Descrizione] AS [Descrizione], 
+    [vwReparto].[CodDisciplina] AS [CodDisciplina], 
+    [vwReparto].[ProgressivoDivisione] AS [ProgressivoDivisione], 
+    [vwReparto].[CodRegione] AS [CodRegione], 
+    [vwReparto].[CodAzienda] AS [CodAzienda], 
+    [vwReparto].[CodiceTipologiaStruttura] AS [CodiceTipologiaStruttura], 
+    [vwReparto].[CodTipoAnagrafeRegionale] AS [CodTipoAnagrafeRegionale], 
+    [vwReparto].[codAreaDisciplina] AS [codAreaDisciplina], 
+    [vwReparto].[Cancellato] AS [Cancellato], 
+    [vwReparto].[Stato] AS [Stato]
+    FROM [dbo].[vwReparto] AS [vwReparto]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="vwStruttura" EntityType="Self.vwStruttura" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [vwStruttura].[idWebServiceStruttura] AS [idWebServiceStruttura], 
+    [vwStruttura].[IdStrutturaErogatrice] AS [IdStrutturaErogatrice], 
+    [vwStruttura].[DataRiferimentoStruttura] AS [DataRiferimentoStruttura], 
+    [vwStruttura].[KeyStruttura] AS [KeyStruttura], 
+    [vwStruttura].[KeyStrutturaData] AS [KeyStrutturaData], 
+    [vwStruttura].[DataFine] AS [DataFine], 
+    [vwStruttura].[DataApertura] AS [DataApertura], 
+    [vwStruttura].[DataChiusura] AS [DataChiusura], 
+    [vwStruttura].[Denominazione] AS [Denominazione], 
+    [vwStruttura].[DenominazioneOriginale] AS [DenominazioneOriginale], 
+    [vwStruttura].[CodRegione] AS [CodRegione], 
+    [vwStruttura].[CodAzienda] AS [CodAzienda], 
+    [vwStruttura].[DataInizioAzienda] AS [DataInizioAzienda], 
+    [vwStruttura].[KeyAzienda] AS [KeyAzienda], 
+    [vwStruttura].[CodMin] AS [CodMin], 
+    [vwStruttura].[SubCodMin] AS [SubCodMin], 
+    [vwStruttura].[IdCodStruttura] AS [IdCodStruttura], 
+    [vwStruttura].[CodTipoAnagrafeRegionale] AS [CodTipoAnagrafeRegionale], 
+    [vwStruttura].[CodiceTipologiaStruttura] AS [CodiceTipologiaStruttura], 
+    [vwStruttura].[CodTipoStrutturaMinisteriale] AS [CodTipoStrutturaMinisteriale], 
+    [vwStruttura].[CodMacroArea] AS [CodMacroArea], 
+    [vwStruttura].[DataInizioTipoAnagrafeRegionale] AS [DataInizioTipoAnagrafeRegionale], 
+    [vwStruttura].[PubblicoPrivato] AS [PubblicoPrivato], 
+    [vwStruttura].[isPrivata] AS [isPrivata], 
+    [vwStruttura].[Indirizzo] AS [Indirizzo], 
+    [vwStruttura].[CapAggiuntivo] AS [CapAggiuntivo], 
+    [vwStruttura].[IdStrutturaFisica] AS [IdStrutturaFisica], 
+    [vwStruttura].[DataInizioStrutturaFisica] AS [DataInizioStrutturaFisica], 
+    [vwStruttura].[TimeStampIns] AS [TimeStampIns], 
+    [vwStruttura].[TimeStampVar] AS [TimeStampVar], 
+    [vwStruttura].[Stato] AS [Stato]
+    FROM [dbo].[vwStruttura] AS [vwStruttura]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="FK_UtenteDaCensire_Ruoli" Association="Self.FK_UtenteDaCensire_Ruoli">
+            <End Role="Ruoli" EntitySet="Ruoli" />
+            <End Role="UtenteDaCensire" EntitySet="UtenteDaCensire" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UtenteDaCensire_StatoCandidatura" Association="Self.FK_UtenteDaCensire_StatoCandidatura">
+            <End Role="StatoCandidatura" EntitySet="StatoCandidatura" />
+            <End Role="UtenteDaCensire" EntitySet="UtenteDaCensire" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UtenteStruttura_Utente" Association="Self.FK_UtenteStruttura_Utente">
+            <End Role="Utente" EntitySet="Utente" />
+            <End Role="UtenteStruttura" EntitySet="UtenteStruttura" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Utenti_Ruoli" Association="Self.FK_Utenti_Ruoli">
+            <End Role="Ruoli" EntitySet="Ruoli" />
+            <End Role="Utente" EntitySet="Utente" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="MapperModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="Entities" annotation:LazyLoadingEnabled="true">
+          <FunctionImport Name="fn_TabellaOsservazioni" IsComposable="true" ReturnType="Collection(MapperModel.fn_TabellaOsservazioni_Result)">
+            <Parameter Name="idScheda" Mode="In" Type="Int32" />
+            <Parameter Name="idOsservazione" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="fn_TabellaAdesioni" IsComposable="true" ReturnType="Collection(MapperModel.fn_TabellaAdesioni_Result)">
+            <Parameter Name="idScheda" Mode="In" Type="Int32" />
+            <Parameter Name="idOsservazione" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <EntitySet Name="vwAreaDisciplina" EntityType="MapperModel.vwAreaDisciplina" />
+          <EntitySet Name="vwAzienda" EntityType="MapperModel.vwAzienda" />
+          <EntitySet Name="vwRegione" EntityType="MapperModel.vwRegione" />
+          <EntitySet Name="vwReparto" EntityType="MapperModel.vwReparto" />
+          <EntitySet Name="vwStruttura" EntityType="MapperModel.vwStruttura" />
+          <EntitySet Name="StatoCandidatura" EntityType="MapperModel.StatoCandidatura" />
+          <EntitySet Name="Ruoli" EntityType="MapperModel.Ruoli" />
+          <EntitySet Name="UtenteDaCensire" EntityType="MapperModel.UtenteDaCensire" />
+          <AssociationSet Name="FK_UtenteDaCensire_Ruoli" Association="MapperModel.FK_UtenteDaCensire_Ruoli">
+            <End Role="Ruoli" EntitySet="Ruoli" />
+            <End Role="UtenteDaCensire" EntitySet="UtenteDaCensire" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UtenteDaCensire_StatoCandidatura" Association="MapperModel.FK_UtenteDaCensire_StatoCandidatura">
+            <End Role="StatoCandidatura" EntitySet="StatoCandidatura" />
+            <End Role="UtenteDaCensire" EntitySet="UtenteDaCensire" />
+          </AssociationSet>
+          <EntitySet Name="Utente" EntityType="MapperModel.Utente" />
+          <EntitySet Name="UtenteStruttura" EntityType="MapperModel.UtenteStruttura" />
+          <AssociationSet Name="FK_Utenti_Ruoli" Association="MapperModel.FK_Utenti_Ruoli">
+            <End Role="Ruoli" EntitySet="Ruoli" />
+            <End Role="Utente" EntitySet="Utente" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UtenteStruttura_Utente" Association="MapperModel.FK_UtenteStruttura_Utente">
+            <End Role="Utente" EntitySet="Utente" />
+            <End Role="UtenteStruttura" EntitySet="UtenteStruttura" />
+          </AssociationSet>
+          <EntitySet Name="TipologiaStruttura" EntityType="MapperModel.TipologiaStruttura" />
+          </EntityContainer>
+        <ComplexType Name="fn_TabellaOsservazioni_Result">
+          <Property Type="String" Name="Azione" Nullable="true" MaxLength="20" />
+          <Property Type="Int32" Name="Prima_contatto_paziente" Nullable="true" />
+          <Property Type="Int32" Name="Prima_di_manovra_di_asepsi" Nullable="true" />
+          <Property Type="Int32" Name="Dopo_contatto_fluido" Nullable="true" />
+          <Property Type="Int32" Name="Dopo_contatto_paziente" Nullable="true" />
+          <Property Type="Int32" Name="Dopo_contatto_ambiente_" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="fn_TabellaAdesioni_Result">
+          <Property Type="Int32" Name="idIndicazione" Nullable="true" />
+          <Property Type="String" Name="Indicazione" Nullable="true" MaxLength="20" />
+          <Property Type="Int32" Name="Adesioni" Nullable="true" />
+          <Property Type="Int32" Name="NonAdesioni" Nullable="true" />
+          <Property Type="Int32" Name="TotIndicazioni" Nullable="true" />
+          <Property Type="Decimal" Name="PercAdesione" Nullable="true" Precision="18" Scale="0" />
+          <Property Type="Decimal" Name="PercNonAdesione" Nullable="true" Precision="18" Scale="0" />
+        </ComplexType>
+        <EntityType Name="vwAreaDisciplina">
+          <Key>
+            <PropertyRef Name="CodAreaDisciplina" />
+            <PropertyRef Name="Nome" />
+            <PropertyRef Name="Ordinale" />
+          </Key>
+          <Property Name="CodAreaDisciplina" Type="Int32" Nullable="false" />
+          <Property Name="Nome" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Descrizione" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
+          <Property Name="Ordinale" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="vwAzienda">
+          <Key>
+            <PropertyRef Name="CodRegione" />
+            <PropertyRef Name="CodAzienda" />
+            <PropertyRef Name="DataInizio" />
+          </Key>
+          <Property Name="CodRegione" Type="String" Nullable="false" MaxLength="3" FixedLength="false" Unicode="false" />
+          <Property Name="CodAzienda" Type="String" Nullable="false" MaxLength="3" FixedLength="false" Unicode="false" />
+          <Property Name="Denominazione" Type="String" MaxLength="1026" FixedLength="false" Unicode="false" />
+          <Property Name="DataInizio" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="DataFine" Type="DateTime" Precision="0" />
+          <Property Name="KeyAzienda" Type="String" MaxLength="34" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="vwRegione">
+          <Key>
+            <PropertyRef Name="CodRegione" />
+            <PropertyRef Name="Denominazione" />
+          </Key>
+          <Property Name="CodRegione" Type="String" Nullable="false" MaxLength="3" FixedLength="false" Unicode="false" />
+          <Property Name="Denominazione" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="vwReparto">
+          <Key>
+            <PropertyRef Name="IdWebServiceReparto" />
+            <PropertyRef Name="IdReparto" />
+            <PropertyRef Name="IdStrutturaErogatrice" />
+            <PropertyRef Name="DataRiferimentoStruttura" />
+            <PropertyRef Name="idWebServiceStruttura" />
+            <PropertyRef Name="DataInizio" />
+            <PropertyRef Name="NomeOriginale" />
+            <PropertyRef Name="CodRegione" />
+            <PropertyRef Name="CodAzienda" />
+            <PropertyRef Name="CodiceTipologiaStruttura" />
+            <PropertyRef Name="CodTipoAnagrafeRegionale" />
+            <PropertyRef Name="Stato" />
+          </Key>
+          <Property Name="IdWebServiceReparto" Type="Int32" Nullable="false" />
+          <Property Name="IdReparto" Type="Int32" Nullable="false" />
+          <Property Name="KeyReparto" Type="String" MaxLength="61" FixedLength="false" Unicode="false" />
+          <Property Name="IdStrutturaErogatrice" Type="Int32" Nullable="false" />
+          <Property Name="DataRiferimentoStruttura" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="idWebServiceStruttura" Type="Int32" Nullable="false" />
+          <Property Name="keyStruttura" Type="String" MaxLength="61" FixedLength="false" Unicode="false" />
+          <Property Name="keyStrutturaData" Type="String" MaxLength="92" FixedLength="false" Unicode="false" />
+          <Property Name="DataInizio" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="DataFine" Type="DateTime" Precision="0" />
+          <Property Name="NomeOriginale" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Nome" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
+          <Property Name="Descrizione" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
+          <Property Name="CodDisciplina" Type="String" MaxLength="3" FixedLength="false" Unicode="false" />
+          <Property Name="ProgressivoDivisione" Type="String" MaxLength="2" FixedLength="false" Unicode="false" />
+          <Property Name="CodRegione" Type="String" Nullable="false" MaxLength="3" FixedLength="false" Unicode="false" />
+          <Property Name="CodAzienda" Type="String" Nullable="false" MaxLength="3" FixedLength="false" Unicode="false" />
+          <Property Name="CodiceTipologiaStruttura" Type="String" Nullable="false" MaxLength="3" FixedLength="false" Unicode="false" />
+          <Property Name="CodTipoAnagrafeRegionale" Type="String" Nullable="false" MaxLength="4" FixedLength="false" Unicode="false" />
+          <Property Name="codAreaDisciplina" Type="Int32" />
+          <Property Name="Cancellato" Type="Boolean" />
+          <Property Name="Stato" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="vwStruttura">
+          <Key>
+            <PropertyRef Name="idWebServiceStruttura" />
+            <PropertyRef Name="IdStrutturaErogatrice" />
+            <PropertyRef Name="DataRiferimentoStruttura" />
+            <PropertyRef Name="DataApertura" />
+            <PropertyRef Name="DenominazioneOriginale" />
+            <PropertyRef Name="CodRegione" />
+            <PropertyRef Name="CodAzienda" />
+            <PropertyRef Name="DataInizioAzienda" />
+            <PropertyRef Name="CodMin" />
+            <PropertyRef Name="SubCodMin" />
+            <PropertyRef Name="IdCodStruttura" />
+            <PropertyRef Name="CodTipoAnagrafeRegionale" />
+            <PropertyRef Name="CodiceTipologiaStruttura" />
+            <PropertyRef Name="CodMacroArea" />
+            <PropertyRef Name="DataInizioTipoAnagrafeRegionale" />
+            <PropertyRef Name="IdStrutturaFisica" />
+            <PropertyRef Name="DataInizioStrutturaFisica" />
+            <PropertyRef Name="TimeStampIns" />
+            <PropertyRef Name="TimeStampVar" />
+            <PropertyRef Name="Stato" />
+          </Key>
+          <Property Name="idWebServiceStruttura" Type="Int32" Nullable="false" />
+          <Property Name="IdStrutturaErogatrice" Type="Int32" Nullable="false" />
+          <Property Name="DataRiferimentoStruttura" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="KeyStruttura" Type="String" MaxLength="61" FixedLength="false" Unicode="false" />
+          <Property Name="KeyStrutturaData" Type="String" MaxLength="92" FixedLength="false" Unicode="false" />
+          <Property Name="DataFine" Type="DateTime" Precision="0" />
+          <Property Name="DataApertura" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="DataChiusura" Type="DateTime" Precision="0" />
+          <Property Name="Denominazione" Type="String" MaxLength="336" FixedLength="false" Unicode="false" />
+          <Property Name="DenominazioneOriginale" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="CodRegione" Type="String" Nullable="false" MaxLength="3" FixedLength="false" Unicode="false" />
+          <Property Name="CodAzienda" Type="String" Nullable="false" MaxLength="3" FixedLength="false" Unicode="false" />
+          <Property Name="DataInizioAzienda" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="CodMin" Type="String" Nullable="false" MaxLength="6" FixedLength="false" Unicode="false" />
+          <Property Name="SubCodMin" Type="String" Nullable="false" MaxLength="3" FixedLength="false" Unicode="false" />
+          <Property Name="IdCodStruttura" Type="Int32" Nullable="false" />
+          <Property Name="CodTipoAnagrafeRegionale" Type="String" Nullable="false" MaxLength="4" FixedLength="false" Unicode="false" />
+          <Property Name="CodiceTipologiaStruttura" Type="String" Nullable="false" MaxLength="3" FixedLength="false" Unicode="false" />
+          <Property Name="CodTipoStrutturaMinisteriale" Type="String" MaxLength="2" FixedLength="false" Unicode="false" />
+          <Property Name="CodMacroArea" Type="Int32" Nullable="false" />
+          <Property Name="DataInizioTipoAnagrafeRegionale" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="PubblicoPrivato" Type="String" MaxLength="1" FixedLength="false" Unicode="false" />
+          <Property Name="isPrivata" Type="Boolean" />
+          <Property Name="Indirizzo" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="CapAggiuntivo" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Name="IdStrutturaFisica" Type="Int32" Nullable="false" />
+          <Property Name="DataInizioStrutturaFisica" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="TimeStampIns" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="TimeStampVar" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Stato" Type="Int32" Nullable="false" />
+          <Property Name="KeyAzienda" Type="String" MaxLength="34" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="StatoCandidatura">
+          <Key>
+            <PropertyRef Name="Codice" />
+          </Key>
+          <Property Name="Codice" Type="Int32" Nullable="false" />
+          <Property Name="Descrizione" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="UtenteDaCensire" Relationship="MapperModel.FK_UtenteDaCensire_StatoCandidatura" FromRole="StatoCandidatura" ToRole="UtenteDaCensire" />
+        </EntityType>
+        <EntityType Name="Ruoli">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nome" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ordinale" Type="Int32" />
+          <NavigationProperty Name="UtenteDaCensire" Relationship="MapperModel.FK_UtenteDaCensire_Ruoli" FromRole="Ruoli" ToRole="UtenteDaCensire" />
+          <NavigationProperty Name="Utente" Relationship="MapperModel.FK_Utenti_Ruoli" FromRole="Ruoli" ToRole="Utente" />
+        </EntityType>
+        <EntityType Name="UtenteDaCensire">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CodiceFiscale" Type="String" Nullable="false" MaxLength="16" FixedLength="false" Unicode="false" />
+          <Property Name="CodRegione" Type="String" Nullable="false" MaxLength="3" FixedLength="false" Unicode="false" />
+          <Property Name="CodAzienda" Type="String" Nullable="false" MaxLength="3" FixedLength="false" Unicode="false" />
+          <Property Name="Cognome" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Nome" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Email" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Pubblico" Type="Boolean" Nullable="false" />
+          <Property Name="IdRuolo" Type="Int32" Nullable="false" />
+          <Property Name="IdStato" Type="Int32" Nullable="false" />
+          <Property Name="DataCandidatura" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="KeyStruttura" Type="String" Nullable="false" MaxLength="61" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Ruoli" Relationship="MapperModel.FK_UtenteDaCensire_Ruoli" FromRole="UtenteDaCensire" ToRole="Ruoli" />
+          <NavigationProperty Name="StatoCandidatura" Relationship="MapperModel.FK_UtenteDaCensire_StatoCandidatura" FromRole="UtenteDaCensire" ToRole="StatoCandidatura" />
+          <Property Name="IndirizzoIPCandidatura" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <Association Name="FK_UtenteDaCensire_Ruoli">
+          <End Type="MapperModel.Ruoli" Role="Ruoli" Multiplicity="1" />
+          <End Type="MapperModel.UtenteDaCensire" Role="UtenteDaCensire" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Ruoli">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="UtenteDaCensire">
+              <PropertyRef Name="IdRuolo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UtenteDaCensire_StatoCandidatura">
+          <End Type="MapperModel.StatoCandidatura" Role="StatoCandidatura" Multiplicity="1" />
+          <End Type="MapperModel.UtenteDaCensire" Role="UtenteDaCensire" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="StatoCandidatura">
+              <PropertyRef Name="Codice" />
+            </Principal>
+            <Dependent Role="UtenteDaCensire">
+              <PropertyRef Name="IdStato" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Utente">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="username" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="nome" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="cognome" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="email" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="idRuolo" Type="Int32" Nullable="false" />
+          <Property Name="attivato" Type="Boolean" Nullable="false" />
+          <Property Name="cancellato" Type="Boolean" Nullable="false" />
+          <Property Name="CodiceFiscale" Type="String" MaxLength="16" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Ruoli" Relationship="MapperModel.FK_Utenti_Ruoli" FromRole="Utente" ToRole="Ruoli" />
+          <NavigationProperty Name="UtenteStruttura" Relationship="MapperModel.FK_UtenteStruttura_Utente" FromRole="Utente" ToRole="UtenteStruttura" />
+        </EntityType>
+        <EntityType Name="UtenteStruttura">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="idUtente" Type="Int32" Nullable="false" />
+          <Property Name="codRegione" Type="String" Nullable="false" MaxLength="3" FixedLength="false" Unicode="false" />
+          <Property Name="codAzienda" Type="String" MaxLength="3" FixedLength="false" Unicode="false" />
+          <Property Name="idStrutturaErogatrice" Type="Int32" />
+          <Property Name="idWebServiceStruttura" Type="Int32" />
+          <Property Name="idReparto" Type="Int32" />
+          <Property Name="idWebServiceReparto" Type="Int32" />
+          <Property Name="dataDal" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="dataAl" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Utente" Relationship="MapperModel.FK_UtenteStruttura_Utente" FromRole="UtenteStruttura" ToRole="Utente" />
+        </EntityType>
+        <Association Name="FK_Utenti_Ruoli">
+          <End Type="MapperModel.Ruoli" Role="Ruoli" Multiplicity="1" />
+          <End Type="MapperModel.Utente" Role="Utente" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Ruoli">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Utente">
+              <PropertyRef Name="idRuolo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UtenteStruttura_Utente">
+          <End Type="MapperModel.Utente" Role="Utente" Multiplicity="1" />
+          <End Type="MapperModel.UtenteStruttura" Role="UtenteStruttura" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Utente">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="UtenteStruttura">
+              <PropertyRef Name="idUtente" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="TipologiaStruttura">
+          <Key>
+            <PropertyRef Name="CodTipologia" />
+            <PropertyRef Name="Descrizione" />
+            <PropertyRef Name="IsAttivo" />
+            <PropertyRef Name="Ordinale" />
+          </Key>
+          <Property Name="CodTipologia" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Descrizione" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="TipoEnte" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="IsAttivo" Type="Boolean" Nullable="false" />
+          <Property Name="Ordinale" Type="Int32" Nullable="false" />
+          <Property Name="CodAreaDisciplina" Type="Int32" />
+        </EntityType>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="MapperModelStoreContainer" CdmEntityContainer="Entities">
+          <FunctionImportMapping FunctionImportName="fn_TabellaOsservazioni" FunctionName="MapperModel.Store.fn_TabellaOsservazioni">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="MapperModel.fn_TabellaOsservazioni_Result">
+                <ScalarProperty Name="Azione" ColumnName="Azione" />
+                <ScalarProperty Name="Prima_contatto_paziente" ColumnName="Prima contatto paziente" />
+                <ScalarProperty Name="Prima_di_manovra_di_asepsi" ColumnName="Prima di manovra di asepsi" />
+                <ScalarProperty Name="Dopo_contatto_fluido" ColumnName="Dopo contatto fluido" />
+                <ScalarProperty Name="Dopo_contatto_paziente" ColumnName="Dopo contatto paziente" />
+                <ScalarProperty Name="Dopo_contatto_ambiente_" ColumnName="Dopo contatto ambiente " />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="fn_TabellaAdesioni" FunctionName="MapperModel.Store.fn_TabellaAdesioni">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="MapperModel.fn_TabellaAdesioni_Result">
+                <ScalarProperty Name="idIndicazione" ColumnName="idIndicazione" />
+                <ScalarProperty Name="Indicazione" ColumnName="Indicazione" />
+                <ScalarProperty Name="Adesioni" ColumnName="Adesioni" />
+                <ScalarProperty Name="NonAdesioni" ColumnName="NonAdesioni" />
+                <ScalarProperty Name="TotIndicazioni" ColumnName="TotIndicazioni" />
+                <ScalarProperty Name="PercAdesione" ColumnName="PercAdesione" />
+                <ScalarProperty Name="PercNonAdesione" ColumnName="PercNonAdesione" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <EntitySetMapping Name="vwAreaDisciplina">
+            <EntityTypeMapping TypeName="MapperModel.vwAreaDisciplina">
+              <MappingFragment StoreEntitySet="vwAreaDisciplina">
+                <ScalarProperty Name="Ordinale" ColumnName="Ordinale" />
+                <ScalarProperty Name="Descrizione" ColumnName="Descrizione" />
+                <ScalarProperty Name="Nome" ColumnName="Nome" />
+                <ScalarProperty Name="CodAreaDisciplina" ColumnName="CodAreaDisciplina" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="vwAzienda">
+            <EntityTypeMapping TypeName="MapperModel.vwAzienda">
+              <MappingFragment StoreEntitySet="vwAzienda">
+                <ScalarProperty Name="KeyAzienda" ColumnName="KeyAzienda" />
+                <ScalarProperty Name="DataFine" ColumnName="DataFine" />
+                <ScalarProperty Name="DataInizio" ColumnName="DataInizio" />
+                <ScalarProperty Name="Denominazione" ColumnName="Denominazione" />
+                <ScalarProperty Name="CodAzienda" ColumnName="CodAzienda" />
+                <ScalarProperty Name="CodRegione" ColumnName="CodRegione" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="vwRegione">
+            <EntityTypeMapping TypeName="MapperModel.vwRegione">
+              <MappingFragment StoreEntitySet="vwRegione">
+                <ScalarProperty Name="Denominazione" ColumnName="Denominazione" />
+                <ScalarProperty Name="CodRegione" ColumnName="CodRegione" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="vwReparto">
+            <EntityTypeMapping TypeName="MapperModel.vwReparto">
+              <MappingFragment StoreEntitySet="vwReparto">
+                <ScalarProperty Name="Stato" ColumnName="Stato" />
+                <ScalarProperty Name="Cancellato" ColumnName="Cancellato" />
+                <ScalarProperty Name="codAreaDisciplina" ColumnName="codAreaDisciplina" />
+                <ScalarProperty Name="CodTipoAnagrafeRegionale" ColumnName="CodTipoAnagrafeRegionale" />
+                <ScalarProperty Name="CodiceTipologiaStruttura" ColumnName="CodiceTipologiaStruttura" />
+                <ScalarProperty Name="CodAzienda" ColumnName="CodAzienda" />
+                <ScalarProperty Name="CodRegione" ColumnName="CodRegione" />
+                <ScalarProperty Name="ProgressivoDivisione" ColumnName="ProgressivoDivisione" />
+                <ScalarProperty Name="CodDisciplina" ColumnName="CodDisciplina" />
+                <ScalarProperty Name="Descrizione" ColumnName="Descrizione" />
+                <ScalarProperty Name="Nome" ColumnName="Nome" />
+                <ScalarProperty Name="NomeOriginale" ColumnName="NomeOriginale" />
+                <ScalarProperty Name="DataFine" ColumnName="DataFine" />
+                <ScalarProperty Name="DataInizio" ColumnName="DataInizio" />
+                <ScalarProperty Name="keyStrutturaData" ColumnName="keyStrutturaData" />
+                <ScalarProperty Name="keyStruttura" ColumnName="keyStruttura" />
+                <ScalarProperty Name="idWebServiceStruttura" ColumnName="idWebServiceStruttura" />
+                <ScalarProperty Name="DataRiferimentoStruttura" ColumnName="DataRiferimentoStruttura" />
+                <ScalarProperty Name="IdStrutturaErogatrice" ColumnName="IdStrutturaErogatrice" />
+                <ScalarProperty Name="KeyReparto" ColumnName="KeyReparto" />
+                <ScalarProperty Name="IdReparto" ColumnName="IdReparto" />
+                <ScalarProperty Name="IdWebServiceReparto" ColumnName="IdWebServiceReparto" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="vwStruttura">
+            <EntityTypeMapping TypeName="MapperModel.vwStruttura">
+              <MappingFragment StoreEntitySet="vwStruttura">
+                <ScalarProperty Name="KeyAzienda" ColumnName="KeyAzienda" />
+                <ScalarProperty Name="Stato" ColumnName="Stato" />
+                <ScalarProperty Name="TimeStampVar" ColumnName="TimeStampVar" />
+                <ScalarProperty Name="TimeStampIns" ColumnName="TimeStampIns" />
+                <ScalarProperty Name="DataInizioStrutturaFisica" ColumnName="DataInizioStrutturaFisica" />
+                <ScalarProperty Name="IdStrutturaFisica" ColumnName="IdStrutturaFisica" />
+                <ScalarProperty Name="CapAggiuntivo" ColumnName="CapAggiuntivo" />
+                <ScalarProperty Name="Indirizzo" ColumnName="Indirizzo" />
+                <ScalarProperty Name="isPrivata" ColumnName="isPrivata" />
+                <ScalarProperty Name="PubblicoPrivato" ColumnName="PubblicoPrivato" />
+                <ScalarProperty Name="DataInizioTipoAnagrafeRegionale" ColumnName="DataInizioTipoAnagrafeRegionale" />
+                <ScalarProperty Name="CodMacroArea" ColumnName="CodMacroArea" />
+                <ScalarProperty Name="CodTipoStrutturaMinisteriale" ColumnName="CodTipoStrutturaMinisteriale" />
+                <ScalarProperty Name="CodiceTipologiaStruttura" ColumnName="CodiceTipologiaStruttura" />
+                <ScalarProperty Name="CodTipoAnagrafeRegionale" ColumnName="CodTipoAnagrafeRegionale" />
+                <ScalarProperty Name="IdCodStruttura" ColumnName="IdCodStruttura" />
+                <ScalarProperty Name="SubCodMin" ColumnName="SubCodMin" />
+                <ScalarProperty Name="CodMin" ColumnName="CodMin" />
+                <ScalarProperty Name="DataInizioAzienda" ColumnName="DataInizioAzienda" />
+                <ScalarProperty Name="CodAzienda" ColumnName="CodAzienda" />
+                <ScalarProperty Name="CodRegione" ColumnName="CodRegione" />
+                <ScalarProperty Name="DenominazioneOriginale" ColumnName="DenominazioneOriginale" />
+                <ScalarProperty Name="Denominazione" ColumnName="Denominazione" />
+                <ScalarProperty Name="DataChiusura" ColumnName="DataChiusura" />
+                <ScalarProperty Name="DataApertura" ColumnName="DataApertura" />
+                <ScalarProperty Name="DataFine" ColumnName="DataFine" />
+                <ScalarProperty Name="KeyStrutturaData" ColumnName="KeyStrutturaData" />
+                <ScalarProperty Name="KeyStruttura" ColumnName="KeyStruttura" />
+                <ScalarProperty Name="DataRiferimentoStruttura" ColumnName="DataRiferimentoStruttura" />
+                <ScalarProperty Name="IdStrutturaErogatrice" ColumnName="IdStrutturaErogatrice" />
+                <ScalarProperty Name="idWebServiceStruttura" ColumnName="idWebServiceStruttura" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="StatoCandidatura">
+            <EntityTypeMapping TypeName="MapperModel.StatoCandidatura">
+              <MappingFragment StoreEntitySet="StatoCandidatura">
+                <ScalarProperty Name="Descrizione" ColumnName="Descrizione" />
+                <ScalarProperty Name="Codice" ColumnName="Codice" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Ruoli">
+            <EntityTypeMapping TypeName="MapperModel.Ruoli">
+              <MappingFragment StoreEntitySet="Ruoli">
+                <ScalarProperty Name="ordinale" ColumnName="ordinale" />
+                <ScalarProperty Name="nome" ColumnName="nome" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UtenteDaCensire">
+            <EntityTypeMapping TypeName="MapperModel.UtenteDaCensire">
+              <MappingFragment StoreEntitySet="UtenteDaCensire">
+                <ScalarProperty Name="IndirizzoIPCandidatura" ColumnName="IndirizzoIPCandidatura" />
+                <ScalarProperty Name="KeyStruttura" ColumnName="KeyStruttura" />
+                <ScalarProperty Name="DataCandidatura" ColumnName="DataCandidatura" />
+                <ScalarProperty Name="IdStato" ColumnName="IdStato" />
+                <ScalarProperty Name="IdRuolo" ColumnName="IdRuolo" />
+                <ScalarProperty Name="Pubblico" ColumnName="Pubblico" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Nome" ColumnName="Nome" />
+                <ScalarProperty Name="Cognome" ColumnName="Cognome" />
+                <ScalarProperty Name="CodAzienda" ColumnName="CodAzienda" />
+                <ScalarProperty Name="CodRegione" ColumnName="CodRegione" />
+                <ScalarProperty Name="CodiceFiscale" ColumnName="CodiceFiscale" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Utente">
+            <EntityTypeMapping TypeName="MapperModel.Utente">
+              <MappingFragment StoreEntitySet="Utente">
+                <ScalarProperty Name="CodiceFiscale" ColumnName="CodiceFiscale" />
+                <ScalarProperty Name="cancellato" ColumnName="cancellato" />
+                <ScalarProperty Name="attivato" ColumnName="attivato" />
+                <ScalarProperty Name="idRuolo" ColumnName="idRuolo" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="cognome" ColumnName="cognome" />
+                <ScalarProperty Name="nome" ColumnName="nome" />
+                <ScalarProperty Name="username" ColumnName="username" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UtenteStruttura">
+            <EntityTypeMapping TypeName="MapperModel.UtenteStruttura">
+              <MappingFragment StoreEntitySet="UtenteStruttura">
+                <ScalarProperty Name="dataAl" ColumnName="dataAl" />
+                <ScalarProperty Name="dataDal" ColumnName="dataDal" />
+                <ScalarProperty Name="idWebServiceReparto" ColumnName="idWebServiceReparto" />
+                <ScalarProperty Name="idReparto" ColumnName="idReparto" />
+                <ScalarProperty Name="idWebServiceStruttura" ColumnName="idWebServiceStruttura" />
+                <ScalarProperty Name="idStrutturaErogatrice" ColumnName="idStrutturaErogatrice" />
+                <ScalarProperty Name="codAzienda" ColumnName="codAzienda" />
+                <ScalarProperty Name="codRegione" ColumnName="codRegione" />
+                <ScalarProperty Name="idUtente" ColumnName="idUtente" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TipologiaStruttura">
+            <EntityTypeMapping TypeName="MapperModel.TipologiaStruttura">
+              <MappingFragment StoreEntitySet="TipologiaStruttura">
+                <ScalarProperty Name="CodAreaDisciplina" ColumnName="CodAreaDisciplina" />
+                <ScalarProperty Name="Ordinale" ColumnName="Ordinale" />
+                <ScalarProperty Name="IsAttivo" ColumnName="IsAttivo" />
+                <ScalarProperty Name="TipoEnte" ColumnName="TipoEnte" />
+                <ScalarProperty Name="Descrizione" ColumnName="Descrizione" />
+                <ScalarProperty Name="CodTipologia" ColumnName="CodTipologia" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Nessuno" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

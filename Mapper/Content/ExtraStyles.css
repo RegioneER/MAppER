@@ -1,0 +1,285 @@
+﻿.linkUpload {
+    background: transparent;
+    border: 0;
+    padding: 0px;
+    margin-left: auto
+}
+
+.linkDownload {
+    color: #cb1d15
+}
+
+.linkNuovaRicerca {
+    color: #cb1d15
+}
+
+.titleRicerca {
+    color: #ffffff
+}
+
+.dropdown-header {
+    /*background-color: #e21e4a;*/
+}
+
+a {
+    color: #CB1D15;
+    text-decoration: underline;
+}
+
+    a:hover, a:focus {
+        color: #9d1610;
+        text-decoration: underline;
+    }
+
+.casetta {
+    position: relative;
+    top: -3em;
+    z-index: 1;
+    margin: -1em;
+    margin-bottom: -1em !important;
+    text-decoration: none;
+}
+
+.linkbriciola {
+    color: #CB1D15;
+    text-decoration: none;
+}
+
+.it-header-navbar-wrapper {
+    /*    border-bottom: 3em solid #eee;*/
+}
+
+.it-header-slim-wrapper .it-header-slim-wrapper-content {
+    padding: 0px;
+}
+
+.it-header-center-wrapper .it-header-center-content-wrapper {
+    padding-left: 0px !important;
+}
+
+.it-header-wrapper .it-nav-wrapper .it-brand-wrapper {
+    padding-left: 0px;
+}
+
+.p-2 {
+    padding-top: 8px !important;
+    padding-right: 0px !important;
+    padding-bottom: 0px !important;
+    padding-left: 0px !important;
+}
+
+.navbar-expand-lg {
+    flex-flow: column;
+}
+
+@media screen and (max-width:1024px) {
+    .Header-navbar {
+        border-bottom: 1px solid #91150C;
+    }
+
+    .Header-toggle {
+        display: none;
+    }
+
+    .Header-logo {
+        width: auto !important;
+        margin-right: 30px;
+    }
+
+    div.Header-title {
+        width: auto !important;
+        margin: 0
+    }
+
+    .Header-logo img {
+        height: 60px !important;
+    }
+
+    .Header-titleLink a {
+        font-size: 20px !important;
+    }
+
+    .navbar-expand-lg {
+        flex-flow: row;
+    }
+}
+
+
+
+.m_title {
+    display: block;
+    text-transform: lowercase;
+}
+
+    .m_title:first-letter {
+        text-transform: uppercase;
+    }
+
+.optionStruttura {
+    padding-left: 35px !important;
+}
+
+.optionEnte {
+    font-weight: bold;
+}
+
+.maxAlt {
+    min-height: 0em !important;
+}
+
+.captionHeader {
+    margin-left: 150px;
+    font-size: 22px !important;
+}
+
+.imageCheckHolder {
+    position: relative;
+    width: 80px;
+    height: 50px;
+}
+
+    .imageCheckHolder .caption {
+        position: absolute;
+        width: 80px;
+        height: 50px;
+        bottom: -25px;
+        left: 15px;
+        text-align: center;
+        font-size: 14px;
+    }
+
+.imageHolder {
+    position: relative;
+    width: 128px;
+    height: 50px;
+    /*text-align:center;*/
+}
+
+    .imageHolder .caption {
+        position: absolute;
+        width: 128px;
+        height: 50px;
+        bottom: -25px;
+        left: 0px;
+        /*text-align: center;*/
+        font-size: 14px;
+    }
+
+/*#canvas {
+    display: block;
+    padding: 0;
+    margin: 0 auto;
+    background-color: red;
+}*/
+
+.chart-container {
+    position: relative;
+    margin: auto;
+    height: 80vh;
+    width: 80vw;
+}
+
+@media(max-width:1200px) {
+
+    #canvas {
+        width: 100%;
+        height: auto;
+    }
+}
+
+.dropdown-menu {
+    z-index: 1021;
+}
+
+it-footer-main .link-list-wrapper ul li a:hover,
+.it-footer-main .link-list-wrapper ul li a:focus,
+.it-footer-main a:hover
+.it-footer-main a:focus,
+.list-item:hover,
+.list-item:focus {
+    color: #30373d;
+    background-color: #65dde0;
+}
+
+.form-check [type=checkbox]:focus + label, .form-check [type=radio]:focus + label {
+    color: #4c4c4d;
+    background-color: #fff;
+    border-color: #5c6f82;
+    outline: 0;
+    box-shadow: inset 0 1px 1px rgba(0,0,0,0.075), 0 0 0 0.2rem rgba(77,76,76,0.25);
+}
+
+
+.btnSalva {
+    background-color: #2C6302;
+    color: white;
+    margin-bottom: 10px;
+}
+
+.btnConsolida {
+    background-color: #943F12;
+    color: white;
+    margin-bottom: 10px;
+}
+
+.schedaConsolidata {
+    background: #E4EEEF !important;
+}
+
+.schedaEliminata {
+    background: #FFE1E0 !important;
+}
+
+.btnModifica {
+    background-color: #F9C74F;
+    color: white;
+}
+
+.btnElimina {
+    background-color: #A80A0D;
+    color: white;
+    margin-bottom: 10px;
+}
+
+.btnNuovo {
+    background-color: #005E85;
+    color: white;
+}
+
+.btnStampa {
+    background-color: #A80700;
+    color: white;
+}
+
+.btnCerca {
+    background-color: #660F0B;
+    color: white;
+}
+
+.btnDettaglio {
+    background-color: transparent;
+    color: #333;
+    border: 1px solid #333;
+}
+
+.btnNuovoDettaglio {
+    background-color: transparent;
+    color: #333;
+    border: 1px solid #333;
+}
+
+.btnApprovaDettaglio {
+    background-color: transparent;
+    color: #90BE6D;
+    border: 1px solid #90BE6D;
+}
+
+.btnRifiutaDettaglio {
+    background-color: transparent;
+    color: #F94144;
+    border: 1px solid #F94144;
+}
+
+.card {
+    line-height: 0.8 !important;
+}

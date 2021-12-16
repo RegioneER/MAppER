@@ -1,0 +1,159 @@
+﻿<script type="text/javascript">
+
+    $(document).ready(function () {
+
+        $('#isCancellato').click(function () {
+            $('#cancellato').val($(this).is(':checked'));
+
+        });
+
+
+        VisualizzaColonne();
+
+    });
+
+    $("#idRuolo").change(function () {
+        RefreshTabella();
+    });
+
+    function VisualizzaColonne() {
+
+        var idRuolo = $("#idRuolo").val();
+
+        $("#btnAggiungi").attr("disabled", false);
+        $("#divUtenteStrutture").show();
+
+        if (idRuolo == 1) {
+        /*osservatore*/
+            var x = document.getElementsByClassName("col_Azienda");
+            var i;
+            for (i = 0; i < x.length; i++) {
+                x[i].removeAttribute("style");
+            }
+            var y = document.getElementsByClassName("col_Struttura");
+            var i;
+            for (i = 0; i < y.length; i++) {
+                y[i].removeAttribute("style");
+            }
+            var z = document.getElementsByClassName("col_Reparto");
+            for (i = 0; i < z.length; i++) {
+                z[i].removeAttribute("style");
+            }
+        }
+        else if (idRuolo == 2) {
+        /*aziendale*/
+            var x = document.getElementsByClassName("col_Azienda");
+            var i;
+            for (i = 0; i < x.length; i++) {
+                x[i].removeAttribute("style");
+            }
+            var y = document.getElementsByClassName("col_Struttura");
+            var i;
+            for (i = 0; i < y.length; i++) {
+                y[i].style.display = "none";
+            }
+            var z = document.getElementsByClassName("col_Reparto");
+            for (i = 0; i < z.length; i++) {
+                z[i].style.display = "none";
+            }
+        }
+        else if (idRuolo == 3) {
+        /*regionale*/
+            var x = document.getElementsByClassName("col_Azienda");
+            var i;
+            for (i = 0; i < x.length; i++) {
+                x[i].style.display = "none";
+            }
+           var y = document.getElementsByClassName("col_Struttura");
+            for (i = 0; i < y.length; i++) {
+                y[i].style.display = "none";
+            }
+            var z = document.getElementsByClassName("col_Reparto");
+            for (i = 0; i < z.length; i++) {
+                z[i].style.display = "none";
+            }
+        }
+        else if (idRuolo == 4) {
+            /*referente struttura*/
+            var x = document.getElementsByClassName("col_Azienda");
+            var i;
+            for (i = 0; i < x.length; i++) {
+                x[i].removeAttribute("style");
+            }
+            var y = document.getElementsByClassName("col_Struttura");
+            var i;
+            for (i = 0; i < y.length; i++) {
+                y[i].removeAttribute("style");
+            }
+            var z = document.getElementsByClassName("col_Reparto");
+            for (i = 0; i < z.length; i++) {
+                z[i].style.display = "none";
+            }
+
+        }
+        else if (idRuolo == 5) {
+        /*non associato*/
+            $("#btnAggiungi").attr("disabled", true);
+            $("#divUtenteStrutture").hide();
+        }
+
+
+    }
+
+    function EditUtenteStruttura(ID) {
+        var idRuolo = $("#idRuolo").val();
+        var idUtente = $("#id").val();
+
+        var url = '@Url.Action("Edit", "UtenteStruttura")';
+        url += "?ID=" + escape(ID);
+        url += "&idUtente=" + escape(idUtente);
+        url += "&idRuolo=" + escape(idRuolo);
+
+        window.location.href = url;
+    }
+
+    function CreateUtenteStruttura() {
+        var idRuolo = $("#idRuolo").val();
+        var idUtente = $("#id").val();
+
+        var url = '@Url.Action("Create", "UtenteStruttura")';
+        url += "?idUtente=" + escape(idUtente);
+        url += "&idRuolo=" + escape(idRuolo);
+
+        window.location.href = url;
+    }
+
+    function CancellaUtenteStruttura(id) {
+        var idUtente = $("#id").val();
+        $.ajax({
+            url: '@Url.Action("CancellaAssociazione", "Utente")',
+            type: "GET",
+            data: { idUtente: idUtente, id: id }
+        })
+        .done(function (result) {
+            $('#divUtenteStrutture').html(result);
+            VisualizzaColonne();
+        });
+    }
+
+     function RefreshTabella() {
+        var id = $("#id").val();
+        var idRuolo = $("#idRuolo").val();
+
+        $.ajax({
+            url: '@Url.Action("RefreshTabella", "Utente")',
+            data: { 'id': id, 'idRuolo': idRuolo },
+            type: 'GET',
+            error: function (xhr) {
+                alert('Error: ' + xhr.statusText);
+
+            },
+            success: function (result) {
+                $('#divUtenteStrutture').html(result);
+                VisualizzaColonne();
+            }
+        });
+
+     }
+
+</script>

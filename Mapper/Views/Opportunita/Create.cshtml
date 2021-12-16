@@ -1,0 +1,22 @@
+﻿@model Mapper.Models.Opportunita
+
+@{
+    ViewBag.Title = "Mapper - Nuova opportunità (Scheda n." + ViewBag.IdScheda + ")";
+    ViewBag.TitleMin = "Nuova Opportunità";
+    ViewBag.isHome = false;
+    ViewBag.PathBack = "Scheda/Edit?idScheda=" + ViewBag.IdScheda + "&idOsservazione=" + Model.idOsservazione;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.Partial("Partial/_partialDettaglio")
+}
+
+@Html.Partial("Partial/Scripts/_partialScripts")
+
+@section scripts{
+    @Scripts.Render("~/bundles/jqueryval")
+}
+

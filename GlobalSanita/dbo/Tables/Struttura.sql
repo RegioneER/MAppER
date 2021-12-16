@@ -1,0 +1,27 @@
+﻿CREATE TABLE [dbo].[Struttura] (
+    [IdStrutturaErogatrice]           INT           NOT NULL,
+    [DataInizio]                      DATE          NOT NULL,
+    [DataFine]                        DATE          NULL,
+    [DataApertura]                    DATE          NOT NULL,
+    [DataChiusura]                    DATE          NULL,
+    [Denominazione]                   VARCHAR (150) NOT NULL,
+    [CodRegione]                      VARCHAR (3)   NOT NULL,
+    [CodAzienda]                      VARCHAR (3)   NOT NULL,
+    [DataInizioAzienda]               DATE          NOT NULL,
+    [CodMin]                          VARCHAR (6)   NOT NULL,
+    [SubCodMin]                       VARCHAR (2)   NOT NULL,
+    [IdCodStruttura]                  INT           NOT NULL,
+    [CodTipoAnagrafeRegionale]        VARCHAR (4)   NOT NULL,
+    [DataInizioTipoAnagrafeRegionale] DATE          NOT NULL,
+    [PubblicoPrivato]                 VARCHAR (1)   NULL,
+    [IndirizzoAggiuntivo]             VARCHAR (100) NULL,
+    [CapAggiuntivo]                   VARCHAR (5)   NULL,
+    [IdStrutturaFisica]               INT           NOT NULL,
+    [DataInizioStrutturaFisica]       DATE          NOT NULL,
+    [TimeStampIns]                    DATETIME      NOT NULL,
+    [TimeStampVar]                    DATETIME      NOT NULL,
+    PRIMARY KEY CLUSTERED ([IdStrutturaErogatrice] ASC, [DataInizio] ASC),
+    FOREIGN KEY ([CodTipoAnagrafeRegionale], [DataInizioTipoAnagrafeRegionale]) REFERENCES [dbo].[TipoAnagrafeRegionale] ([CodTipoAnagrafeRegionale], [DataInizio]),
+    FOREIGN KEY ([CodRegione], [CodAzienda], [DataInizioAzienda]) REFERENCES [dbo].[Azienda] ([CodRegione], [CodAzienda], [DataInizio])
+);
+

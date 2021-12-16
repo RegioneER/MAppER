@@ -1,0 +1,69 @@
+﻿@model Mapper.Models.Osservazione
+
+@if (Model.id > 0 && Model.Scheda != null && Model.Scheda.idStatoSessione == (int)Mapper.Models.StatoSessione.Stato.InLavorazione)
+{
+    <div class="row">
+        <div class="col-sm-12">
+            <a href='@Url.Action("Create", "Opportunita", new { idScheda = Model.idScheda, idOsservazione = Model.id})' title="Aggiungi opportunità" class="btn btnNuovo btn-icon" style="text-decoration:none">
+                <span class="rounded-icon">
+                    <svg class="icon icon-primary">
+                        <use xlink:href="~/bootstrapitalia/svg/sprite.svg#it-plus"></use>
+                    </svg>
+                </span>
+                <span>Aggiungi opportunità</span>
+            </a>
+        </div>
+    </div>
+    <br />
+}
+
+@if (Model.id > 0 && Model.Opportunita != null && Model.Opportunita.Count() > 0)
+{
+    foreach (Mapper.Models.Opportunita item in Model.Opportunita.OrderByDescending(x => x.data))
+    {
+        @Html.Hidden(item.id.ToString());
+        <div class="row">
+            <div class="col-sm-12">
+                <!--start card-->
+                <div class="card-wrapper card-space">
+                    <div class="card card-bg no-after">
+                        <div class="card-body">
+                            <h5 class="card-title">
+                                Opportunità
+                            </h5>
+                            <p class="card-text">
+                                <div class="form-row form-group">
+                                    <div class="imageHolder col-4 col-lg-3">
+                                        <img src="~/Content/Image/@item.imgIndicazione" alt="@item.Indicazione.tipologia" />
+                                        <div class="caption"><br />@item.Indicazione.tipologia</div>
+                                    </div>
+                                    <div class="imageHolder col-4 col-lg-3 ">
+                                        <img src="~/Content/Image/@item.imgAzione" alt="@item.Azione.tipologia" />
+                                        <div class="caption"><br />@item.Azione.tipologia</div>
+                                    </div>
+                                    <div class="col-4 col-lg-6 ">
+                                        batterio: @item.Bacteria.description_IT
+                                    </div>
+
+                                </div>
+                            </p>
+                            <div class="it-card-footer">
+                                @if (item.data != null)
+                                {
+                                    <span class="card-signature">inserita il @item.data</span>
+                                }
+                                else
+                                { <span class="card-signature"></span>}
+                                <a href='@Url.Action("Edit", "Opportunita", new { idScheda= Model.idScheda, idOsservazione= (int)Model.id,  idOpportunita = (int)item.id})' title="Dettaglio opportunità" class="btn btnDettaglio btn-sm float-right" style="text-decoration:none"> Vai ai dettagli</a>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--end card-->
+            </div>
+        </div>
+        <br />
+    }
+}
+

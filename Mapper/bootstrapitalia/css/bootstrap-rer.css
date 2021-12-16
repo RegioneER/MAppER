@@ -1,0 +1,75 @@
+/* top */
+.it-header-slim-wrapper{ background-color: #eee}
+.it-header-slim-wrapper .it-header-slim-wrapper-content .navbar-brand{color:#000; font-size:18px; font-weight:600;}
+
+/* head */
+.it-header-center-wrapper{background-color: #fff}
+.it-header-center-wrapper .it-header-center-content-wrapper .it-brand-wrapper a{color:#1c2024;}
+
+
+/* nav */
+.it-header-navbar-wrapper{background-color: #cb1d15; padding-top:1em !important;}
+#main nav{ 
+text-decoration:none;
+background-color:#eee; colo : #CB1D15}
+
+
+
+
+#main nav a{text-decoration: none; color:#CB1D15; font-weight: 300;}
+
+/* body */
+/*#content a{color: #CB1D15; text-decoration: underline;}
+
+/* btn */
+.btn-primary{background-color:#660F0B}
+
+
+.bootstrap-select-wrapper .dropdown.bootstrap-select .dropdown-menu li a:focus, .bootstrap-select-wrapper .dropdown.bootstrap-select .dropdown-menu li .toggles label input[type='checkbox']:focus+a.lever, .toggles label .bootstrap-select-wrapper .dropdown.bootstrap-select .dropdown-menu li input[type='checkbox']:focus+a.lever, .bootstrap-select-wrapper .dropdown.bootstrap-select .dropdown-menu li a:active, .bootstrap-select-wrapper .dropdown.bootstrap-select .dropdown-menu li a.active, .bootstrap-select-wrapper .dropdown.bootstrap-select .dropdown-menu li a.active span.text{background:#666; color:#fff; text-decoration: none}
+/* .bootstrap-select-wrapper .dropdown.bootstrap-select .dropdown-menu li a.selected:hover span.check-mark, */
+.bootstrap-select-wrapper .dropdown.bootstrap-select .dropdown-menu li a.selected:focus span.check-mark{color:#fff} 
+
+.form-control:focus, .form-check [type='checkbox']:focus+label.form-control, .form-check [type='radio']:focus+label.form-control, .toggles label input[type='checkbox']:focus+.form-control.lever, .form-control:active{ box-shadow: inset 0 1px 1px rgba(0,0,0,0.075), 0 0 0 0.2rem rgba(77,76,76,0.25) !important }
+
+/* label and errors */
+
+.needs-validation span, .was-validated span{    margin-top: .25rem;
+    font-size: .777rem;}
+	
+.custom-invalid-feedback { width: 100%; margin-top: .25rem; font-size: .777rem; color: #d9364f; }
+
+
+/* da valutare */
+dt, dd{padding-top: 0.5em;
+    border-top: 1px solid #eee;}
+
+/* footer */
+.it-footer-main {    background-color: #30373d;}
+.it-footer-main .link-list-wrapper ul li a, .it-footer-main a{color: #65dde0;
+    text-decoration: underline;}
+ .it-footer-main h4 {    padding-bottom: 0.5em;
+    border-bottom: 1px solid #979797;
+    margin-bottom: 0.8em; font-size:24px; font-weight: 600}
+
+@media screen and (min-width: 576px){
+.breadcrumb {
+    max-width: 576px;
+}
+}
+@media screen and (min-width: 768px){
+.breadcrumb {
+    max-width: 768px;
+}}
+@media screen and (min-width: 992px){
+.breadcrumb {
+    max-width: 1140px;
+}}
+
+.it-footer-main .link-list-wrapper ul li a:hover,
+.it-footer-main .link-list-wrapper ul li a:focus,
+.it-footer-main a:hover
+.it-footer-main a:focus,
+.list-item:hover,
+.list-item:focus {
+    color: #30373d;
+    background-color: #65dde0;

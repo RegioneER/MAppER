@@ -1,0 +1,109 @@
+﻿<script type="text/javascript">
+
+    $(document).ready(function () {
+
+        $("#CodRegione").change(function () {
+            GetAziende();
+        });
+
+        $("#CodAzienda").change(function () {
+            GetStrutture();
+        });
+
+        $("#TipoStruttura").change(function () {
+            GetStrutture();
+        });
+    });
+
+    function GetAziende() {
+        SetOverlay(true);
+
+        var codREgione = $("#CodRegione").val();
+
+        var struttura = {
+            text: '-- Seleziona una struttura --',
+            value: ''
+        }
+        $(".bootstrap-select-wrapper.myStruttura").setOptionsToSelect([struttura]);
+
+        var reparto = {
+            text: '-- Seleziona un reparto --',
+            value: ''
+        }
+        $(".bootstrap-select-wrapper.myReparto").setOptionsToSelect([reparto]);
+
+        $.ajax({
+            type: "GET",
+            url: '@Url.Action("GetAziende", "Candidatura")',
+            contentType: "application/json; charset=utf-8",
+            dataType: 'json',
+            data: { 'CodRegione': codREgione },
+            success: function (response) {
+                SetOverlay(false);
+
+                var listaAzienda = [];
+                var azienda = {
+                    text: '-- Seleziona una azienda --',
+                    value: ''
+                }
+                listaAzienda.push(azienda);
+
+                if (response && response.length > 0) {
+                    for (var i = 0; i < response.length; i++) {
+                        azienda = {
+                            text: response[i].nome,
+                            value: response[i].codice
+                        }
+                        listaAzienda.push(azienda);
+                    }
+                } else {
+                    //nessun dato trovato
+                }
+
+                $(".bootstrap-select-wrapper.myAzienda").setOptionsToSelect(listaAzienda);
+            },
+            error: errorFunc
+        });
+    }
+
+    function GetStrutture() {
+        SetOverlay(true);
+
+        var CodRegione = $("#CodRegione").val();
+        var codAzienda = $("#CodAzienda").val();
+        var TipoStruttura = $("#TipoStruttura").val();
+
+        $.ajax({
+            type: "GET",
+            url: '@Url.Action("GetStrutture", "Candidatura")',
+            contentType: "application/json; charset=utf-8",
+            dataType: 'json',
+            data: { 'codRegione': CodRegione, 'codAzienda': codAzienda, 'tipoStruttura': TipoStruttura },
+            success: function (response) {
+                SetOverlay(false);
+                var listaStrutture = [];
+                var struttura = {
+                    text: '-- Seleziona una struttura --',
+                    value: ''
+                }
+                listaStrutture.push(struttura);
+
+                if (response && response.length > 0) {
+                    for (var i = 0; i < response.length; i++) {
+                        struttura = {
+                            text: response[i].nome,
+                            value: response[i].codice
+                        }
+                        listaStrutture.push(struttura);
+                    }
+                } else {
+                    //nessun dato trovato
+                }
+
+                $(".bootstrap-select-wrapper.myStruttura").setOptionsToSelect(listaStrutture);
+
+            },
+            error: errorFunc
+        });
+    }
+</script>

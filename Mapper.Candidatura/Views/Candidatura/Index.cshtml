@@ -1,0 +1,169 @@
+﻿@model Mapper.Candidatura.Models.UtenteDaCensire
+@using RER.Tools.MVC.Agid
+@using System.Configuration
+
+@{
+    ViewBag.Title = "Mapper - Candidatura";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@if (ViewBag.ReadOnly != null && (bool)ViewBag.ReadOnly)
+{
+    @Html.Partial("TempMessage")
+    <br />
+    <div class="row form-group bootstrap-select-wrapper disabled">
+        <label class="control-label" for="Regione">Regione</label>
+        @Html.DropDownListFor(m => m.CodRegione, (IEnumerable<SelectListItem>)ViewBag.Regione, " -- Seleziona una regione --", htmlAttributes: new { @class = "form-control", data_show_subtext = "true", data_live_search = "true" })
+    </div>
+    <br />
+    <div class="row form-group bootstrap-select-wrapper disabled">
+        <label class="control-label" for="Azienda">Azienda</label>
+        @Html.DropDownListFor(m => m.CodAzienda, (IEnumerable<SelectListItem>)ViewBag.Azienda, " -- Seleziona un'azienda --", htmlAttributes: new { @class = "form-control", data_show_subtext = "true", data_live_search = "true" })
+    </div>
+    <br />
+    <div id="divTipoStruttura" class="row form-group bootstrap-select-wrapper disabled ">
+        <label class="control-label" for="TipoStruttura">Tipo struttura</label>
+        @Html.DropDownList("TipoStruttura", null, " -- Seleziona un tipo di struttura --", htmlAttributes: new { @class = "form-control ", data_show_subtext = "true", data_live_search = "true" })
+    </div>
+    <br />
+    <div class="row form-group bootstrap-select-wrapper disabled">
+        <label class="control-label" for="Struttura">Struttura</label>
+        @Html.DropDownListFor(m => m.KeyStruttura, (IEnumerable<SelectListItem>)ViewBag.Struttura, " -- Seleziona una struttura prevalente --", htmlAttributes: new { @class = "form-control", data_show_subtext = "true", data_live_search = "true" })
+    </div>
+    <br />
+    <div class="row form-group bootstrap-select-wrapper disabled">
+        <label class="control-label" for="Struttura">Ruolo</label>
+        @Html.DropDownListFor(m => m.IdRuolo, (IEnumerable<SelectListItem>)ViewBag.Ruolo, " -- Seleziona un ruolo --", htmlAttributes: new { @class = "form-control", data_show_subtext = "true", data_live_search = "true" })
+    </div>
+    <br />
+    <div class="row">
+        <div class="col-sm-12 col-md-6">
+            @Html.LabelFor(model => model.Cognome, "Cognome", new { @class = "control-label" })
+            @Html.TextBoxFor(m => m.Cognome, htmlAttributes: new { @class = "form-control", @disabled = "disabled" })
+        </div>
+        <div class="col-sm-12 col-md-6">
+            @Html.LabelFor(model => model.Nome, "Nome", new { @class = "control-label" })
+            @Html.TextBoxFor(m => m.Nome, htmlAttributes: new { @class = "form-control", @disabled = "disabled" })
+        </div>
+    </div>
+    <br />
+    <div class="row">
+        <div class="col-sm-12 col-md-6">
+            @Html.LabelFor(model => model.Email, "Email", new { @class = "control-label" })
+            @Html.TextBoxFor(m => m.Email, htmlAttributes: new { @class = "form-control", @disabled = "disabled" })
+        </div>
+        <div class="col-sm-12 col-md-6">
+            @Html.LabelFor(model => model.CodiceFiscale, "Codice Fiscale", new { @class = "control-label" })
+            @Html.TextBoxFor(m => m.CodiceFiscale, htmlAttributes: new { @class = "form-control", @disabled = "disabled" })
+        </div>
+    </div>
+}
+else
+{
+    if ((bool)ViewBag.PaginaPubblica)
+    {
+        <div class="alert alert-warning" role="alert">
+            <strong>ATTENZIONE!</strong> Da questa pagina è posibile inserire esclusivamente candidature per le strutture pubbliche della regione Emilia-Romagna. Per inserire candidature per altre regioni o per strutture private, <a href="@ConfigurationManager.AppSettings["UrlServiziFederati"]">cliccare qui</a>.
+        </div>
+    }
+
+    using (Html.BeginForm("Salva", "Candidatura", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+    {
+        @Html.AntiForgeryToken()
+        @Html.Partial("TempMessage")
+        <br />
+        <div class="card-wrapper card-space">
+            <div class="card card-bg">
+                <div class="card-header">
+                    <h5>Compila i campi e premi il pulsante 'Candidati' per inviare la tua richiesta</h5>
+                </div>
+                <div class="card-body">
+                    @if ((bool)ViewBag.PaginaPubblica)
+                    {
+                        <div class="row form-group bootstrap-select-wrapper disabled myRegione">
+                            <label class="control-label" for="Regione">Regione</label>
+                            @Html.DropDownListFor(m => m.CodRegione, (IEnumerable<SelectListItem>)ViewBag.Regione, " -- Seleziona una regione --", htmlAttributes: new { @class = "form-control", data_show_subtext = "true", data_live_search = "true" })
+                            @Html.ValidationMessageFor(model => model.CodRegione, null, new { @class = "text-danger" })
+                        </div>
+                        <br />
+                    }
+                    else
+                    {
+                        <div class="row form-group bootstrap-select-wrapper myRegione">
+                            <label class="control-label" for="Regione">Regione</label>
+                            @Html.DropDownListFor(m => m.CodRegione, (IEnumerable<SelectListItem>)ViewBag.Regione, " -- Seleziona una regione --", htmlAttributes: new { @class = "form-control", data_show_subtext = "true", data_live_search = "true" })
+                            @Html.ValidationMessageFor(model => model.CodRegione, null, new { @class = "text-danger" })
+                        </div>
+                        <br />
+                    }
+
+                    <div class="row form-group bootstrap-select-wrapper myAzienda">
+                        <label class="control-label" for="Azienda">Azienda</label>
+                        @Html.DropDownListFor(m => m.CodAzienda, (IEnumerable<SelectListItem>)ViewBag.Azienda, " -- Seleziona un'azienda --", htmlAttributes: new { @class = "form-control", data_show_subtext = "true", data_live_search = "true" })
+                    </div>
+                    <br />
+                    <div id="divTipoStruttura" class="row form-group bootstrap-select-wrapper myTipoStruttura ">
+                        <label class="control-label" for="TipoStruttura">Tipo struttura</label>
+                        @Html.DropDownList("TipoStruttura", null, " -- Seleziona un tipo di struttura --", htmlAttributes: new { @class = "form-control ", data_show_subtext = "true", data_live_search = "true" })
+                    </div>
+                    <br />
+                    <div class="row form-group bootstrap-select-wrapper myStruttura">
+                        <label class="control-label" for="Struttura">Struttura</label>
+                        @Html.DropDownListFor(m => m.KeyStruttura, (IEnumerable<SelectListItem>)ViewBag.Struttura, " -- Seleziona una struttura prevalente --", htmlAttributes: new { @class = "form-control", data_show_subtext = "true", data_live_search = "true" })
+                    </div>
+                    <br />
+                    <div class="row form-group bootstrap-select-wrapper myRuolo">
+                        <label class="control-label" for="Struttura">Ruolo</label>
+                        @Html.DropDownListFor(m => m.IdRuolo, (IEnumerable<SelectListItem>)ViewBag.Ruolo, " -- Seleziona un ruolo --", htmlAttributes: new { @class = "form-control", data_show_subtext = "true", data_live_search = "true" })
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12 col-md-6">
+                            @Html.LabelFor(model => model.Cognome, "Cognome", new { @class = "control-label" })
+                            @Html.TextBoxFor(m => m.Cognome, htmlAttributes: new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.Cognome, null, new { @class = "text-danger" })
+                        </div>
+                        <div class="col-sm-12 col-md-6">
+                            @Html.LabelFor(model => model.Nome, "Nome", new { @class = "control-label" })
+                            @Html.TextBoxFor(m => m.Nome, htmlAttributes: new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.Nome, null, new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="col-sm-12 col-md-6">
+                            @Html.LabelFor(model => model.Email, "Email", new { @class = "control-label" })
+                            @Html.TextBoxFor(m => m.Email, htmlAttributes: new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.Email, null, new { @class = "text-danger" })
+                        </div>
+                        <div class="col-sm-12 col-md-6">
+                            @Html.LabelFor(model => model.CodiceFiscale, "Codice Fiscale", new { @class = "control-label" })
+                            @Html.TextBoxFor(m => m.CodiceFiscale, htmlAttributes: new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.CodiceFiscale, null, new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <button name="btnSalva" id="btnSalva" type="submit" title="Candidati" class="btn btn-primary btn-icon">
+                            <span class="rounded-icon">
+                                <svg class="icon icon-primary">
+                                    <use xlink:href="~/bootstrapitalia/svg/sprite.svg#it-check"></use>
+                                </svg>
+                            </span>
+                            <span>Candidati</span>
+                        </button>
+                        &nbsp;&nbsp;
+                        @Html.reCaptchaScript()
+                        @Html.reCaptcha(ConfigurationManager.AppSettings["reCaptcha.site"])
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+}
+<br />
+
+@Html.Partial("Partial/Scripts/_partialScripts")
+
+@section scripts{
+    @Scripts.Render("~/bundles/jqueryval")
+}

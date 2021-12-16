@@ -1,0 +1,12 @@
+﻿
+@foreach (var item in (IEnumerable<RER.Partecipate.Trasparenza.Models.BreadCrumbItem>)ViewBag.Briciole)
+{
+    if (item.Attivo)
+    {
+    <li class="active">@item.Descrizione</li>
+    }
+    else
+    {
+        <li><a href="@item.Url">@item.Descrizione</a></li>
+    }
+}

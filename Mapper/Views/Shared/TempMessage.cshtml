@@ -1,0 +1,58 @@
+﻿@{
+    Mapper.Models.Alert Alert = TempData["Alert"] as Mapper.Models.Alert;
+
+    <div id="mainAlertDiv">
+        @if (Alert != null)
+        {
+            var alert_class = "";
+            switch (Alert.AlertType)
+            {
+                case Mapper.Models.Alert.AlertTypeEnum.Error:
+                    alert_class = "alert alert-danger alert-dismissible";
+                    break;
+                case Mapper.Models.Alert.AlertTypeEnum.Warning:
+                    alert_class = "alert alert-warning alert-dismissible";
+                    break;
+                case Mapper.Models.Alert.AlertTypeEnum.Success:
+                    alert_class = "alert alert-success alert-dismissible";
+                    break;
+                case Mapper.Models.Alert.AlertTypeEnum.Info:
+                    alert_class = "alert alert-success alert-info";
+                    break;
+                default:
+                    alert_class = "alert alert-info alert-dismissible";
+                    break;
+            }
+            <div class="@alert_class" role="alert">
+                @if (Alert.IsDismissible)
+                {
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Chiudi">
+                        <span>&times;</span>
+                    </button>
+                }
+                <h5 class="alert-heading">@Alert.Title</h5>
+
+                <ul>
+                    @foreach (var e in Alert.Messages.Distinct())
+                    {
+                        <li>@e</li>
+                    }
+
+                </ul>
+            </div>
+
+        }
+        else
+        {
+            <br />
+            <div id="validationSummary" class="alert alert-danger alert-dismissible" role="alert" style="display: none;">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Chiudi">
+                    <span>&times;</span>
+                </button>
+                <h4 class="alert-heading">ATTENZIONE! Sono presenti degli errori! Nessun dato è stato salvato</h4>
+                @Html.ValidationSummary(false)
+            </div>
+        }
+    </div>
+}
+

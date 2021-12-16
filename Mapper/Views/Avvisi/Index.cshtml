@@ -1,0 +1,22 @@
+﻿@model Mapper.Models.CruscottoViewModel
+@using RER.Tools.MVC.Agid
+
+@{
+    ViewBag.Title = "Mapper - Avvisi";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.TitleMin = "Avvisi";
+    ViewBag.isHome = true;
+    ViewBag.PathBack = "";
+}
+
+<h4>Avvisi in evidenza</h4>
+
+@Html.AgidNewsCarousel(Model.NewsCruscotto.OrderByDescending(x => x.Data).Where(x => x.IsNew.HasValue && x.IsNew.Value), 200)
+<br />
+
+<br />
+<hr />
+
+<h4>Avvisi</h4>
+@Html.AgidNewsCarousel(Model.NewsCruscotto.OrderByDescending(x => x.Data).Where(x => (!x.IsNew.HasValue || (x.IsNew.HasValue && !x.IsNew.Value))), 200)
+

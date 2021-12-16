@@ -1,0 +1,197 @@
+﻿<script type="text/javascript">
+
+    $(document).ready(function () {
+
+        $("#Regione").change(function () {
+            GetAziende(false);
+            changeHiddenField();
+        });
+
+        $("#Azienda").change(function () {
+            GetStrutture(false, $("#PubblicaPrivata").val());
+            changeHiddenField();
+        });
+
+        $("#TipoStruttura").change(function () {
+            GetStrutture(false, $("#PubblicaPrivata").val());
+            GetReparti();
+            changeHiddenField();
+        });
+
+        $("#PubblicaPrivata").change(function () {
+            GetStrutture(false, $(this).val());
+            GetReparti();
+            changeHiddenField();
+        });
+
+        $("#Struttura").change(function () {
+            GetReparti();
+            changeHiddenField();
+        });
+
+       $("#Reparto").change(function () {
+             changeHiddenField();
+        });
+
+        changeHiddenField();
+
+     });
+
+    function changeHiddenField() {
+
+        $("#codRegione").val($("#Regione").val());
+        $("#codAzienda").val($("#Azienda").val());
+        $("#codTipoStruttura").val($("#TipoStruttura").val());
+        $("#codStruttura").val($("#Struttura").val());
+        $("#keyReparto").val($("#Reparto").val());
+
+    }
+
+    function GetAziende(mostraCessate) {
+        if ($('#Azienda').prop('disabled')) { return };
+
+            SetOverlay(true);
+
+            let select_regione = document.getElementsByName('Regione');
+
+            var struttura = {
+                text: '-- Seleziona una struttura --',
+                value: ''
+            }
+            $(".bootstrap-select-wrapper.myStruttura").setOptionsToSelect([struttura]);
+
+            var reparto = {
+                text: '-- Seleziona un reparto --',
+                value: ''
+            }
+            $(".bootstrap-select-wrapper.myReparto").setOptionsToSelect([reparto]);
+
+            $.ajax({
+                type: "GET",
+                url: '@Url.Action("GetAziende", "Schede")',
+                contentType: "application/json; charset=utf-8",
+                dataType: 'json',
+                data: { 'CodRegione': select_regione[0].value, 'mostraCessate': mostraCessate},
+                success: function (response) {
+                    SetOverlay(false);
+
+                    var listaAzienda = [];
+                    var azienda = {
+                        text: '-- Seleziona una azienda --',
+                        value: ''
+                    }
+                    listaAzienda.push(azienda);
+
+                    if (response && response.length > 0) {
+                        for (var i = 0; i < response.length; i++) {
+                            azienda = {
+                                text: response[i].nome,
+                                value: response[i].codice
+                            }
+                            listaAzienda.push(azienda);
+                        }
+                    } else {
+                        //nessun dato trovato
+                    }
+
+                    $(".bootstrap-select-wrapper.myAzienda").setOptionsToSelect(listaAzienda);
+                },
+                error: errorFunc
+            });
+        }
+
+    function GetStrutture(mostraCessate, pubblicaPrivata) {
+        if ($('#Struttura').prop('disabled')) { return };
+
+          SetOverlay(true);
+
+          let select_regione = document.getElementsByName('Regione');
+          let select_azienda = document.getElementsByName('Azienda');
+          let select_tipostruttura = document.getElementsByName('TipoStruttura');
+
+          var reparto = {
+              text: '-- Seleziona un reparto --',
+              value: ''
+          }
+          $(".bootstrap-select-wrapper.myReparto").setOptionsToSelect([reparto]);
+
+          $.ajax({
+              type: "GET",
+              url: '@Url.Action("GetStrutture", "Schede")',
+              contentType: "application/json; charset=utf-8",
+              dataType: 'json',
+              data: { 'codRegione': select_regione[0].value, 'codAzienda': select_azienda[0].value, 'codTipoStruttura': select_tipostruttura[0].value, 'mostraCessate': mostraCessate, 'pubblicaPrivata': pubblicaPrivata, 'forStorico': false  },
+              success: function ( response) {
+                  SetOverlay(false);
+                  var listaStrutture = [];
+                  var struttura = {
+                      text: '-- Seleziona una struttura --',
+                      value: ''
+                  }
+                  listaStrutture.push(struttura);
+
+                  if (response && response.length > 0) {
+                      for (var i = 0; i < response.length; i++) {
+                          struttura = {
+                              text: response[i].nome,
+                              value: response[i].codice
+                          }
+                          listaStrutture.push(struttura);
+                      }
+                  } else {
+                        //nessun dato trovato
+                  }
+
+                  $(".bootstrap-select-wrapper.myStruttura").setOptionsToSelect(listaStrutture);
+
+                },
+                error: errorFunc
+            });
+    }
+
+      function GetReparti() {
+          SetOverlay(true);
+
+          let select_regione = document.getElementsByName('Regione');
+          let select_azienda = document.getElementsByName('Azienda');
+          let select_tipostruttura = document.getElementsByName('TipoStruttura');
+          let select_struttura = document.getElementsByName('Struttura');
+
+          if (select_tipostruttura[0].value != '' || select_struttura[0].value != '') {
+
+              $.ajax({
+                  type: "GET",
+                  url: '@Url.Action("GetReparti", "Schede")',
+                  contentType: "application/json; charset=utf-8",
+                  dataType: 'json',
+                  data: { 'CodRegione': select_regione[0].value, 'CodAzienda': select_azienda[0].value, 'CodTipoStruttura': select_tipostruttura[0].value, 'CodStruttura': select_struttura[0].value, 'forStorico': false, 'mostraTutti': false  },
+                  success: function (response) {
+                      SetOverlay(false);
+
+                      var listaReparti = [];
+                      var reparto = {
+                          text: '',
+                          value: '-- Seleziona un reparto --'
+                      }
+                      listaReparti.push(reparto);
+
+                      if (response && response.length > 0) {
+                          for (var i = 0; i < response.length; i++) {
+                              reparto = {
+                                  text: response[i].nome,
+                                  value: response[i].codice
+                              }
+                              listaReparti.push(reparto);
+                          }
+                      } else {
+                          //nessun dato trovato
+                      }
+
+                      $(".bootstrap-select-wrapper.myReparto").setOptionsToSelect(listaReparti);
+                  },
+                  error: errorFunc
+              });
+          }
+        }
+
+</script>

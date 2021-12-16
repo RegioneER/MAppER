@@ -1,0 +1,63 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30204.135
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mapper", "Mapper\Mapper.csproj", "{4DE6AE9D-F6C4-4C7E-ABB0-986A4FE30EC8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mapper.Candidatura", "Mapper.Candidatura\Mapper.Candidatura.csproj", "{324E4018-EF84-4EA0-8A7C-211DBD2B40A4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RER.Tools.MVC.Agid", "RER.Tools.MVC.Agid\RER.Tools.MVC.Agid.csproj", "{E9182FEF-5176-4DDD-A5CF-ED0DC414977D}"
+EndProject
+Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "Mapper.DataBase", "Mapper.DataBase\Mapper.DataBase.sqlproj", "{94AFD085-1381-4195-B360-08C68DF3E69C}"
+EndProject
+Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "GlobalSanita", "GlobalSanita\GlobalSanita.sqlproj", "{CCCB2635-7827-4B20-A5CD-D76C6C870C20}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Docs", "Docs", "{AFAEDD87-92D8-49A0-9531-82A3FCD9DD1D}"
+	ProjectSection(SolutionItems) = preProject
+		GlobalSanita_Creazione_Riuso.sql = GlobalSanita_Creazione_Riuso.sql
+		GlobalSanita_Data.sql = GlobalSanita_Data.sql
+		Mapper_Creazione_Riuso.sql = Mapper_Creazione_Riuso.sql
+		Mapper_Data.sql = Mapper_Data.sql
+		publiccode.yml = publiccode.yml
+		README.md = README.md
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{4DE6AE9D-F6C4-4C7E-ABB0-986A4FE30EC8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4DE6AE9D-F6C4-4C7E-ABB0-986A4FE30EC8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4DE6AE9D-F6C4-4C7E-ABB0-986A4FE30EC8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4DE6AE9D-F6C4-4C7E-ABB0-986A4FE30EC8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{324E4018-EF84-4EA0-8A7C-211DBD2B40A4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{324E4018-EF84-4EA0-8A7C-211DBD2B40A4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{324E4018-EF84-4EA0-8A7C-211DBD2B40A4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{324E4018-EF84-4EA0-8A7C-211DBD2B40A4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E9182FEF-5176-4DDD-A5CF-ED0DC414977D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E9182FEF-5176-4DDD-A5CF-ED0DC414977D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E9182FEF-5176-4DDD-A5CF-ED0DC414977D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E9182FEF-5176-4DDD-A5CF-ED0DC414977D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{94AFD085-1381-4195-B360-08C68DF3E69C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{94AFD085-1381-4195-B360-08C68DF3E69C}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{94AFD085-1381-4195-B360-08C68DF3E69C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{94AFD085-1381-4195-B360-08C68DF3E69C}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{CCCB2635-7827-4B20-A5CD-D76C6C870C20}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CCCB2635-7827-4B20-A5CD-D76C6C870C20}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{CCCB2635-7827-4B20-A5CD-D76C6C870C20}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CCCB2635-7827-4B20-A5CD-D76C6C870C20}.Release|Any CPU.Deploy.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {7339D936-1826-4F14-8303-7ADCB53B135F}
+	EndGlobalSection
+	GlobalSection(SubversionScc) = preSolution
+		Svn-Managed = True
+		Manager = AnkhSVN2019 - Subversion Support for Visual Studio
+	EndGlobalSection
+EndGlobal
