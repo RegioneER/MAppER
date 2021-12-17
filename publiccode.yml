@@ -21,7 +21,7 @@ description:
       - Analisi dei dati raccolti
     genericName: MAppER (Mani App Emilia-Romagna)
     longDescription: >
-    Operatori del Servizio Sanitario Regionale, formati e abilitati dai colleghi esperti del rischio infettivo presenti in ogni Azienda, osservano il comportamento dei professionisti sanitari sul luogo di cura, seguendo i 5 momenti indicati dall’OMS e inseriscono le informazioni nell’applicazione web per ottenere un immediato riscontro sui dati registrati.
+    
     shortDescription: Applicazione per il monitoraggio dell'igiene delle mani
     screenshots: MaAppERscreenshot.jpg
 developmentStatus: stable
@@ -50,8 +50,8 @@ localisation:
 maintenance:
   contacts:
     - affiliation: Regione Emilia-Romagna
-      email: webmaster@regione.emilia-romagna.it
-      name: Sara Turra
+      email: mapper@regione.emilia-romagna.it
+      name: Enrico Ricchizzi
   contractors:
     - name: Engineering S.p.A.
       until: '2023-12-31'
