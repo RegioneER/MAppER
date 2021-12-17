@@ -62,7 +62,8 @@ localisation:
   localisationReady: false
 maintenance:
   contacts:
-    - email: mapper@regione.emilia-romagna.it
+    - affiliation: Regione Emilia-Romagna
+      email: mapper@regione.emilia-romagna.it
       name: Enrico Ricchizzi
   contractors:
     - name: Engineering S.p.A.
