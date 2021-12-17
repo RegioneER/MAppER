@@ -1,0 +1,61 @@
+# This repository adheres to the publiccode.yml standard by including this 
+# metadata file that makes public software easily discoverable.
+# More info at https://github.com/italia/publiccode.yml
+
+publiccodeYmlVersion: '0.2'
+categories:
+  - data-collection
+description:
+  it:
+    features:
+      - Raccolta dati sul campo e analisi
+    genericName: ' MAppER (Mani App Emilia-Romagna)'
+    longDescription: |
+      Operatori del Servizio Sanitario Regionale, formati e abilitati dai
+      colleghi esperti del rischio infettivo presenti in ogni Azienda, osservano
+      il comportamento dei professionisti sanitari sul luogo di cura, seguendo i
+      5 momenti indicati dall’OMS e inseriscono le informazioni
+      nell’applicazione web per ottenere un immediato riscontro sui dati
+      registrati.  La raccolta dei dati confluisce in un database regionale che
+      permette di monitorare la corretta applicazione delle procedure per
+      l’igiene delle mani.
+    shortDescription: Applicazione per il monitoraggio dell'igiene delle mani
+developmentStatus: stable
+it:
+  conforme:
+    gdpr: true
+    lineeGuidaDesign: true
+    misureMinimeSicurezza: false
+    modelloInteroperabilita: false
+  countryExtensionVersion: '0.2'
+  piattaforme:
+    anpr: false
+    cie: true
+    pagopa: false
+    spid: true
+  riuso:
+    codiceIPA: r_emiro
+legal:
+  license: AGPL-3.0-or-later
+  mainCopyrightOwner: Regione Emilia-Romagna
+  repoOwner: Regione Emilia-Romagna
+localisation:
+  availableLanguages:
+    - it
+  localisationReady: false
+maintenance:
+  contacts:
+    - email: mapper@regione.emilia-romagna.it
+      name: Enrico Ricchizzi
+  contractors:
+    - name: Engineering S.p.A.
+      until: '2023-12-31'
+      website: 'https://www.eng.it'
+  type: contract
+name: ' MAppER (Mani App Emilia-Romagna)'
+platforms:
+  - web
+releaseDate: '2021-10-15'
+softwareType: standalone/web
+softwareVersion: 1.0.0.0
+url: 'https://github.com/RegioneER/mapper'
