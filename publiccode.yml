@@ -21,10 +21,10 @@ description:
       - Analisi dei dati raccolti
     genericName: MAppER (Mani App Emilia-Romagna)
     longDescription: >
-    
+    Applicazione per il monitoraggio dell'igiene delle mani
     shortDescription: Applicazione per il monitoraggio dell'igiene delle mani
     screenshots: 
-    - MaAppERscreenshot.jpg
+      - MaAppERscreenshot.jpg
 developmentStatus: stable
 it:
   riuso:
