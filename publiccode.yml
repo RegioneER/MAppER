@@ -23,7 +23,8 @@ description:
     longDescription: >
     
     shortDescription: Applicazione per il monitoraggio dell'igiene delle mani
-    screenshots: MaAppERscreenshot.jpg
+    screenshots: 
+    - MaAppERscreenshot.jpg
 developmentStatus: stable
 it:
   riuso:
