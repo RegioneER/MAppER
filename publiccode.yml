@@ -34,8 +34,7 @@ description:
 
       l’igiene delle mani.
     screenshots:
-      - |-
-        https://raw.githubusercontent.com/RegioneER/mapper/master/MaAppERscreenshot.jpg
+      - MaAppERscreenshot.jpg
     shortDescription: Applicazione per il monitoraggio dell'igiene delle mani
 developmentStatus: stable
 it:
