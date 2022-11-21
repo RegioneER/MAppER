@@ -69,7 +69,7 @@ maintenance:
       until: '2023-12-31'
       website: 'https://www.eng.it'
   type: contract
-name: ' MAppER (Mani App Emilia-Romagna)'
+name: 'MAppER (Mani App Emilia-Romagna)'
 platforms:
   - web
 releaseDate: '2021-10-15'
