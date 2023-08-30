@@ -44,7 +44,7 @@ La soluzione MAppER include 5 progetti, suddivisi in progetti database, applicaz
 - Mapper: applicazione di gestione
 - Mapper.Candidatura: applicazione per raccolta domande candidature
 - RER.Tools.MVC.Agid: libreria di classi per la gestione dei controlli web AGID
-N.B. la grafica fa esplicito riferimento alla Regione Emilia-Romagna e dovrà essere modificata dal soggetto che prende a riuso la soluzione adattandola alle proprie esigenze.
+  N.B. la grafica fa esplicito riferimento alla Regione Emilia-Romagna e dovrà essere modificata dal soggetto che prende a riuso la soluzione adattandola alle proprie esigenze.
 ### Script di configurazione
 Nel progetto sono stati inseriti alcuni script per la creazione delle tabelle, viste, stored procedure e i relativi dati base:
 - GlobalSanita_Creazione_Riuso.sql: creazione tabelle per il database GlobalSanita
