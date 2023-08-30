@@ -18,8 +18,8 @@ L'obiettivo è mettere a disposizione dei professionisti sanitari un mezzo alter
 
 La struttura e i principi metodologici presenti nello strumento sono conformi alla scheda cartacea di osservazione dell'OMS.
 
-
 ## Indice
+L'intallazione e le personalizzazioni sono a carico del soggetto che prende a riuso la soluzione, eventuale supporto **oneroso** per le suddette attività andrà concordato con Enginerring Ingegneria Informatica (https://www.eng.it/) che ha sviluppato l'applicazione per la Regione Emilia-Romagna.
 
 - [Come iniziare](#comeiniziare)
 - [Contenuto del pacchetto](#contenutopacchetto)
@@ -37,18 +37,18 @@ L'applicazione MAppER necessita di:
 La soluzione MAppER include 5 progetti, suddivisi in progetti database, applicazioni e 4 script di creazione/inserimento dati raccolti nel file MapperRiuso.zip e Script_Mapper.zip, di seguito elencati:
 
 ### Progetti database
-- GlobalSanita: database con dati condivisi (regioni, strutture, aziende sanitarie, tabelle di decodifica)
+- GlobalSanita: database con dati condivisi (regioni, strutture, aziende sanitarie, tabelle di decodifica.) N.B. I dati fanno esplicito riferimento alla Regione Emilia-Romagna, possono essere usati a titolo di esempio ma vanno sostituiti con i dati specifici dell'utilizzatore.
 - Mapper: database per l’applicazione
 
 ### Progetti applicazione
 - Mapper: applicazione di gestione
 - Mapper.Candidatura: applicazione per raccolta domande candidature
 - RER.Tools.MVC.Agid: libreria di classi per la gestione dei controlli web AGID
-
+N.B. la grafica fa esplicito riferimento alla Regione Emilia-Romagna e dovrà essere modificata dal soggetto che prende a riuso la soluzione adattandola alle proprie esigenze.
 ### Script di configurazione
 Nel progetto sono stati inseriti alcuni script per la creazione delle tabelle, viste, stored procedure e i relativi dati base:
 - GlobalSanita_Creazione_Riuso.sql: creazione tabelle per il database GlobalSanita
-- GlobalSanita_Data.sql: script di inserimento dati
+- GlobalSanita_Data.sql: script di inserimento dati  N.B. I dati fanno esplicito riferimento alla Regione Emilia-Romagna, possono essere usati a titolo di esempio ma vanno sostituiti con i dati specifici dell'utilizzatore.
 - Mapper_Creazione_Riuso.sql: creazione tabelle per il database Mapper
 - Mapper_Data.sql: script di inserimento dati
 
