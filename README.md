@@ -2,7 +2,7 @@
 
 Il tema della sicurezza del paziente è di centrale importanza per i Servizi sanitari. L'igiene delle mani è stata riconosciuta come uno degli elementi essenziali per proteggere il paziente dalla trasmissione crociata di microrganismi. Molti studi dimostrano che una adesione elevata alla corretta igiene delle mani riduce il rischio di infezioni correlate all'assistenza.
 
-L'Agenzia sanitaria e sociale regionale dell'Emilia-Romagna ha coordinato in Italia la campagna **Clean Care is Safer Care**, promossa dall'Organizzazione mondiale della sanità a livello mondiale. La campagna era mirata a favorire l'igiene delle mani nelle strutture sanitarie attraverso l'adozione di linee guida basate su evidenze e la loro implementazione utilizzando una strategia multimodale.
+La Regione Emilia-Romagna ha coordinato in Italia la campagna **Clean Care is Safer Care**, promossa dall'Organizzazione mondiale della sanità a livello mondiale. La campagna era mirata a favorire l'igiene delle mani nelle strutture sanitarie attraverso l'adozione di linee guida basate su evidenze e la loro implementazione utilizzando una strategia multimodale.
 
 Tra le azioni di intervento per sostenere il miglioramento dell'adesione all'igiene delle mani è compresa l'osservazione del comportamento degli operatori sanitari e il feedback dei risultati, realizzata seguendo la metodologia promossa dall'OMS attraverso la raccolta di informazioni su una scheda cartacea (sul sito [WHO](https://www.who.int/teams/integrated-health-services/infection-prevention-control/hand-hygiene/monitoring-tools)).
 
